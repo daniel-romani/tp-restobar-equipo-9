@@ -1,0 +1,177 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.Master.cs" Inherits="tp_restobar_equipo_9.Site1" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!--  JS QUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- BOXICONS ICONS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body class="body" style="background-color: #F1FFFF">
+
+    <style>
+        html {
+            overflow-x: hidden;
+            scroll-padding-top: 7rem;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            text-decoration: none;
+        }
+
+        .titulo_pagina {
+        }
+    </style>
+
+    <form id="form1" runat="server">
+        <div>
+
+
+            <%-- NAV --%>
+            <nav class="navbar navbar-expand-lg" style=" background-color:#FC9844">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="Default.aspx" visible="True" runat="server"> <%--Aca hay que acomodar la referencia cuando se modifique el tema del login y los usuarios--%>
+                        <span class="titulo_pagina">
+                            <img style="width: auto; height: 30px; " src="./Resources/logoIcon.png" alt="RestEasy" />
+                        </span>
+                    </a>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <asp:Image ID="imgPerfil" Width="12" Height="12" class="rounded-circle" runat="server" /> <%--Aca hay que agregarle mas adelante una img y tener nuestro archivo de estilos--%>
+                            <%--<% =(()Session["Usuario"]).Nombre %>--%> <%--Codigo para mas adelante--%>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="PerfilUsuario.aspx">Mi Perfil</a></li>
+                            <li>
+                                <asp:LinkButton ID="LinkButton1" CssClass="dropdown-item" runat="server">Salir</asp:LinkButton></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <%-- Menu Lateral --%>
+            <div class="container-fluid">
+                <div class="row flex-nowrap">
+                    <div class="col-auto px-sm-2 px-0" style=" background-color:#FFF2EA;">
+                        <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
+                            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                                <li class="nav-item ">
+                                    <a href="Mesas.aspx" class="nav-link align-middle text-black px-0">
+                                        <i class='bx bxs-dashboard bx-flashing-hover bx-md' style="color:#373737" ></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="SeleccionOrden.aspx" class="nav-link text-black px-0">
+                                        <i class='bx bxs-food-menu bx-fade-right-hover bx-md' style="color:#373737"></i>
+                                    </a>
+                                </li>
+
+<%--                                <li>
+                                    <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 text-black align-middle ">
+                                        <i class='bx bxs-cart-download'></i>
+                                        <span class="fs-5 ms-1 d-none d-sm-inline">Pagos</span>
+                                    </a>
+                                    <ul class="collapse nav flex-column ms-1" style="padding-left: 20px" id="submenu2" data-bs-parent="#menu">
+                                        <li class="w-100">
+                                            <a href="ReservasMesas.aspx" class="nav-link text-black px-0">
+                                                <i class='bx bx-edit-alt'></i>
+                                            </a>
+                                        </li>
+                                        <li class="w-100">
+                                            <a href=".aspx" class="nav-link  text-black px-0">
+                                                <i class='bx bx-calendar'></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>--%> <%--Codigo utilitario para mas adelante--%>
+
+                                <li>
+                                    <a href="Comandas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                        <i class='bx bxs-bell-ring bx-md bx-tada-hover' style="color:#373737"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="Configuracion.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                        <i class='bx bxs-cog bx-md bx-spin-hover' style="color:#373737"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col py-3">
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                            <%-- CONTENIDO DE LAS PÁGINAS --%>
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+            </div>
+
+
+            <%-- DESPLAZAMIENTO AL FOOTER PRUEBA --%>
+            <script>
+                //$(document).ready(function () {
+                //    $('.scrollFooter').click(function (event) {
+                //        event.preventDefault();
+
+                //        var targetPosition = $('#footer').offset().top;
+
+                //        $('html, body').animate({
+                //            scrollTop: targetPosition
+                //        }, 50);
+                //    });
+                //});
+            </script>
+
+
+
+            <%-- FOOTER --%>
+            <footer class="pt-4 pb-4 footer" id="footer" runat="server" style="background-color: #F3C499; color: #373737">
+                <div class="container-fluid text-center text-md-start">
+                    <div class="row text-center text-md-start">
+                        <div class="text-center mb-2">
+                            <p>Copyright. Todos los derechos reservados.</p>
+                        </div>
+                        <div class="text-center">
+                            <ul class="list-unstyled list-inline">
+                                <li class="list-inline-item">
+                                    <a href="https://www.linkedin.com/in/tobiasmoscatelli/" style="color:#373737" target="_blank"> <i class='bx bxl-linkedin-square'></i>Tobias en Linkedin</a>
+                                    <i> | </i>
+                                    <a href="https://www.linkedin.com/in/daniel-romani-2b0663202/" style="color:#373737" target="_blank"> <i class='bx bxl-linkedin-square'></i>Daniel en linkedin</a>
+                                    <i> | </i>
+                                    <a href="https://www.linkedin.com/in/maximiliano-rey-b97519159/" style="color:#373737" target="_blank"> <i class='bx bxl-linkedin-square'></i>Maximiliano en linkedin</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr />
+                        <div class=" mx-auto mt-3">
+                            <h6 class="text-black mb-4 font-weight-black text-primary">Soporte Tecnico | <i class='bx bx-mail-send'></i>tobidanimaxi@gmail.com</h6>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+</form>
+
+</body>
+</html>
+
+
