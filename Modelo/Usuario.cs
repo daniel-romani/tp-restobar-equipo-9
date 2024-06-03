@@ -8,8 +8,6 @@ namespace Modelo
 {
     public class Usuario
     {
-        static void Main(string[] args)
-        {
-        }
+        
     }
 }
