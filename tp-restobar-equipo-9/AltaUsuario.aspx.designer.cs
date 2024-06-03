@@ -11,106 +11,142 @@ namespace tp_restobar_equipo_9
 {
 
 
-    public partial class WebForm2
+    public partial class AltaUsuario
     {
 
         /// <summary>
-        /// Control lblContraseñaActual.
+        /// Control lblRegistrarUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContraseñaActual;
+        protected global::System.Web.UI.WebControls.Label lblRegistrarUsuario;
 
         /// <summary>
-        /// Control txtContraseñaActual.
+        /// Control txtRegistrarUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContraseñaActual;
+        protected global::System.Web.UI.WebControls.TextBox txtRegistrarUsuario;
 
         /// <summary>
-        /// Control lblNuevaContraseña.
+        /// Control lblRegistrarContrasena.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNuevaContraseña;
+        protected global::System.Web.UI.WebControls.Label lblRegistrarContrasena;
 
         /// <summary>
-        /// Control txtNuevaContraseña.
+        /// Control txtRegistrarContrasena.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNuevaContraseña;
+        protected global::System.Web.UI.WebControls.TextBox txtRegistrarContrasena;
 
         /// <summary>
-        /// Control lblConfirmarContraseña.
+        /// Control lblRegistrarContrasena2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblConfirmarContraseña;
+        protected global::System.Web.UI.WebControls.Label lblRegistrarContrasena2;
 
         /// <summary>
-        /// Control txtConfirmarContraseña.
+        /// Control txtRegistrarContrasena2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtConfirmarContraseña;
+        protected global::System.Web.UI.WebControls.TextBox txtRegistrarContrasena2;
 
         /// <summary>
-        /// Control btnVolver.
+        /// Control txtNombreEdit.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVolver;
+        protected global::System.Web.UI.WebControls.TextBox txtNombreEdit;
 
         /// <summary>
-        /// Control btnEnviar.
+        /// Control txtApellidoEdit.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEnviar;
+        protected global::System.Web.UI.WebControls.TextBox txtApellidoEdit;
 
         /// <summary>
-        /// Control lblContraseñaActualizada.
+        /// Control txtDniEdit.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContraseñaActualizada;
+        protected global::System.Web.UI.WebControls.TextBox txtDniEdit;
 
         /// <summary>
-        /// Control lblAceptarIngresar.
+        /// Control txtMailEdit.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAceptarIngresar;
+        protected global::System.Web.UI.WebControls.TextBox txtMailEdit;
 
         /// <summary>
-        /// Control btnAceptar.
+        /// Control txtTelefonoEdit.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAceptar;
+        protected global::System.Web.UI.WebControls.TextBox txtTelefonoEdit;
+
+        /// <summary>
+        /// Control txtDireccionEdit.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDireccionEdit;
+
+        /// <summary>
+        /// Control txtFechaNacimientoEdit.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFechaNacimientoEdit;
+
+        /// <summary>
+        /// Control btnAceptarAltaUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAceptarAltaUsuario;
+
+        /// <summary>
+        /// Control lbl_Error_Registro.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Error_Registro;
     }
 }

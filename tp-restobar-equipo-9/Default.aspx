@@ -23,7 +23,7 @@
                     <asp:TextBox ID="txtContraseña" type="password" runat="server" CssClass="form-control" placeholder="Ingrese su Contraseña"></asp:TextBox>
                 </div>
                 <div class="mb-2 d-flex justify-content-between">
-                    <a href="MailCambioContraseña.aspx">¿Olvidaste tu contraseña?</a>
+                    <a href="DefaultCambioContraseña.aspx">¿Olvidaste tu contraseña?</a>
                     <asp:Button ID="btnIngresar" class="Boton" runat="server" OnClick="btnIngresar_Click" Text="Ingresar"/>
                 </div>
 

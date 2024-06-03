@@ -28,6 +28,10 @@
     padding-top: 60px;
 }
 
+.form_bottom {
+    padding-bottom: 200px;
+}
+
 .lbl {
     width: 200px;
     font-size: 20px;

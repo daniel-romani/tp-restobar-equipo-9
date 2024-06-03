@@ -61,7 +61,7 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="PerfilUsuario.aspx">Mi Perfil</a></li>
-                            <li><asp:LinkButton ID="LinkButton1" CssClass="dropdown-item" runat="server">Salir</asp:LinkButton></li>
+                            <li><asp:LinkButton ID="LinkButton1" CssClass="dropdown-item" OnClick="LinkButton1_Click" runat="server">Salir</asp:LinkButton></li>
                         </ul>
                     </div>
                 </div>
@@ -106,6 +106,31 @@
                                 <li>
                                     <a href="Comandas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
                                         <i class='bx bxs-bell-ring bx-md bx-tada-hover' style="color:#373737"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="Reservas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                        <i class='bx bxs-book-bookmark bx-md bx-flashing-hover' style="color: #373737"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="CheckOut.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                        <i class='bx bxs-badge-dollar bx-md bx-burst-hover' style="color: #373737"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="Jornadas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                        <i class='bx bxs-calendar bx-md bx-tada-hover' style="color: #373737"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="Estadisticas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                        <i class='bx bxs-pie-chart-alt-2 bx-md bx-flashing-hover' style="color: #373737"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="StockCarta.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                        <i class='bx bxs-package bx-md bx-fade-up-hover' style="color: #373737"></i>
                                     </a>
                                 </li>
                                 <li>

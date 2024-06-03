@@ -67,23 +67,44 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AltaUsuario.aspx" />
+    <Content Include="CheckOut.aspx" />
     <Content Include="Comandas.aspx" />
     <Content Include="Configuracion.aspx" />
     <Content Include="content\Styles.css" />
+    <Content Include="DefaultCambioContraseña.aspx" />
+    <Content Include="Estadisticas.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="JavaScript\JavaScript.js" />
+    <Content Include="Jornadas.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Menu.aspx" />
     <Content Include="Mesas.aspx" />
     <Content Include="PerfilUsuario.aspx" />
+    <Content Include="Reservas.aspx" />
     <Content Include="Resources\background.png" />
     <Content Include="Resources\logoIcon.png" />
     <Content Include="SeleccionOrden.aspx" />
+    <Content Include="StockCarta.aspx" />
     <Content Include="Web.config" />
     <Content Include="Default.aspx" />
     <Content Include="CambiarContraseña.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AltaUsuario.aspx.cs">
+      <DependentUpon>AltaUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AltaUsuario.aspx.designer.cs">
+      <DependentUpon>AltaUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CheckOut.aspx.cs">
+      <DependentUpon>CheckOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CheckOut.aspx.designer.cs">
+      <DependentUpon>CheckOut.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Comandas.aspx.cs">
       <DependentUpon>Comandas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -98,6 +119,13 @@
     <Compile Include="Configuracion.aspx.designer.cs">
       <DependentUpon>Configuracion.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DefaultCambioContraseña.aspx.cs">
+      <DependentUpon>DefaultCambioContraseña.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DefaultCambioContraseña.aspx.designer.cs">
+      <DependentUpon>DefaultCambioContraseña.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DefaultMasterPage.Master.cs">
       <DependentUpon>DefaultMasterPage.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -105,12 +133,26 @@
     <Compile Include="DefaultMasterPage.Master.designer.cs">
       <DependentUpon>DefaultMasterPage.Master</DependentUpon>
     </Compile>
+    <Compile Include="Estadisticas.aspx.cs">
+      <DependentUpon>Estadisticas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Estadisticas.aspx.designer.cs">
+      <DependentUpon>Estadisticas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Jornadas.aspx.cs">
+      <DependentUpon>Jornadas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Jornadas.aspx.designer.cs">
+      <DependentUpon>Jornadas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -155,6 +197,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reservas.aspx.cs">
+      <DependentUpon>Reservas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reservas.aspx.designer.cs">
+      <DependentUpon>Reservas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SeleccionOrden.aspx.cs">
       <DependentUpon>SeleccionOrden.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -169,6 +218,13 @@
     <Compile Include="CambiarContraseña.aspx.designer.cs">
       <DependentUpon>CambiarContraseña.aspx</DependentUpon>
     </Compile>
+    <Compile Include="StockCarta.aspx.cs">
+      <DependentUpon>StockCarta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StockCarta.aspx.designer.cs">
+      <DependentUpon>StockCarta.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="DefaultMasterPage.Master" />
@@ -182,6 +238,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Modelo\Modelo.csproj">
+      <Project>{c0ecdf44-39e1-4108-8c8e-26b396c4a05b}</Project>
+      <Name>Modelo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Negocio\Negocio.csproj">
       <Project>{e7764f62-baf9-41c6-bc28-be7ede57a2ba}</Project>
       <Name>Conexiones</Name>

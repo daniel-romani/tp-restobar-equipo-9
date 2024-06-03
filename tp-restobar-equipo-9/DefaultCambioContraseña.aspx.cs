@@ -7,16 +7,19 @@ using System.Web.UI.WebControls;
 
 namespace tp_restobar_equipo_9
 {
-    public partial class Site1 : System.Web.UI.MasterPage
+    public partial class DefaultCambioContraseña : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            imgPerfil.ImageUrl = "https://cdn-icons-png.flaticon.com/512/5987/5987424.png";
+
         }
 
-        protected void LinkButton1_Click(object sender, EventArgs e)
+        protected void btnEnviarMail_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Default.aspx", false);
+        }
+
+        protected void btnBuscarMailUsuario_Click(object sender, EventArgs e)
+        {
         }
     }
 }

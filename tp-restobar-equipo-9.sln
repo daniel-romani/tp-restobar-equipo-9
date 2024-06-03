@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tp-restobar-equipo-9", "tp-restobar-equipo-9\tp-restobar-equipo-9.csproj", "{C1D26EE9-D0BE-47AB-9A26-8F08357D34DD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C0ECDF44-39E1-4108-8C8E-26B396C4A05B} = {C0ECDF44-39E1-4108-8C8E-26B396C4A05B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelo", "Modelo\Modelo.csproj", "{C0ECDF44-39E1-4108-8C8E-26B396C4A05B}"
 EndProject

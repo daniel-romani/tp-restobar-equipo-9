@@ -11,106 +11,88 @@ namespace tp_restobar_equipo_9
 {
 
 
-    public partial class WebForm2
+    public partial class DefaultCambioContraseña
     {
 
         /// <summary>
-        /// Control lblContraseñaActual.
+        /// Control lblIngreseMail.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContraseñaActual;
+        protected global::System.Web.UI.WebControls.Label lblIngreseMail;
 
         /// <summary>
-        /// Control txtContraseñaActual.
+        /// Control txtIngresarMail.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContraseñaActual;
+        protected global::System.Web.UI.WebControls.TextBox txtIngresarMail;
 
         /// <summary>
-        /// Control lblNuevaContraseña.
+        /// Control btnEnviarMail.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNuevaContraseña;
+        protected global::System.Web.UI.WebControls.Button btnEnviarMail;
 
         /// <summary>
-        /// Control txtNuevaContraseña.
+        /// Control lblMensaje.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNuevaContraseña;
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
 
         /// <summary>
-        /// Control lblConfirmarContraseña.
+        /// Control lblBuscarMail.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblConfirmarContraseña;
+        protected global::System.Web.UI.WebControls.Label lblBuscarMail;
 
         /// <summary>
-        /// Control txtConfirmarContraseña.
+        /// Control txtDNI.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtConfirmarContraseña;
+        protected global::System.Web.UI.WebControls.TextBox txtDNI;
 
         /// <summary>
-        /// Control btnVolver.
+        /// Control btnBuscarMailUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVolver;
+        protected global::System.Web.UI.WebControls.Button btnBuscarMailUsuario;
 
         /// <summary>
-        /// Control btnEnviar.
+        /// Control lblMostrarMailUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEnviar;
+        protected global::System.Web.UI.WebControls.Label lblMostrarMailUsuario;
 
         /// <summary>
-        /// Control lblContraseñaActualizada.
+        /// Control lblMostrarNombreUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContraseñaActualizada;
-
-        /// <summary>
-        /// Control lblAceptarIngresar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAceptarIngresar;
-
-        /// <summary>
-        /// Control btnAceptar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAceptar;
+        protected global::System.Web.UI.WebControls.Label lblMostrarNombreUsuario;
     }
 }
