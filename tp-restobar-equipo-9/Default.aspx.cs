@@ -13,5 +13,15 @@ namespace tp_restobar_equipo_9
         {
 
         }
+
+        protected void btnIngresar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Home.aspx");
+        }
+
+        protected void btnRegistrar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaUsuario.aspx");
+        }
     }
 }

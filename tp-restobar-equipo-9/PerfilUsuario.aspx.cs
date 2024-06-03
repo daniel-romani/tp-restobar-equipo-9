@@ -13,5 +13,21 @@ namespace tp_restobar_equipo_9
         {
 
         }
+
+        protected void btn_CambiarImagen_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+        }
     }
 }

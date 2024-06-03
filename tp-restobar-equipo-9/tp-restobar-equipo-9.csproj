@@ -69,13 +69,19 @@
   <ItemGroup>
     <Content Include="Comandas.aspx" />
     <Content Include="Configuracion.aspx" />
+    <Content Include="content\Styles.css" />
+    <Content Include="Home.aspx" />
+    <Content Include="JavaScript\JavaScript.js" />
     <Content Include="Login.aspx" />
     <Content Include="Menu.aspx" />
     <Content Include="Mesas.aspx" />
     <Content Include="PerfilUsuario.aspx" />
+    <Content Include="Resources\background.png" />
+    <Content Include="Resources\logoIcon.png" />
     <Content Include="SeleccionOrden.aspx" />
     <Content Include="Web.config" />
     <Content Include="Default.aspx" />
+    <Content Include="CambiarContraseña.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comandas.aspx.cs">
@@ -91,6 +97,20 @@
     </Compile>
     <Compile Include="Configuracion.aspx.designer.cs">
       <DependentUpon>Configuracion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultMasterPage.Master.cs">
+      <DependentUpon>DefaultMasterPage.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DefaultMasterPage.Master.designer.cs">
+      <DependentUpon>DefaultMasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -142,8 +162,16 @@
     <Compile Include="SeleccionOrden.aspx.designer.cs">
       <DependentUpon>SeleccionOrden.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CambiarContraseña.aspx.cs">
+      <DependentUpon>CambiarContraseña.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CambiarContraseña.aspx.designer.cs">
+      <DependentUpon>CambiarContraseña.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DefaultMasterPage.Master" />
     <None Include="packages.config" />
     <Content Include="MasterPage.Master" />
     <None Include="Web.Debug.config">

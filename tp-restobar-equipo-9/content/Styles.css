@@ -1,0 +1,63 @@
+﻿/*clases master page*/
+.body {
+    background-image: url('../resources/background.png');
+    background-size: contain; /* La imagen de fondo cubre todo el ancho de la pantalla */
+    background-repeat: no-repeat; /* No se repite la imagen */
+    background-position: top center; /* Posición de la imagen */
+    background-color: #fafafa;
+    position: relative;
+    min-height: 100vh;
+}
+
+.ocultar {
+    display: none;
+}
+
+.margin_TOP_bot {
+    margin-bottom: 15px;
+    border-bottom-width: 0px;
+    margin-top: 10px;
+}
+
+.containerbott {
+    min-height: 100vh;
+}
+
+/*-------------------------------------PAGINA ALTA USUARIO-------------------------------------------------------------------*/
+.form_top {
+    padding-top: 60px;
+}
+
+.lbl {
+    width: 200px;
+    font-size: 20px;
+}
+
+.btn_tamaño {
+    font-size: 20px;
+}
+.form-label {
+    flex: 1;
+    text-align: left;
+    margin-right: 10px;
+}
+.form-control {
+    flex: 2;
+}
+.Boton {
+    display: inline-block;
+    padding: 10px 20px; /* Ajusta el espaciado interno según sea necesario */
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid #F57E19; /* Color del borde */
+    border-radius: 5px; /* Bordes redondeados */
+    color: #fff; /* Color del texto */
+    background-color: #F57E19; /* Color de fondo */
+    transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+}
+    .Boton:hover {
+        background-color: #EDA261; /* Nuevo color de fondo al pasar el mouse */
+        border: 1px thin #F57E19;
+    }

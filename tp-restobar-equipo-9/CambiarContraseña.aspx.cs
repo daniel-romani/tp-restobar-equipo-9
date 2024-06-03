@@ -7,11 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace tp_restobar_equipo_9
 {
-    public partial class Site1 : System.Web.UI.MasterPage
+    public partial class WebForm2 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            imgPerfil.ImageUrl = "https://cdn-icons-png.flaticon.com/512/5987/5987424.png";
+
         }
     }
 }

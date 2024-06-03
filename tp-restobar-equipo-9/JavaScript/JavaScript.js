@@ -1,0 +1,1 @@
+﻿//Archivo para colocar scripts o lo necesario. De no ser usado se eliminara en la limpieza
