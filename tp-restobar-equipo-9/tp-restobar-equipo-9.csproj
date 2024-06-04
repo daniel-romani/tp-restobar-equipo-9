@@ -73,11 +73,11 @@
     <Content Include="Configuracion.aspx" />
     <Content Include="content\Styles.css" />
     <Content Include="DefaultCambioContraseña.aspx" />
+    <Content Include="Error.aspx" />
     <Content Include="Estadisticas.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="JavaScript\JavaScript.js" />
     <Content Include="Jornadas.aspx" />
-    <Content Include="Login.aspx" />
     <Content Include="Menu.aspx" />
     <Content Include="Mesas.aspx" />
     <Content Include="PerfilUsuario.aspx" />
@@ -133,6 +133,13 @@
     <Compile Include="DefaultMasterPage.Master.designer.cs">
       <DependentUpon>DefaultMasterPage.Master</DependentUpon>
     </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Estadisticas.aspx.cs">
       <DependentUpon>Estadisticas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -153,13 +160,6 @@
     </Compile>
     <Compile Include="Jornadas.aspx.designer.cs">
       <DependentUpon>Jornadas.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Menu.aspx.cs">
       <DependentUpon>Menu.aspx</DependentUpon>

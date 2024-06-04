@@ -11,7 +11,16 @@ namespace tp_restobar_equipo_9
 {
 
 
-    public partial class Menu
+    public partial class Error
     {
+
+        /// <summary>
+        /// lblMensaje control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
     }
 }

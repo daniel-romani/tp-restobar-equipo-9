@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Modelo;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +18,28 @@ namespace tp_restobar_equipo_9
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Home.aspx");
+            Usuario usuario;
+            UsuarioNegocio negocio = new UsuarioNegocio();
+            try
+            {
+                usuario = new Usuario(txtUsuario.Text, txtContraseña.Text, false);
+                if(negocio.Loguear(usuario)) 
+                {
+                    Session.Add("usuario", usuario);
+                    Response.Redirect("Home.aspx", false);
+                }
+                else
+                {
+                    Session.Add("Error", "El usuario y/o contraseña no es válido");
+                    Response.Redirect("Error.aspx", false);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnRegistrar_Click(object sender, EventArgs e)

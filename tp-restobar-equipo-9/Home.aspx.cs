@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace tp_restobar_equipo_9
 {
@@ -11,7 +6,12 @@ namespace tp_restobar_equipo_9
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //Ver si hay una manera de no replicar este codigo en cada una de las paginas
+            if (Session["usuario"] == null)
+            {
+                Session.Add("Error", "¿A donde vas pichón? Logueate, dale...");
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }
