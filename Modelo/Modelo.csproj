@@ -46,10 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mesas.cs" />
+    <Compile Include="Mesa.cs" />
     <Compile Include="ItemCarta.cs" />
     <Compile Include="Mesero.cs" />
+    <Compile Include="EmailService.cs" />
+    <Compile Include="Validaciones.cs" />
     <Compile Include="Pedido.cs" />
+    <Compile Include="Resto.cs" />
+    <Compile Include="Administrador.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

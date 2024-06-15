@@ -6,39 +6,89 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using tp_restobar_equipo_9.Modelo;
 
 namespace tp_restobar_equipo_9
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
+        Usuario usuario_actual = null;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Session["Usuario"] = new Usuario();
         }
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
-            Usuario usuario;
-            UsuarioNegocio negocio = new UsuarioNegocio();
+            string usuario = txtUsuario.Text;
+            string contrasena = txtContraseña.Text;
+
+            usuario_actual = Buscar_Usuario_En_BBDD(usuario, contrasena);
+
+
+            if (usuario_actual.Id != -1)
+            {
+                Session["Usuario"] = usuario_actual;
+                Response.Redirect("Home.aspx");
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Usuario o Contraseña inválidos. Intente otra vez');", true);
+            }
+        }
+
+        private Usuario Buscar_Usuario_En_BBDD(string nombre, string contrasena)
+        {
+            AccesoDatos datos = new AccesoDatos();
             try
             {
-                usuario = new Usuario(txtUsuario.Text, txtContraseña.Text, false);
-                if(negocio.Loguear(usuario)) 
+
+                datos.setConsulta("SELECT ID_USUARIO, NOMBRE_USUARIO, CONTRASENA, TIPO, URL_IMAGEN FROM USUARIOS U LEFT JOIN IMAGENES I ON I.ID_IMAGEN = U.ID_IMAGEN WHERE @nombre = NOMBRE_USUARIO AND @contrasena = CONTRASENA");
+                datos.setParametro("@nombre", nombre);
+                datos.setParametro("@contrasena", contrasena);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
                 {
-                    Session.Add("usuario", usuario);
-                    Response.Redirect("Home.aspx", false);
+                    if (!datos.Lector.IsDBNull(datos.Lector.GetOrdinal("ID_USUARIO")))
+                    {
+                        if (!(datos.Lector["URL_IMAGEN"] is DBNull))
+                        {
+                            Usuario usuario = new Usuario
+                            {
+                                Id = (int)datos.Lector["ID_USUARIO"],
+                                Username = (String)datos.Lector["NOMBRE_USUARIO"],
+                                Contraseña = (String)datos.Lector["CONTRASENA"],
+                                TipoUsuario = (String)datos.Lector["TIPO"],
+                                Imagen = (String)datos.Lector["URL_IMAGEN"]
+                            };
+                            return usuario;
+                        }
+                        else
+                        {
+                            Usuario usuario = new Usuario
+                            {
+                                Id = (int)datos.Lector["ID_USUARIO"],
+                                Username = (String)datos.Lector["NOMBRE_USUARIO"],
+                                Contraseña = (String)datos.Lector["CONTRASENA"],
+                                TipoUsuario = (String)datos.Lector["TIPO"]
+                            };
+                            return usuario;
+                        }
+                    }
                 }
-                else
-                {
-                    Session.Add("Error", "El usuario y/o contraseña no es válido");
-                    Response.Redirect("Error.aspx", false);
-                }
+                return new Usuario();
             }
             catch (Exception ex)
             {
+                //MessageBox.Show(ex.ToString());
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
 
-                Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx", false);
             }
         }
 

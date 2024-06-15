@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Modelo
 {
-    internal class ItemCarta
+    public class ItemCarta
     {
+        public string Nombre { get; set; }
+        public Double Precio { get; set; }
+
+        public string Tipo { get; set; }
     }
 }

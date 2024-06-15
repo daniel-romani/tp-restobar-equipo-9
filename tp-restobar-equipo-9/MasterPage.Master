@@ -39,9 +39,6 @@
             border: none;
             text-decoration: none;
         }
-
-                .titulo_pagina {
-        }
     </style>
 
     <form id="form1" runat="server">
@@ -49,15 +46,19 @@
             <%-- NAV --%>
             <nav class="navbar navbar-expand-lg" style=" background-color:#FC9844">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="Home.aspx" visible="True" runat="server"> <%--Aca hay que acomodar la referencia cuando se modifique el tema del login y los usuarios--%>
+                    <a class="navbar-brand" href="Home.aspx" visible="True" runat="server"><%--Aca hay que acomodar la referencia cuando se modifique el tema del login y los usuarios--%>
                         <span>
                             <img style="width: auto; height: 30px; " src="./Resources/logoIcon.png" alt="RestEasy" />
                         </span>
                     </a>
+                    <div>
+                        <asp:Button ID="Btn_alta_mesero" runat="server" CssClass="btn btn-secondary" OnClick="Btn_alta_mesero_Click" Text="Alta Mesero" Visible="false" />
+                    </div>
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <asp:Image ID="imgPerfil" Width="30" Height="30" class="rounded-circle" runat="server" /> <%--Aca hay que agregarle mas adelante una img y tener nuestro archivo de estilos--%>
-                            <%--<% =(()Session["Usuario"]).Nombre %>--%> <%--Codigo para mas adelante--%>
+                            <asp:Image ID="imgPerfil" Width="30" Height="30" class="rounded-circle" runat="server" />
+                            <% =((tp_restobar_equipo_9.Modelo.Usuario)Session["Usuario"]).Nombre %>
+                            <%--<asp:Literal ID="litNombreUsuario" runat="server" />-Codigo descartado pero archivado por posible uso--%>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="PerfilUsuario.aspx">Mi Perfil</a></li>
@@ -73,71 +74,88 @@
                     <div class="col-auto px-sm-2 px-0" style=" background-color:#FBE0D0;">
                         <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
                             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                                <li class="nav-item ">
-                                    <a href="Mesas.aspx" class="nav-link align-middle text-black px-0">
-                                        <i class='bx bxs-dashboard bx-flashing-hover bx-md' style="color:#373737" ></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="SeleccionOrden.aspx" class="nav-link text-black px-0">
-                                        <i class='bx bxs-food-menu bx-fade-right-hover bx-md' style="color:#373737"></i>
-                                    </a>
-                                </li>
+                                <%switch(Usuario_Actual.TipoUsuario)
+                                {
+                                //Opciones disponibles para los ADMIN
+                                case "Administrador":%>
+                                    <li class="nav-item ">
+                                        <a href="Mesas.aspx" class="nav-link align-middle text-black px-0">
+                                            <i class='bx bxs-dashboard bx-flashing-hover bx-md' style="color:#373737" ></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="SeleccionOrden.aspx" class="nav-link text-black px-0">
+                                            <i class='bx bxs-food-menu bx-fade-right-hover bx-md' style="color:#373737"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="Comandas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                            <i class='bx bxs-bell-ring bx-md bx-tada-hover' style="color:#373737"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="Reservas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                            <i class='bx bxs-book-bookmark bx-md bx-flashing-hover' style="color: #373737"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="CheckOut.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                            <i class='bx bxs-badge-dollar bx-md bx-burst-hover' style="color: #373737"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="Jornadas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                            <i class='bx bxs-calendar bx-md bx-tada-hover' style="color: #373737"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="Estadisticas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                            <i class='bx bxs-pie-chart-alt-2 bx-md bx-flashing-hover' style="color: #373737"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="StockCarta.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                            <i class='bx bxs-package bx-md bx-fade-up-hover' style="color: #373737"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="Configuracion.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                            <i class='bx bxs-cog bx-md bx-spin-hover' style="color:#373737"></i>
+                                        </a>
+                                    </li>
+                                <%break; %>
 
-<%--                                <li>
-                                    <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 text-black align-middle ">
-                                        <i class='bx bxs-cart-download'></i>
-                                        <span class="fs-5 ms-1 d-none d-sm-inline">Pagos</span>
-                                    </a>
-                                    <ul class="collapse nav flex-column ms-1" style="padding-left: 20px" id="submenu2" data-bs-parent="#menu">
-                                        <li class="w-100">
-                                            <a href="ReservasMesas.aspx" class="nav-link text-black px-0">
-                                                <i class='bx bx-edit-alt'></i>
-                                            </a>
-                                        </li>
-                                        <li class="w-100">
-                                            <a href=".aspx" class="nav-link  text-black px-0">
-                                                <i class='bx bx-calendar'></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>--%> <%--Codigo utilitario para mas adelante--%>
-
-                                <li>
-                                    <a href="Comandas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
-                                        <i class='bx bxs-bell-ring bx-md bx-tada-hover' style="color:#373737"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="Reservas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
-                                        <i class='bx bxs-book-bookmark bx-md bx-flashing-hover' style="color: #373737"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="CheckOut.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
-                                        <i class='bx bxs-badge-dollar bx-md bx-burst-hover' style="color: #373737"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="Jornadas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
-                                        <i class='bx bxs-calendar bx-md bx-tada-hover' style="color: #373737"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="Estadisticas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
-                                        <i class='bx bxs-pie-chart-alt-2 bx-md bx-flashing-hover' style="color: #373737"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="StockCarta.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
-                                        <i class='bx bxs-package bx-md bx-fade-up-hover' style="color: #373737"></i>
-                                    </a>
-                                </li>
+                                <%//Opciones disponibles para los MESEROS
+                                case "Mesero":%>
+                                    <li class="nav-item ">
+                                        <a href="Mesas.aspx" class="nav-link align-middle text-black px-0">
+                                            <i class='bx bxs-dashboard bx-flashing-hover bx-md' style="color: #373737"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="SeleccionOrden.aspx" class="nav-link text-black px-0">
+                                            <i class='bx bxs-food-menu bx-fade-right-hover bx-md' style="color: #373737"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="Comandas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                            <i class='bx bxs-bell-ring bx-md bx-tada-hover' style="color: #373737"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="Jornadas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                            <i class='bx bxs-calendar bx-md bx-tada-hover' style="color: #373737"></i>
+                                        </a>
+                                    </li>
+                                <%break;
+                                }%>
                                 <li>
                                     <a href="Configuracion.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
                                         <i class='bx bxs-cog bx-md bx-spin-hover' style="color:#373737"></i>
                                     </a>
                                 </li>
+
+
                             </ul>
                         </div>
                     </div>
@@ -192,6 +210,77 @@
                     </div>
                 </div>
             </footer>
+        </div>
+
+        <div class="container">
+            <%--MODAL ALTA PACIENTE--%>
+            <div class="modal fade" id="mod_AltaMesero" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Alta mesero</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <ul class="list-group list-group-flush">
+
+                                <asp:Label ID="Label1" CssClass="lbl lbl_error" Text="El nombre solo debe contener letras" runat="server" Visible="false"></asp:Label>
+
+
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Nombres: "></asp:Label>
+                                    <asp:TextBox ID="txtNombresMesero" runat="server" CssClass="form-control"></asp:TextBox>
+                                    <asp:Label ID="lblErrorNombre" CssClass="lbl lbl_error" Text="El nombre solo debe contener letras" runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Apellidos: "></asp:Label>
+                                    <asp:TextBox ID="txtApellidosMesero" CssClass="form-control" runat="server"></asp:TextBox>
+                                    <asp:Label ID="lblErrorApellido" CssClass="lbl lbl_error" Text="El apellido solo debe contener letras" runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="DNI: "></asp:Label>
+                                    <asp:TextBox ID="txtDniMesero" CssClass="form-control" runat="server" onkeypress="return soloNumeros(event);" MaxLength="8"></asp:TextBox>
+                                    <asp:Label ID="lblErrorDni" CssClass="lbl lbl_error" Text="El dni solo debe contener números" runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Email: "></asp:Label>
+                                    <asp:TextBox ID="txtEmailMesero" CssClass="form-control" runat="server"></asp:TextBox>
+                                    <asp:Label ID="lblErrorMail" CssClass="lbl lbl_error" Text="Ingrese un formato de Email correcto" runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Telefono: "></asp:Label>
+                                    <asp:TextBox ID="txtTelefonoMesero" CssClass="form-control" runat="server"></asp:TextBox>
+                                    <asp:Label ID="lblErrorTelefono" CssClass="lbl lbl_error" Text="El telefono solo debe contener numero" runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Dirección: "></asp:Label>
+                                    <asp:TextBox ID="TxtDireccionMesero" CssClass="form-control" runat="server"></asp:TextBox>
+                                    <asp:Label ID="lblErrorDireccion" CssClass="lbl lbl_error" Text="La dirección debe contener letras y números" runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Fecha de Nacimiento: "></asp:Label>
+                                    <asp:TextBox ID="txtFechaNacimientoMesero" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
+                                    <asp:Label ID="lblErrorFechaNacimiento" CssClass="lbl lbl_error" Text="La fecha es invalida" runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="Btn_AltaMeseroConfirmar" CssClass="btn btn-primary" runat="server" Text="Guardar" OnClick="Btn_AltaMeseroConfirmar_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
 </form>
