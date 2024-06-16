@@ -6,34 +6,89 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using tp_restobar_equipo_9.Modelo;
 
 namespace tp_restobar_equipo_9
 {
     public partial class Mesas : System.Web.UI.Page
     {
+        Resto restaurant = new Resto();
+        public Usuario usuario_actual;
+        Mesero mesero_actual = new Mesero();
+
+        List<Mesa> mesas = new List<Mesa>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            RestoConexion restoConexion = new RestoConexion();
+            restaurant = restoConexion.Listar();
+
+            Session["Resto"] = restaurant;
+
+            usuario_actual = (Usuario)Session["Usuario"];
+            Session["Usuario"] = usuario_actual;
+
+
+            if (usuario_actual.TipoUsuario == "Mesero")
             {
-                CargarMesas();
+                mesero_actual = new Mesero();
+                mesero_actual = Cargar_Mesero_Resto(usuario_actual.Id);
             }
+            
+            mesas = ObtenerMesas();
+
+            CargarMesas();
         }
+
+        private Mesero Cargar_Mesero_Resto(int IDUsuario)
+        {
+            foreach (Mesero Moso in restaurant.Meseros)
+            {
+                if (Moso.Id_Usuario == IDUsuario)
+                {
+                    return Moso;
+                }
+            }
+            return new Mesero();
+        }
+
 
         private void CargarMesas()
         {
-            List<Mesa> mesas = ObtenerMesas(); // Método que retorna la lista de mesas
-
             foreach (Mesa mesa in mesas)
             {
                 mesasContainer.Controls.Add(new LiteralControl($@"
                     <div class='col-md-3 mesa'>
-                        <p><strong>Mesa N°:</strong> {mesa.Numero}</p>
-                        <img src='Resources/mesa.png' alt='Mesa' />
-                        <div class='mesa-info'>
-                            <p><strong>Capacidad:</strong> {mesa.Capacidad} comensales</p>
-                            <p><strong>Comensales Sentados:</strong> {mesa.ComensalesSentados}</p>
-                            <a href='SeleccionOrden.aspx?mesaId={mesa.Id}&nroComensales={mesa.ComensalesSentados}' class='btn btn-primary'>Hacer Pedido</a>
+                        <div class=""mesa-info"">
+                            <div class=""datos"">
+                                <div class=""mesa-numero"">
+                                    <p><strong>N°:</strong> {mesa.Id_Mesa}</p>
+                                </div>
+                                <div class=""mesa-imagen"">
+                                    <img src='Resources/mesa.png' alt='Mesa' />
+                                </div>
+                                <div class=""mesa-capacidad {(mesa.Capacidad > mesa.ComensalesSentados ? "mesa-capacidad-verde" : "mesa-capacidad-rojo")}"">
+                                    <i class='bx bx-user bx-sm' ></i>
+                                    <p>{mesa.Capacidad}/{mesa.ComensalesSentados}</p>
+                                </div>
+                            </div>
                         </div>
+                        <div class=""btn-container"">
+                            <div class=""dropdown"">
+                                <button class=""btn btn-secondary dropdown-toggle"" type=""button"" data-bs-toggle=""dropdown"" aria-expanded=""false"">
+                                    <i class='bx bx-user-plus'></i> Sentar Comensales
+                                </button>
+                                <ul class=""dropdown-menu dropdown-menu-end"">
+                                    <div ID=""botones"">
+                                        <li><button class=""btn btn-secondary"" onclick=""decreaseComensal({mesa.Id_Mesa})"">-</button></li>
+                                        <span>{mesa.ComensalesSentados}</span>
+                                        <button class=""btn btn-secondary"" onclick=""increaseComensal({mesa.Id_Mesa})"">+</button>
+                                    </div>
+                                </ul>
+                            </div>
+                            <a href='SeleccionOrden.aspx?mesaId={mesa.Id_Mesa}&nroComensales={mesa.ComensalesSentados}' class='btn btn-info'><i class='bx bx-bookmark-alt-plus'></i>Hacer Pedido</a>
+                            <a href='Checkout.aspx?mesaId={mesa.Id_Mesa}&nroComensales={mesa.ComensalesSentados}' class='btn btn-success' onclick=""return confirm('¿Está seguro de cerrar la mesa?');""><i class='bx bx-dollar-circle' ></i>CheckOut</a>
+                        </div>                    
                     </div>
                 "));
             }
@@ -43,37 +98,62 @@ namespace tp_restobar_equipo_9
         {
             // Este método debe retornar la lista de mesas desde el origen de datos
             // Aquí agregamos un ejemplo estático
-            return new List<Mesa>
+            if (usuario_actual.TipoUsuario == "Mesero")
             {
-                new Mesa { Id = 1, Numero = 1, Capacidad = 4, ComensalesSentados = 2 },
-                new Mesa { Id = 2, Numero = 2, Capacidad = 2, ComensalesSentados = 1 },
-
-                // Agregar más mesas según sea necesario
-            };
+                foreach (Mesa _mesas in restaurant.Mesas)
+                {
+                    if (mesero_actual.Id == _mesas.Id_Mesero)
+                    {
+                        mesas.Add(_mesas);
+                    }
+                }
+            }
+            else if (usuario_actual.TipoUsuario == "Administrador")
+            {
+                foreach (Mesa _mesas in restaurant.Mesas)
+                {
+                    mesas.Add(_mesas);
+                }
+            }
+            return mesas;
         }
 
-        protected void GuardarMesa(object sender, EventArgs e)
+        private void decreaseComensal(int Id_Mesa)
         {
+            MesaNegocio mesaConexion = new MesaNegocio();
 
-            int id = string.IsNullOrEmpty(txtMesaId.Text) ? 0 : int.Parse(txtMesaId.Text);
-            int numero = int.Parse(txtNumeroMesa.Text);
-            int capacidad = int.Parse(txtCapacidad.Text);
-
-            // Lógica para guardar o actualizar la mesa en la base de datos
-            if (id == 0)
+            foreach (Mesa _mesa in restaurant.Mesas)
             {
-                // Insertar nueva mesa
+                if (Id_Mesa == _mesa.Id_Mesero && _mesa.ComensalesSentados <= 0)
+                {
+                    mesaConexion.ModificarComensalSentadoMesa(_mesa, "resta");
+                    return;
+                }
+                //else
+                //{
+                //    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Mesa sin comensales. No se pueden quitar comensales inexistentes');", true);
+                //}
             }
-            else
+            throw new Exception("Mesa sin comensales. No se pueden quitar comensales inexistentes");
+        }
+
+        private void increaseComensal(int Id_Mesa)
+        {
+            MesaNegocio mesaConexion = new MesaNegocio();
+
+            foreach (Mesa _mesa in restaurant.Mesas)
             {
-                // Actualizar mesa existente
+                if (Id_Mesa == _mesa.Id_Mesero && _mesa.ComensalesSentados < _mesa.Capacidad)
+                {
+                    mesaConexion.ModificarComensalSentadoMesa(_mesa, "suma");
+                    return;
+                }
+                //else
+                //{
+                //    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Mesa sin espacio');", true);
+                //}
             }
-
-            // Recargar la lista de mesas
-            CargarMesas();
-
-            // Cerrar el modal
-            ScriptManager.RegisterStartupScript(this, GetType(), "HideModal", "$('#abmModal').modal('hide');", true);
+            throw new Exception("Mesa sin espacio");
         }
     }
 }

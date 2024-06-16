@@ -55,6 +55,17 @@ CREATE TABLE ADMINISTRADOR (
 	FOREIGN KEY (ID_USUARIO) REFERENCES USUARIOS(ID_USUARIO)
 )
 GO
+CREATE TABLE MESAS (
+    ID_MESA INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	ID_MESERO INT NOT NULL,
+	ID_ADMIN INT NOT NULL,
+	CAPACIDAD INT NOT NULL,
+	COMENSALES_SENTADOS INT NULL,
+	ESTADO BIT DEFAULT (1) NOT NULL,
+	FOREIGN KEY (ID_MESERO) REFERENCES MESEROS(ID_MESERO),
+	FOREIGN KEY (ID_ADMIN) REFERENCES ADMINISTRADOR(ID_ADMINISTRADOR)
+)
+GO
 CREATE TABLE JORNADAS(
     ID_JORNADA INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     TIPO_JORNADA varchar (60) not null
@@ -112,3 +123,24 @@ VALUES (1, '11111111', 'Mesero1', 'Apellido1', '1234567891', 'Dirección1', '1990
        (2, '11222222','Mesero2', 'Apellido2', '1234567892', 'Dirección2', '1990-02-02', 'mesero2@mail.com', 1),
        (3, '11333333','Mesero3', 'Apellido3', '1234567893', 'Dirección3', '1990-03-03', 'mesero3@mail.com', 1),
        (4, '11444444','Mesero4', 'Apellido4', '1234567894', 'Dirección4', '1990-04-04', 'mesero4@mail.com', 1)
+
+---------------------
+
+INSERT INTO MESAS (ID_MESERO, ID_ADMIN, CAPACIDAD, COMENSALES_SENTADOS, ESTADO)
+VALUES  (1, 1, 4, 0, 1),
+		(2, 1, 6, 2, 1),
+		(3, 1, 2, 1, 1),
+		(4, 1, 8, 4, 1),
+		(1, 1, 4, 2, 1),
+		(2, 1, 4, 3, 1),
+		(3, 1, 6, 0, 1),
+		(4, 1, 2, 0, 1),
+		(1, 1, 6, 5, 1),
+		(2, 1, 8, 6, 1),
+		(3, 1, 4, 1, 1),
+		(4, 1, 4, 3, 1),
+		(1, 1, 8, 7, 1),
+		(2, 1, 2, 0, 1),
+		(3, 1, 6, 2, 1)
+
+---------------------

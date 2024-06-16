@@ -17,7 +17,7 @@ namespace tp_restobar_equipo_9
         {
             RestoConexion restoConexion = new RestoConexion();
             Restaurant = restoConexion.Listar();
-            Session["Clinica"] = Restaurant;
+            Session["Resto"] = Restaurant;
             usuario_actual = (Usuario)Session["Usuario"];
             usuario_actual = Cargar_Datos_Usuario(usuario_actual);
             Session["Usuario"] = usuario_actual;
@@ -29,16 +29,16 @@ namespace tp_restobar_equipo_9
             {
 
                 case "Mesero":
-                    Mesero paciente_actual = Cargar_Mesero_Resto(usuario.Id);
-                    if (paciente_actual.Id != -1)
+                    Mesero mesero_actual = Cargar_Mesero_Resto(usuario.Id);
+                    if (mesero_actual.Id != -1)
                     {
-                        usuario.Nombre = paciente_actual.Nombre;
-                        usuario.Apellido = paciente_actual.Apellido;
-                        usuario.Dni = int.Parse(paciente_actual.Dni);
-                        usuario.Telefono = paciente_actual.Telefono;
-                        usuario.Direccion = paciente_actual.Direccion;
-                        usuario.Fecha_Nacimiento = paciente_actual.Fecha_Nacimiento;
-                        usuario.Mail = paciente_actual.Mail;
+                        usuario.Nombre = mesero_actual.Nombre;
+                        usuario.Apellido = mesero_actual.Apellido;
+                        usuario.Dni = int.Parse(mesero_actual.Dni);
+                        usuario.Telefono = mesero_actual.Telefono;
+                        usuario.Direccion = mesero_actual.Direccion;
+                        usuario.Fecha_Nacimiento = mesero_actual.Fecha_Nacimiento;
+                        usuario.Mail = mesero_actual.Mail;
                     }
                     break;
 

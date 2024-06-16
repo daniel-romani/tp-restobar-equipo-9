@@ -38,6 +38,7 @@ namespace tp_restobar_equipo_9
             if (Usuario_Actual.TipoUsuario == "Administrador")
             {
                 Btn_alta_mesero.Visible = true;
+                Btn_alta_mesa.Visible = true;
             }
         }
 
@@ -141,9 +142,75 @@ namespace tp_restobar_equipo_9
 
                 throw;
             }
+        }
 
+        //-----MODAL ALTA MESA---
+        protected void Btn_alta_mesa_Click(object sender, EventArgs e)
+        {
+            string script = @"
+                $(document).ready(function () {
+                    $('#mod_AltaMesa').modal('show');
+                });
+            ";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "MostrarModal", script, true);
+        }
+        protected void Btn_AltaMesaConfirmar_Click(object sender, EventArgs e)
+        {
+            bool dniMosoValido = true, dniAdmValido = true, capValido = true;
+            try
+            {
+                if (!Validaciones.EsNumero(txtDniMoso.Text))
+                {
+                    lblErrorDniMoso.Visible = true;
+                    dniMosoValido = false;
+                }
+                if (!Validaciones.EsNumero(txtDniAdmin.Text))
+                {
+                    lblErrorDniAdm.Visible = true;
+                    dniAdmValido = false;
+                }
+                if (!Validaciones.EsNumero(txtCapMesa.Text))
+                {
+                    lblErrorCap.Visible = true;
+                    capValido = false;
+                }
 
+                if (dniMosoValido && dniAdmValido && capValido)
+                {
+                    Mesero mesero = new Mesero();
+                    Mesa _mesa = new Mesa();
+                    Administrador adm = new Administrador();
 
+                    //INSERTAR NUEVA MESA
+                    MeseroNegocio meseroConexion = new MeseroNegocio();
+                    MesaNegocio mesaConexion = new MesaNegocio();
+                    AdministradorNegocio admConexion = new AdministradorNegocio();
+
+                    mesero = meseroConexion.getMesero(txtDniMoso.Text);
+                    adm = admConexion.getAdm(txtDniAdmin.Text);
+
+                    if(mesero.Estado && adm.Estado)
+                    {
+                        _mesa.Id_Mesero = mesero.Id;
+                        _mesa.Id_Admin = adm.Id;
+                        _mesa.Capacidad = int.Parse(txtCapMesa.Text);
+                        _mesa.ComensalesSentados = 0;
+                        _mesa.Estado = true;
+
+                        mesaConexion.InsertarMesa(_mesa);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Datos inexistentes o invalidos. Intente otra vez');", true);
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

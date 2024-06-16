@@ -81,5 +81,51 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public Administrador getAdm(string dniAdm)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Administrador adm = new Administrador();
+
+            try
+            {
+                datos.setConsulta("SELECT ID_ADMINISTRADOR, ID_USUARIO, DNI, NOMBRE, APELLIDO, TELEFONO, DIRECCION, FECHA_NACIMIENTO, MAIL, ESTADO FROM ADMINISTRADOR WHERE ESTADO != 0 AND DNI = @DNIADM");
+                datos.setParametro("@DNIADM", dniAdm);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    adm.Id = (int)datos.Lector["ID_ADMINISTRADOR"];
+
+                    adm.Id_Usuario = (int)datos.Lector["ID_USUARIO"];
+
+                    adm.Dni = (string)datos.Lector["DNI"];
+
+                    adm.Nombre = (string)datos.Lector["NOMBRE"];
+
+                    adm.Apellido = (string)datos.Lector["APELLIDO"];
+
+                    adm.Telefono = (string)datos.Lector["TELEFONO"];
+
+                    adm.Direccion = (string)datos.Lector["DIRECCION"];
+
+                    adm.Fecha_Nacimiento = (DateTime)datos.Lector["FECHA_NACIMIENTO"];
+
+                    adm.Mail = (string)datos.Lector["MAIL"];
+
+                    adm.Estado = (bool)datos.Lector["ESTADO"];
+                }
+                return adm;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

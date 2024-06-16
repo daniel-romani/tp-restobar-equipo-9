@@ -53,6 +53,7 @@
                     </a>
                     <div>
                         <asp:Button ID="Btn_alta_mesero" runat="server" CssClass="btn btn-secondary" OnClick="Btn_alta_mesero_Click" Text="Alta Mesero" Visible="false" />
+                        <asp:Button ID="Btn_alta_mesa" runat="server" CssClass="btn btn-secondary" OnClick="Btn_alta_mesa_Click" Text="Alta Mesa" Visible="false" />
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -88,11 +89,11 @@
                                             <i class='bx bxs-food-menu bx-fade-right-hover bx-md' style="color:#373737"></i>
                                         </a>
                                     </li>
-                                    <li>
+                                    <%--<li>
                                         <a href="Comandas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
                                             <i class='bx bxs-bell-ring bx-md bx-tada-hover' style="color:#373737"></i>
                                         </a>
-                                    </li>
+                                    </li>--%>
                                     <li>
                                         <a href="Reservas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
                                             <i class='bx bxs-book-bookmark bx-md bx-flashing-hover' style="color: #373737"></i>
@@ -137,11 +138,11 @@
                                             <i class='bx bxs-food-menu bx-fade-right-hover bx-md' style="color: #373737"></i>
                                         </a>
                                     </li>
-                                    <li>
+                                   <%-- <li>
                                         <a href="Comandas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
                                             <i class='bx bxs-bell-ring bx-md bx-tada-hover' style="color: #373737"></i>
                                         </a>
-                                    </li>
+                                    </li>--%>
                                     <li>
                                         <a href="Jornadas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
                                             <i class='bx bxs-calendar bx-md bx-tada-hover' style="color: #373737"></i>
@@ -149,11 +150,6 @@
                                     </li>
                                 <%break;
                                 }%>
-                                <li>
-                                    <a href="Configuracion.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
-                                        <i class='bx bxs-cog bx-md bx-spin-hover' style="color:#373737"></i>
-                                    </a>
-                                </li>
 
 
                             </ul>
@@ -213,7 +209,7 @@
         </div>
 
         <div class="container">
-            <%--MODAL ALTA PACIENTE--%>
+            <%--MODAL ALTA MESERO--%>
             <div class="modal fade" id="mod_AltaMesero" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -282,6 +278,51 @@
             </div>
 
         </div>
+
+        <div class="container">
+    <%--MODAL ALTA MESA--%>
+    <div class="modal fade" id="mod_AltaMesa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel2">Alta mesa</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <ul class="list-group list-group-flush">
+
+                        <asp:Label ID="Label2" CssClass="lbl lbl_error" Text="El nombre solo debe contener letras" runat="server" Visible="false"></asp:Label>
+
+
+                        <li class="list-group-item">
+                            <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="DNI del moso: "></asp:Label>
+                            <asp:TextBox ID="txtDniMoso" runat="server" CssClass="form-control" onkeypress="return soloNumeros(event);" MaxLength="9"></asp:TextBox>
+                            <asp:Label ID="lblErrorDniMoso" CssClass="lbl lbl_error" Text="El dni solo debe contener números" runat="server" Visible="false"></asp:Label>
+
+                        </li>
+                        <li class="list-group-item">
+                            <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="DNI del admin: "></asp:Label>
+                            <asp:TextBox ID="txtDniAdmin" CssClass="form-control" runat="server" onkeypress="return soloNumeros(event);" MaxLength="9"></asp:TextBox>
+                            <asp:Label ID="lblErrorDniAdm" CssClass="lbl lbl_error" Text="El dni solo debe contener números" runat="server" Visible="false"></asp:Label>
+
+                        </li>
+                        <li class="list-group-item">
+                            <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Capacidad de la mesa: "></asp:Label>
+                            <asp:TextBox ID="txtCapMesa" CssClass="form-control" runat="server" onkeypress="return soloNumeros(event);" MaxLength="1"></asp:TextBox>
+                            <asp:Label ID="lblErrorCap" CssClass="lbl lbl_error" Text="La capacidad solo debe contener números" runat="server" Visible="false"></asp:Label>
+                    </ul>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <asp:Button ID="Button1" CssClass="btn btn-primary" runat="server" Text="Guardar" OnClick="Btn_AltaMesaConfirmar_Click" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 </form>
 

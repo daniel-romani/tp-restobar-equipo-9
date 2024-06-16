@@ -1,72 +1,99 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Mesas.aspx.cs" Inherits="tp_restobar_equipo_9.Mesas" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-        <style>
-        .mesa {
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 10px;
-            margin: 10px;
-            text-align: center;
-        }
-        .mesa img {
-            max-width: 100%;
-            height: auto;
-        }
-        .mesa-info {
-            margin-top: 10px;
-        }
-    </style>
+<style>
+    .title{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+    }
+    .mesa {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 2px solid #000;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 15px;
+        text-align: center;
+    }
 
-    <script type="text/javascript">
-        function abrirModalMesa(id, numero, capacidad) {
-            document.getElementById('<%= txtMesaId.ClientID %>').value = id || '';
-            document.getElementById('<%= txtNumeroMesa.ClientID %>').value = numero || '';
-            document.getElementById('<%= txtCapacidad.ClientID %>').value = capacidad || '';
-            $('#abmModal').modal('show');
-        }
+    .mesa-info {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        align-items: center;
+    }
 
-        function guardarMesa() {
-            __doPostBack('<%= btnGuardarMesa.UniqueID %>', '');
-        }
-    </script>
+    .datos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .mesa-numero, .mesa-capacidad {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid #000;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        margin: 10px 0;
+        background-color: #f0f0f0; /* Color de fondo para los círculos */
+    }
+
+    .mesa-capacidad-verde {
+        background-color: green;
+    }
+
+    .mesa-capacidad-rojo {
+        background-color: red;
+    }
+
+    .mesa-numero p, .mesa-capacidad p {
+        margin: 0;
+    }
+
+    .mesa-imagen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+    }
+
+    .mesa-imagen img {
+        width: 50%;
+        height: auto;
+    }
+
+    .btn {
+        margin-top: 20px;
+    }
+
+    .btn-container{
+        flex-direction: row;
+    }
+
+    #botones {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    }
+
+    #botones li, #botones span, #botones button {
+        margin: 0 5px;
+    }
+</style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-      <div class="container">
+
+      <div class="title">
       <h2>Mesas</h2>
+      </div>
       <div class="row" id="mesasContainerDiv">
           <asp:PlaceHolder ID="mesasContainer" runat="server"></asp:PlaceHolder>
-      </div>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abmModal" onclick="abrirModalMesa()">Agregar Mesa</button>
   </div>
-
-  <%-- Modal para ABM de mesas --%>
-  <div class="modal fade" id="abmModal" tabindex="-1" aria-labelledby="abmModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="abmModalLabel">Agregar/Editar Mesa</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <asp:Label ID="lblMesaId" runat="server" Text="ID de Mesa" Visible="false"></asp:Label>
-                  <asp:TextBox ID="txtMesaId" runat="server" Visible="false"></asp:TextBox>
-                  <div class="mb-3">
-                      <asp:Label ID="lblNumeroMesa" runat="server" Text="Número de Mesa"></asp:Label>
-                      <asp:TextBox ID="txtNumeroMesa" runat="server" CssClass="form-control"></asp:TextBox>
-                  </div>
-                  <div class="mb-3">
-                      <asp:Label ID="lblCapacidad" runat="server" Text="Capacidad de Comensales"></asp:Label>
-                      <asp:TextBox ID="txtCapacidad" runat="server" CssClass="form-control"></asp:TextBox>
-                  </div>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                  <button type="button" class="btn btn-primary" onclick="guardarMesa()">Guardar</button>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <%-- Botón invisible para realizar el postback desde JavaScript --%>
-  <asp:Button ID="btnGuardarMesa" runat="server" OnClick="GuardarMesa" Style="display: none;" />
 </asp:Content>
