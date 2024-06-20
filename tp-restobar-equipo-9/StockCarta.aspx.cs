@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Modelo;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,11 @@ namespace tp_restobar_equipo_9
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           Resto resto = new Resto();
+            RestoConexion restoConexion = new RestoConexion();
+            resto = restoConexion.Listar();
+            repRepetidor.DataSource = resto.ItemCartas;
+            repRepetidor.DataBind();
         }
     }
 }
