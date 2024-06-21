@@ -15,17 +15,20 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setConsulta("SELECT ID_PRODUCTO, ID_TIPO, CANTIDAD, NOMBRE FROM STOCKCARTA");
+                datos.setearProcedimiento("SP_LISTAR_STOCK");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     ItemCarta item = new ItemCarta()
                     {
-                        idProducto = (int)datos.Lector["ID_PRODUCTO"],
-                        cantidad = (int)datos.Lector["CANTIDAD"],
-                        nombre = (string)datos.Lector["NOMBRE"],
-                       //Tengo que terminar de ver la validacion con imagenes y precio
+                        IdProducto = (int)datos.Lector["ID_PRODUCTO"],
+                        Nombre = (string)datos.Lector["NOMBRE_P"],
+                        Tipo = (string)datos.Lector["NOMBRE_T"],
+                        Cantidad = (int)datos.Lector["CANTIDAD"],
+                        UrlImagen = datos.Lector.IsDBNull(datos.Lector.GetOrdinal("URLIMAGEN")) ? "" : (string)datos.Lector["URLIMAGEN"],
+                        Precio = (decimal)datos.Lector["PRECIO"],
+                        Unidad = (string)datos.Lector["NOMBRE_U"]
                     };
 
                     lista.Add(item);

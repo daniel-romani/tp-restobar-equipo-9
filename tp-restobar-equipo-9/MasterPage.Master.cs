@@ -15,10 +15,13 @@ namespace tp_restobar_equipo_9
     {
         public Usuario Usuario_Actual;
         public Resto Restaurant = new Resto();
+      
         protected void Page_Load(object sender, EventArgs e)
         {
-            RestoConexion restoConexion = new RestoConexion();
-            Restaurant = restoConexion.Listar();
+                RestoConexion restoConexion = new RestoConexion();
+                Restaurant = restoConexion.Listar();
+                
+            
             if (!Seguridad.SesionActiva(Session["Usuario"]))
             {
                 Session.Abandon();

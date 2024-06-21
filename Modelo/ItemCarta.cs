@@ -8,17 +8,19 @@ namespace Modelo
 {
     public class ItemCarta
     {
-        public string nombre { get; set; }
-        public Double precio { get; set; }
+        public string Nombre { get; set; }
+        public decimal Precio { get; set; }
 
-        public string tipo { get; set; }
+        public string Tipo { get; set; }
 
-        public int cantidad { get; set; }
+        public int Cantidad { get; set; }
 
-        public string urlImagen { get; set; }
+        public string UrlImagen { get; set; }
 
-        public string unidad {  get; set; }
+        public string Unidad {  get; set; }
 
-        public int idProducto { get; set; }
+        public int IdProducto { get; set; }
+
+        
     }
 }
