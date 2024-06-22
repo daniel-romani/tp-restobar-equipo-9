@@ -9,7 +9,7 @@ namespace Negocio
     {
         public List<ItemCarta> Listar()
         {
-           
+
 
             List<ItemCarta> lista = new List<ItemCarta>();
             AccesoDatos datos = new AccesoDatos();
@@ -44,6 +44,69 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public void ActualizarItem(ItemCarta item)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                
+                datos.setearProcedimiento("SP_ACTUALIZACION_ITEM");
+                
+                datos.setParametro("@ID_PRODUCTO", item.IdProducto);
+                datos.setParametro("@NOMBREPRODUCTO", item.Nombre);
+
+                switch (item.Tipo)
+                {
+                    case "BEBIDAS":
+                        datos.setParametro("@ID_TIPO", 1);
+                        break;
+                    case "VERDURA":
+                        datos.setParametro("@ID_TIPO", 2);
+                        break;
+                    case "CARNE":
+                        datos.setParametro("@ID_TIPO", 3);
+                        break;
+                    default:
+                        datos.setParametro("@ID_TIPO", 4); ;
+                        break;
+                }
+
+                switch (item.Unidad)
+                {
+                    case "Lts":
+                        datos.setParametro("@ID_UNIDAD", 1);
+                        break;
+                    case "KG":
+                        datos.setParametro("@ID_UNIDAD", 2);
+                        break;
+                    case "UN":
+                        datos.setParametro("@ID_UNIDAD", 3);
+                        break;
+                    default:
+                        datos.setParametro("@ID_UNIDAD", 4); ;
+                        break;
+                }
+                datos.setParametro("@CANTIDAD", item.Cantidad);
+                datos.setParametro("@PRECIO", item.Precio);
+                datos.setParametro("@URLIMAGEN", item.UrlImagen);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+
+            }
+           
+
+
+
         }
 
     }
