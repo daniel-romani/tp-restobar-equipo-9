@@ -1,6 +1,7 @@
 ﻿using Modelo;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 
 
 namespace Negocio
@@ -46,6 +47,25 @@ namespace Negocio
             }
         }
 
+        public void EliminarItem (int ID)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_ELIMINAR_ITEM_STOCK");
+                datos.setParametro("@ID_PRODUCTO", ID);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                
+            }finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
         public void ActualizarItem(ItemCarta item)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -103,9 +123,74 @@ namespace Negocio
                 datos.cerrarConexion();
 
             }
+
+            
            
 
 
+
+        }
+
+        public void AgregarItem (ItemCarta item)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+
+                datos.setearProcedimiento("SP_AGREGAR_ITEM");
+
+                
+                
+
+                switch (item.Tipo)
+                {
+                    case "BEBIDAS":
+                        datos.setParametro("@ID_TIPO", 1);
+                        break;
+                    case "VERDURA":
+                        datos.setParametro("@ID_TIPO", 2);
+                        break;
+                    case "CARNE":
+                        datos.setParametro("@ID_TIPO", 3);
+                        break;
+                    default:
+                        datos.setParametro("@ID_TIPO", 4); ;
+                        break;
+                }
+                datos.setParametro("@CANTIDAD", item.Cantidad);
+                datos.setParametro("@NOMBREPRODUCTO", item.Nombre);
+                datos.setParametro("@PRECIO", item.Precio);
+
+                switch (item.Unidad)
+                {
+                    case "Lts":
+                        datos.setParametro("@ID_UNIDAD", 1);
+                        break;
+                    case "KG":
+                        datos.setParametro("@ID_UNIDAD", 2);
+                        break;
+                    case "UN":
+                        datos.setParametro("@ID_UNIDAD", 3);
+                        break;
+                    default:
+                        datos.setParametro("@ID_UNIDAD", 4); ;
+                        break;
+                }
+                
+                
+                datos.setParametro("@URLIMAGEN", item.UrlImagen);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+
+            }
 
         }
 

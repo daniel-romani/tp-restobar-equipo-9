@@ -79,7 +79,7 @@ namespace tp_restobar_equipo_9
 
         protected void bttAgregarItem_Click(object sender, EventArgs e)
         {
-
+            Estado = true;
         }
         public void PrecargarDatos(int id)
         { 
@@ -114,7 +114,7 @@ namespace tp_restobar_equipo_9
             ItemCartaNegocio itemCarta = new ItemCartaNegocio();
             try
             {
-                item.IdProducto = int.Parse(TxtIdProducto.Text);
+                item.IdProducto = string.IsNullOrEmpty(TxtIdProducto.Text) ? 0 : int.Parse(TxtIdProducto.Text);
                 item.Nombre = TxtNombre.Text;
                 item.Tipo = ddlTipo.Text;
                 item.Unidad = ddlUnidad.Text;
@@ -130,8 +130,14 @@ namespace tp_restobar_equipo_9
                 {
                     item.UrlImagen = "https://img2.freepnges.com/20180715/gez/aavg9iox9.webp";
                 }
-
-                itemCarta.ActualizarItem(item);
+                if(!(string.IsNullOrEmpty(TxtIdProducto.Text)))
+                { 
+                    itemCarta.ActualizarItem(item);
+                }else
+                {
+                    itemCarta.AgregarItem(item);
+                }
+                
             }
             catch (Exception ex)
             {
@@ -161,8 +167,11 @@ namespace tp_restobar_equipo_9
 
         protected void bttConfirmar_Click(object sender, EventArgs e)
         {
-
+            int id = int.Parse(((Button)sender).CommandArgument);
+            ItemCartaNegocio itemCarta = new ItemCartaNegocio();
+            itemCarta.EliminarItem(id);
             ConfirmarEliminacion = false;
+            RecargarRepeter();
         }
 
         protected void bttEliminar_Click2(object sender, EventArgs e)

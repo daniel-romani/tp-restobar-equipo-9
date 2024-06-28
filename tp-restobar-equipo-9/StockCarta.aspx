@@ -86,8 +86,8 @@
                             <img src='<%#Eval("UrlImagen") %>' class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title"><%#Eval("Nombre") %></h5>
-                                <p class="card-text"><%#Eval("Cantidad") %>" "<%#Eval("Unidad") %></p>
-                                <p class="card-text">"$ "$<%#Eval("Precio") %></p>
+                                <p class="card-text"><%#Eval("Cantidad") %> <%#Eval("Unidad") %></p>
+                                <p class="card-text">$ <%#Eval("Precio") %></p>
                                 <p class="card-text">"Categoria: "<%#Eval("Tipo") %></p>
 
                                 <asp:UpdatePanel ID="UpdatePanel13" runat="server">
@@ -98,7 +98,7 @@
                                             { %>
                                         <div class="mb-3">
                                             <asp:CheckBox runat="server" ID="ChkConfirmarEliminacion" Text="Confirmar Eliminacion" CssClass="form-check-input" />
-                                            <asp:Button ID="bttConfirmar" runat="server" Text="Confirmar" CssClass="btn btn-outline-warning" OnClick="bttConfirmar_Click" />
+                                            <asp:Button ID="bttConfirmar" runat="server" Text="Confirmar" CssClass="btn btn-outline-warning" CommandArgument='<%#Eval("IdProducto") %>' CommandName="idProducto" OnClick="bttConfirmar_Click" />
                                         </div>
                                         <%} %>
                                     </ContentTemplate>
