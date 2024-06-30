@@ -68,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AltaUsuario.aspx" />
-    <Content Include="CheckOut.aspx" />
     <Content Include="Comandas.aspx" />
     <Content Include="Configuracion.aspx" />
     <Content Include="content\Styles.css" />
@@ -84,7 +83,7 @@
     <Content Include="Reservas.aspx" />
     <Content Include="Resources\background.png" />
     <Content Include="Resources\logoIcon.png" />
-    <Content Include="SeleccionOrden.aspx" />
+    <Content Include="CheckOut.aspx" />
     <Content Include="StockCarta.aspx" />
     <Content Include="Web.config" />
     <Content Include="Default.aspx" />
@@ -97,13 +96,6 @@
     </Compile>
     <Compile Include="AltaUsuario.aspx.designer.cs">
       <DependentUpon>AltaUsuario.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CheckOut.aspx.cs">
-      <DependentUpon>CheckOut.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CheckOut.aspx.designer.cs">
-      <DependentUpon>CheckOut.aspx</DependentUpon>
     </Compile>
     <Compile Include="Comandas.aspx.cs">
       <DependentUpon>Comandas.aspx</DependentUpon>
@@ -204,12 +196,12 @@
     <Compile Include="Reservas.aspx.designer.cs">
       <DependentUpon>Reservas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SeleccionOrden.aspx.cs">
-      <DependentUpon>SeleccionOrden.aspx</DependentUpon>
+    <Compile Include="CheckOut.aspx.cs">
+      <DependentUpon>CheckOut.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SeleccionOrden.aspx.designer.cs">
-      <DependentUpon>SeleccionOrden.aspx</DependentUpon>
+    <Compile Include="CheckOut.aspx.designer.cs">
+      <DependentUpon>CheckOut.aspx</DependentUpon>
     </Compile>
     <Compile Include="CambiarContraseña.aspx.cs">
       <DependentUpon>CambiarContraseña.aspx</DependentUpon>

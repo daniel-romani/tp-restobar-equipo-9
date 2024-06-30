@@ -2,9 +2,12 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Web.Services;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using tp_restobar_equipo_9.Modelo;
+using System.Web.Script.Services;
 
 namespace tp_restobar_equipo_9
 {
@@ -75,42 +78,40 @@ namespace tp_restobar_equipo_9
             return mesas;
         }
 
-        private void decreaseComensal(int Id_Mesa)
+        [WebMethod]
+        [ScriptMethod(UseHttpGet = false, ResponseFormat = ResponseFormat.Json)]
+        public static bool DecreaseComensal(int Id_Mesa)
         {
+            Resto restaurant = (Resto)HttpContext.Current.Session["Resto"];
             MesaNegocio mesaConexion = new MesaNegocio();
 
             foreach (Mesa _mesa in restaurant.Mesas)
             {
-                if (Id_Mesa == _mesa.Id_Mesero && _mesa.ComensalesSentados <= 0)
+                if (Id_Mesa == _mesa.Id_Mesa && _mesa.ComensalesSentados > 0)
                 {
                     mesaConexion.ModificarComensalSentadoMesa(_mesa, "resta");
-                    return;
+                    return true;
                 }
-                //else
-                //{
-                //    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Mesa sin comensales. No se pueden quitar comensales inexistentes');", true);
-                //}
             }
-            throw new Exception("Mesa sin comensales. No se pueden quitar comensales inexistentes");
+            return false;
         }
 
-        private void increaseComensal(int Id_Mesa)
+        [WebMethod]
+        [ScriptMethod(UseHttpGet = false, ResponseFormat = ResponseFormat.Json)]
+        public static bool IncreaseComensal(int Id_Mesa)
         {
+            Resto restaurant = (Resto)HttpContext.Current.Session["Resto"];
             MesaNegocio mesaConexion = new MesaNegocio();
 
             foreach (Mesa _mesa in restaurant.Mesas)
             {
-                if (Id_Mesa == _mesa.Id_Mesero && _mesa.ComensalesSentados < _mesa.Capacidad)
+                if (Id_Mesa == _mesa.Id_Mesa && _mesa.ComensalesSentados < _mesa.Capacidad)
                 {
                     mesaConexion.ModificarComensalSentadoMesa(_mesa, "suma");
-                    return;
+                    return true;
                 }
-                //else
-                //{
-                //    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Mesa sin espacio');", true);
-                //}
             }
-            throw new Exception("Mesa sin espacio");
+            return false;
         }
 
         protected void Btn_hacer_pedido_Click(object sender, EventArgs e)
@@ -139,6 +140,11 @@ namespace tp_restobar_equipo_9
         protected void btn_AgregarItem_Click(object sender, EventArgs e)
         {
             int id = int.Parse(((Button)sender).CommandArgument);
+
+        }
+
+        protected void Btn_CerrarMesa_Click()
+        {
 
         }
     }

@@ -92,6 +92,50 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <script type="text/javascript">
+        function Btn_decreaseComensal(mesaId) {
+            $.ajax({
+                type: "POST",
+                url: "Mesas.aspx/DecreaseComensal",
+                data: JSON.stringify({ Id_Mesa: mesaId }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d) {
+                        location.reload();
+                    } else {
+                        alert("No se pueden quitar mas comensales");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                    alert("Error al decrementar comensal.");
+                }
+            });
+        }
+
+        function Btn_increaseComensal(mesaId) {
+            $.ajax({
+                type: "POST",
+                url: "Mesas.aspx/IncreaseComensal",
+                data: JSON.stringify({ Id_Mesa: mesaId }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d) {
+                        location.reload();
+                    } else {
+                        alert("No se pueden agregar mas comensales");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                    alert("Error al incrementar comensal.");
+                }
+            });
+        }
+</script>
+
     <div class="title">
         <h2>Mesas</h2>
     </div>
@@ -125,16 +169,16 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li id="botones">
                                 <div>
-                                    <button class="btn btn-secondary" onclick="decreaseComensal({mesa.Id_Mesa})">-</button>
+                                    <button class="btn btn-secondary" onclick="Btn_decreaseComensal(<%= mesa.Id_Mesa %>)">-</button>
                                 </div>
                                 <span><%= mesa.ComensalesSentados %></span>
-                                <button class="btn btn-secondary" onclick="increaseComensal({mesa.Id_Mesa})">+</button>
+                                <button class="btn btn-secondary" onclick="Btn_increaseComensal(<%= mesa.Id_Mesa %>)">+</button>
                             </li>
                         </ul>
                     </div>
 
                     <asp:Button ID="Btn_hacer_pedido" runat="server" CssClass="btn btn-info" OnClick="Btn_hacer_pedido_Click" Text="Hacer Pedido" Visible="true" />
-                    <a href='Checkout.aspx?mesaId={mesa.Id_Mesa}&nroComensales={mesa.ComensalesSentados}' class='btn btn-success' onclick="return confirm('¿Está seguro de cerrar la mesa?');"><i class='bx bx-dollar-circle'></i>CheckOut</a>
+                    <a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>' class='btn btn-success' onclick="return confirm('¿Está seguro de cerrar la mesa?');"><i class='bx bx-dollar-circle'></i>CheckOut</a>
                 </div>
             </div>
 
