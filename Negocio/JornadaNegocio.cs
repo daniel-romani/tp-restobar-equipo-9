@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Modelo;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Modelo;
 
 namespace Negocio
 {
@@ -20,12 +17,14 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
+                    string date = DateConverter((DateTime)datos.Lector["FECHA"]);
+
                     Jornada _jornada = new Jornada
                     {
                         idJornada = (int)datos.Lector["ID_JORNADA"],
 
-                        fecha = (DateTime)datos.Lector["FECHA"],
-
+                        fecha = date,
+                        
                         hora_Ini = (TimeSpan)datos.Lector["HORA_INICIO"],
 
                         hora_Fin = (TimeSpan)datos.Lector["HORA_FIN"],
@@ -68,6 +67,16 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        private string DateConverter(DateTime date)
+        {
+            var dateAndTime = date;
+            int year = dateAndTime.Year;
+            int month = dateAndTime.Month;
+            int day = dateAndTime.Day;
+
+            return string.Format("{0}/{1}/{2}", month, day, year);
         }
 
 

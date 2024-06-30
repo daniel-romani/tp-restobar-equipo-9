@@ -1,12 +1,7 @@
 ﻿using Modelo;
 using Negocio;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace tp_restobar_equipo_9
 {
@@ -62,15 +57,15 @@ namespace tp_restobar_equipo_9
         {
            
             string fechaTexto = Fecha_Jornada.Text;
-            DateTime fecha;
-            if (DateTime.TryParseExact(fechaTexto, new string[] { "yyyy-MM-dd", "yyyy/MM/dd" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out fecha))
-            {
-                jornada.fecha = fecha;
-            }
-            else
-            {
+            //DateTime fecha;
+            //if (DateTime.TryParseExact(fechaTexto, new string[] { "yyyy-MM-dd", "yyyy/MM/dd" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out fecha))
+            //{
+            //    jornada.fecha = fecha;
+            //}
+            //else
+            //{
               
-            }
+            //}
             jornada.hora_Ini = TimeSpan.Parse(txtHora_ini.Text);
             jornada.hora_Fin = TimeSpan.Parse(txtHora_fin.Text);
 

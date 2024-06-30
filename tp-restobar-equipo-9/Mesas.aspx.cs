@@ -2,8 +2,6 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using tp_restobar_equipo_9.Modelo;
@@ -138,7 +136,7 @@ namespace tp_restobar_equipo_9
                 throw;
             }
         }
-        protected void tn_AgregarItem_Click(object sender, EventArgs e)
+        protected void btn_AgregarItem_Click(object sender, EventArgs e)
         {
             int id = int.Parse(((Button)sender).CommandArgument);
 
