@@ -16,13 +16,14 @@ namespace tp_restobar_equipo_9
         public Usuario usuario_actual;
         Mesero mesero_actual = new Mesero();
 
-        List<Mesa> mesas = new List<Mesa>();
+        protected List<Mesa> mesas = new List<Mesa>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             RestoConexion restoConexion = new RestoConexion();
             restaurant = restoConexion.Listar();
-
+            repRepetidor.DataSource = restaurant.ItemCartas;
+            repRepetidor.DataBind();
             Session["Resto"] = restaurant;
 
             usuario_actual = (Usuario)Session["Usuario"];
@@ -37,7 +38,7 @@ namespace tp_restobar_equipo_9
             
             mesas = ObtenerMesas();
 
-            CargarMesas();
+            //CargarMesas();
         }
 
         private Mesero Cargar_Mesero_Resto(int IDUsuario)
@@ -50,48 +51,6 @@ namespace tp_restobar_equipo_9
                 }
             }
             return new Mesero();
-        }
-
-
-        private void CargarMesas()
-        {
-            foreach (Mesa mesa in mesas)
-            {
-                mesasContainer.Controls.Add(new LiteralControl($@"
-                    <div class='col-md-3 mesa'>
-                        <div class=""mesa-info"">
-                            <div class=""datos"">
-                                <div class=""mesa-numero"">
-                                    <p><strong>N°:</strong> {mesa.Id_Mesa}</p>
-                                </div>
-                                <div class=""mesa-imagen"">
-                                    <img src='Resources/mesa.png' alt='Mesa' />
-                                </div>
-                                <div class=""mesa-capacidad {(mesa.Capacidad > mesa.ComensalesSentados ? "mesa-capacidad-verde" : "mesa-capacidad-rojo")}"">
-                                    <i class='bx bx-user bx-sm' ></i>
-                                    <p>{mesa.Capacidad}/{mesa.ComensalesSentados}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=""btn-container"">
-                            <div class=""dropdown"">
-                                <button class=""btn btn-secondary dropdown-toggle"" type=""button"" data-bs-toggle=""dropdown"" aria-expanded=""false"">
-                                    <i class='bx bx-user-plus'></i> Sentar Comensales
-                                </button>
-                                <ul class=""dropdown-menu dropdown-menu-end"">
-                                    <div ID=""botones"">
-                                        <li><button class=""btn btn-secondary"" onclick=""decreaseComensal({mesa.Id_Mesa})"">-</button></li>
-                                        <span>{mesa.ComensalesSentados}</span>
-                                        <button class=""btn btn-secondary"" onclick=""increaseComensal({mesa.Id_Mesa})"">+</button>
-                                    </div>
-                                </ul>
-                            </div>
-                            <a href='SeleccionOrden.aspx?mesaId={mesa.Id_Mesa}&nroComensales={mesa.ComensalesSentados}' class='btn btn-info'><i class='bx bx-bookmark-alt-plus'></i>Hacer Pedido</a>
-                            <a href='Checkout.aspx?mesaId={mesa.Id_Mesa}&nroComensales={mesa.ComensalesSentados}' class='btn btn-success' onclick=""return confirm('¿Está seguro de cerrar la mesa?');""><i class='bx bx-dollar-circle' ></i>CheckOut</a>
-                        </div>                    
-                    </div>
-                "));
-            }
         }
 
         private List<Mesa> ObtenerMesas()
@@ -154,6 +113,35 @@ namespace tp_restobar_equipo_9
                 //}
             }
             throw new Exception("Mesa sin espacio");
+        }
+
+        protected void Btn_hacer_pedido_Click(object sender, EventArgs e)
+        {
+            string script = @"
+                $(document).ready(function () {
+                    $('#mod_HacerPedido').modal('show');
+                });
+            ";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "MostrarModal", script, true);
+        }
+
+        protected void Btn_HacerPedidoConfirmar_Click(object sender, EventArgs e) 
+        {
+            
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        protected void tn_AgregarItem_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(((Button)sender).CommandArgument);
+
         }
     }
 }

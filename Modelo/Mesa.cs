@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Modelo
+﻿namespace Modelo
 {
     public class Mesa
     {
@@ -13,7 +7,7 @@ namespace Modelo
         public int Id_Mesero { get; set; }
         public int Capacidad { get; set; }
         public int ComensalesSentados { get; set; }
-        public List<ItemCarta> Pedido { get; set; }
+        public Pedido Pedido { get; set; }
         public bool Estado { get; set; }
     }
 }
