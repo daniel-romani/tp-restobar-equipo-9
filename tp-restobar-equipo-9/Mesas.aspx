@@ -134,6 +134,27 @@
                 }
             });
         }
+
+        function validarCheckout(comensales) {
+            if (comensales === 0) {
+                alert('No se puede hacer checkout sin comensales sentados.');
+                return false;
+            }
+            return true;
+        }
+
+        //Cuando tengamos finalizado lo de pedidos, utilizar este bloque de codigo:
+        //function validarCheckout(comensales, pedidoExistente) {
+        //    if (comensales === 0) {
+        //        alert('No se puede hacer checkout sin comensales sentados.');
+        //        return false;
+        //    }
+        //    if (!pedidoExistente) {
+        //        alert('No se puede hacer checkout sin un pedido hecho.');
+        //        return false;
+        //    }
+        //    return true
+        //}
 </script>
 
     <div class="title">
@@ -178,7 +199,9 @@
                     </div>
 
                     <asp:Button ID="Btn_hacer_pedido" runat="server" CssClass="btn btn-info" OnClick="Btn_hacer_pedido_Click" Text="Hacer Pedido" Visible="true" />
-                    <a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>' class='btn btn-success' onclick="return confirm('¿Está seguro de cerrar la mesa?');"><i class='bx bx-dollar-circle'></i>CheckOut</a>
+                    <a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>
+                    <%--Cuando tengamos finalizado lo de pedidos, utilizar esta linea de codigo:--%>
+                    <%--<a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>--%>
                 </div>
             </div>
 

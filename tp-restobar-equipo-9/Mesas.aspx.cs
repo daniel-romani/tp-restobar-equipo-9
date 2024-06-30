@@ -142,10 +142,5 @@ namespace tp_restobar_equipo_9
             int id = int.Parse(((Button)sender).CommandArgument);
 
         }
-
-        protected void Btn_CerrarMesa_Click()
-        {
-
-        }
     }
 }

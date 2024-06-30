@@ -116,5 +116,25 @@ namespace Negocio
                 
             }
         }
+
+        public void ResetearMesa(Mesa _mesa)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE MESAS SET COMENSALES_SENTADOS = 0 WHERE ID_MESA = @IDMESA");
+                datos.setParametro("@IDMESA", _mesa.Id_Mesa);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

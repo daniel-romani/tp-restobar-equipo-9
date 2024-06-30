@@ -133,11 +133,6 @@
                                             <i class='bx bxs-dashboard bx-flashing-hover bx-md' style="color: #373737"></i>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="SeleccionOrden.aspx" class="nav-link text-black px-0">
-                                            <i class='bx bxs-food-menu bx-fade-right-hover bx-md' style="color: #373737"></i>
-                                        </a>
-                                    </li>
                                    <%-- <li>
                                         <a href="Comandas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
                                             <i class='bx bxs-bell-ring bx-md bx-tada-hover' style="color: #373737"></i>
