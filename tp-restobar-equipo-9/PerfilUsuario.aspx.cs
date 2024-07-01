@@ -275,7 +275,7 @@ namespace tp_restobar_equipo_9
             DateTime nuevaFechaNacimiento = DateTime.Parse(txtFechaNacimientoEdit.Text);
 
 
-            // Actualizar los datos del paciente
+            // Actualizar los datos del mesero
             switch (Usuario_Actual.TipoUsuario)
             {
                 case "Mesero":
@@ -293,8 +293,8 @@ namespace tp_restobar_equipo_9
                             Fecha_Nacimiento = nuevaFechaNacimiento
                         };
 
-                        UsuarioNegocio conexionPaciente = new UsuarioNegocio();
-                        conexionPaciente.ActualizarMesero(meseroActualizado);
+                        UsuarioNegocio conexionUsuario = new UsuarioNegocio();
+                        conexionUsuario.ActualizarMesero(meseroActualizado);
                     }
                     break;
 

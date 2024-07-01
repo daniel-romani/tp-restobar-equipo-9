@@ -89,7 +89,7 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta("SELECT ID_MESERO, ID_USUARIO, DNI, NOMBRE, APELLIDO, TELEFONO, DIRECCION, FECHA_NACIMIENTO, MAIL, ESTADO FROM MESEROS WHERE ESTADO != 0 AND DNI = @DNIMOSO");
+                datos.setConsulta("SELECT ID_MESERO, ID_USUARIO, DNI, NOMBRE, APELLIDO, TELEFONO, DIRECCION, FECHA_NACIMIENTO, MAIL, ESTADO FROM MESEROS WHERE DNI = @DNIMOSO");
                 datos.setParametro("@DNIMOSO", dniMoso);
                 datos.ejecutarLectura();
 
@@ -128,31 +128,25 @@ namespace Negocio
             }
         }
 
-        //Me quedo en el proceso, si sirve para adelante la usaremos.
         public bool MeseroExistente(string dniMesero)
         {
             AccesoDatos datos = new AccesoDatos();
-            bool existe = false;
 
             try
             {
-                datos.setConsulta("SELECT ID_MESERO FROM MESEROS M WHERE M.DNI = @DNI_MESERO\r\n");
+                datos.setConsulta("SELECT COUNT(*) FROM MESEROS WHERE DNI = @DNI_MESERO");
                 datos.setParametro("@DNI_MESERO", dniMesero);
                 datos.ejecutarLectura();
 
-                while (datos.Lector.Read())
+                if (datos.Lector.Read())
                 {
-                    if (!(datos.Lector["ESTADO"] is 1))
-                    {
-                        existe = true;
-                    }
+                    int count = Convert.ToInt32(datos.Lector[0]);
+                    return count > 0;
                 }
-                return existe;
+                return false;
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString());
-
                 throw ex;
             }
             finally
@@ -160,5 +154,62 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-}
+
+        public void BajaLogicaMesero(int idMesero)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE MESEROS SET ESTADO = 0 WHERE ID_MESERO = @IDMESERO");
+                datos.setParametro("@IDMESERO", idMesero);
+                datos.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void BajaFisicaMesero(int idMesero)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("DELETE FROM MESEROS WHERE ID_MESERO = @IDMESERO");
+                datos.setParametro("@IDMESERO", idMesero);
+                datos.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void ModificarEstadoMesero(int idUsuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE MESEROS SET ESTADO = 1 WHERE ID_MESERO = @IDMESERO");
+                datos.setParametro("@IDMESERO", idUsuario);
+                datos.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+    }
 }

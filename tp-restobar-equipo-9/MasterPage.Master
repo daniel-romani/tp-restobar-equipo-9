@@ -53,7 +53,11 @@
                     </a>
                     <div>
                         <asp:Button ID="Btn_alta_mesero" runat="server" CssClass="btn btn-secondary" OnClick="Btn_alta_mesero_Click" Text="Alta Mesero" Visible="false" />
+                        <asp:Button ID="Btn_baja_mesero" runat="server" CssClass="btn btn-secondary" OnClick="Btn_baja_mesero_Click" Text="Baja Mesero" Visible="false" />
+                        <asp:Button ID="Btn_modificacion_estado_mesero" runat="server" CssClass="btn btn-secondary" OnClick="Btn_modificar_estado_mesero_Click" Text="Alta Logica Mesero" Visible="false" />
                         <asp:Button ID="Btn_alta_mesa" runat="server" CssClass="btn btn-secondary" OnClick="Btn_alta_mesa_Click" Text="Alta Mesa" Visible="false" />
+                        <asp:Button ID="Btn_baja_mesa" runat="server" CssClass="btn btn-secondary" OnClick="Btn_baja_mesa_Click" Text="Baja Mesa" Visible="false" />
+                        <asp:Button ID="Btn_modificacion_mesa" runat="server" CssClass="btn btn-secondary" OnClick="Btn_modificar_mesa_Click" Text="Modificar Mesa" Visible="false" />
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -272,50 +276,184 @@
                 </div>
             </div>
 
+            <%--MODAL BAJA MESERO--%>
+            <div class="modal fade" id="mod_BajaMesero" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel5">Alta mesero</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group list-group-flush">
+                            </ul>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="DNI: "></asp:Label>
+                                    <asp:TextBox ID="txtDniMesero2" CssClass="form-control" runat="server" onkeypress="return soloNumeros(event);" MaxLength="8"></asp:TextBox>
+                                    <asp:Label ID="lblErrorDniMesero2" CssClass="lbl lbl_error" Text="El dni solo debe contener números" runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="Button4" CssClass="btn btn-primary" runat="server" Text="Baja Fisica" OnClick="Btn_BajaFisicaMeseroConfirmar_Click" />
+                            <asp:Button ID="Button6" CssClass="btn btn-primary" runat="server" Text="Baja Logica" OnClick="Btn_BajaLogicaMeseroConfirmar_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <%--MODAL MODIFICACION ESTADO MESERO--%>
+            <div class="modal fade" id="mod_ModificarEstadoMesero" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel6">Alta Logica Mesero</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group list-group-flush">
+                            </ul>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="DNI: "></asp:Label>
+                                    <asp:TextBox ID="txtDniMesero3" CssClass="form-control" runat="server" onkeypress="return soloNumeros(event);" MaxLength="8"></asp:TextBox>
+                                    <asp:Label ID="lblErrorDniMesero3" CssClass="lbl lbl_error" Text="El dni solo debe contener números" runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="Button7" CssClass="btn btn-primary" runat="server" Text="Aceptar" OnClick="Btn_ModificarEstadoMesereoConfirmar_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
+
         <div class="container">
-    <%--MODAL ALTA MESA--%>
-    <div class="modal fade" id="mod_AltaMesa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel2">Alta mesa</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+         <%--MODAL ALTA MESA--%>
+            <div class="modal fade" id="mod_AltaMesa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel2">Alta mesa</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Numero de mesa: "></asp:Label>
+                                    <asp:TextBox ID="txtNroMesa" runat="server" CssClass="form-control" onkeypress="return soloNumeros(event);" MaxLength="2"></asp:TextBox>
+                                    <asp:Label ID="lblErrorNumeroMesa" CssClass="lbl lbl_error" Text="El numero de mesa solo debe contener numeros." runat="server" Visible="false"></asp:Label>
 
-                    <ul class="list-group list-group-flush">
-
-                        <asp:Label ID="Label2" CssClass="lbl lbl_error" Text="El nombre solo debe contener letras" runat="server" Visible="false"></asp:Label>
-
-
-                        <li class="list-group-item">
+                                </li>
+                                <%--                        <li class="list-group-item">
                             <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="DNI del moso: "></asp:Label>
                             <asp:TextBox ID="txtDniMoso" runat="server" CssClass="form-control" onkeypress="return soloNumeros(event);" MaxLength="9"></asp:TextBox>
                             <asp:Label ID="lblErrorDniMoso" CssClass="lbl lbl_error" Text="El dni solo debe contener números" runat="server" Visible="false"></asp:Label>
 
-                        </li>
-                        <li class="list-group-item">
-                            <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="DNI del admin: "></asp:Label>
-                            <asp:TextBox ID="txtDniAdmin" CssClass="form-control" runat="server" onkeypress="return soloNumeros(event);" MaxLength="9"></asp:TextBox>
-                            <asp:Label ID="lblErrorDniAdm" CssClass="lbl lbl_error" Text="El dni solo debe contener números" runat="server" Visible="false"></asp:Label>
+                        </li>--%>
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="DNI del admin: "></asp:Label>
+                                    <asp:TextBox ID="txtDniAdmin" CssClass="form-control" runat="server" onkeypress="return soloNumeros(event);" MaxLength="9"></asp:TextBox>
+                                    <asp:Label ID="lblErrorDniAdm" CssClass="lbl lbl_error" Text="El dni solo debe contener números" runat="server" Visible="false"></asp:Label>
 
-                        </li>
-                        <li class="list-group-item">
-                            <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Capacidad de la mesa: "></asp:Label>
-                            <asp:TextBox ID="txtCapMesa" CssClass="form-control" runat="server" onkeypress="return soloNumeros(event);" MaxLength="1"></asp:TextBox>
-                            <asp:Label ID="lblErrorCap" CssClass="lbl lbl_error" Text="La capacidad solo debe contener números" runat="server" Visible="false"></asp:Label>
-                    </ul>
+                                </li>
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Capacidad de la mesa: "></asp:Label>
+                                    <asp:TextBox ID="txtCapMesa" CssClass="form-control" runat="server" onkeypress="return soloNumeros(event);" MaxLength="1"></asp:TextBox>
+                                    <asp:Label ID="lblErrorCap" CssClass="lbl lbl_error" Text="La capacidad solo debe contener números" runat="server" Visible="false"></asp:Label>
+                            </ul>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <asp:Button ID="Button1" CssClass="btn btn-primary" runat="server" Text="Guardar" OnClick="Btn_AltaMesaConfirmar_Click" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="Button1" CssClass="btn btn-primary" runat="server" Text="Guardar" OnClick="Btn_AltaMesaConfirmar_Click" />
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+        <%--MODAL BAJA MESA--%>
+            <div class="modal fade" id="mod_BajaMesa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel3">Baja mesa</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Numero de mesa: "></asp:Label>
+                                    <asp:TextBox ID="txtNroMesa2" runat="server" CssClass="form-control" onkeypress="return soloNumeros(event);" MaxLength="2"></asp:TextBox>
+                                    <asp:Label ID="lblErrorNumeroMesa2" CssClass="lbl lbl_error" Text="El numero de mesa solo debe contener numeros." runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="Button3" CssClass="btn btn-primary" runat="server" Text="Baja Fisica" OnClick="Btn_BajaMesaFisicaConfirmar_Click" />
+                            <asp:Button ID="Button2" CssClass="btn btn-primary" runat="server" Text="Baja Logica" OnClick="Btn_BajaMesaLogicaConfirmar_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <%--MODAL MODIFICACION MESA--%>
+            <div class="modal fade" id="mod_ModificarMesa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel4">Modificacion mesa</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Numero de mesa: "></asp:Label>
+                                    <asp:TextBox ID="txtNroMesa3" runat="server" CssClass="form-control" onkeypress="return soloNumeros(event);" MaxLength="2"></asp:TextBox>
+                                    <asp:Label ID="lblErrorNumeroMesa3" CssClass="lbl lbl_error" Text="El numero de mesa solo debe contener numeros." runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="DNI del admin:  "></asp:Label>
+                                    <asp:TextBox ID="txtDniAdmin2" runat="server" CssClass="form-control" onkeypress="return soloNumeros(event);" MaxLength="9"></asp:TextBox>
+                                    <asp:Label ID="lblErrorDniAdm2" CssClass="lbl lbl_error" Text="El numero de mesa solo debe contener numeros." runat="server" Visible="false"></asp:Label>
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Capacidad:  "></asp:Label>
+                                    <asp:TextBox ID="txtCapMesa2" runat="server" CssClass="form-control" onkeypress="return soloNumeros(event);" MaxLength="2"></asp:TextBox>
+                                    <asp:Label ID="lblErrorCap2" CssClass="lbl lbl_error" Text="El numero de mesa solo debe contener numeros." runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="Estado en el sistema:  "></asp:Label>
+                                    <asp:TextBox ID="txtEstado" runat="server" CssClass="form-control" onkeypress="return soloNumeros(event);" MaxLength="1"></asp:TextBox>
+                                    <asp:Label ID="lblErrorEstado" CssClass="lbl lbl_error" Text="El estado de mesa solo debe contener numeros." runat="server" Visible="false"></asp:Label>
+                                    <asp:Label CssClass="fs-6 font-monospace" runat="server" Text="Estado: 1 = Activo, 0 = Inactivo"></asp:Label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="Button5" CssClass="btn btn-primary" runat="server" Text="Guardar" OnClick="Btn_ModificarMesaConfirmar_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 </div>
 

@@ -21,16 +21,23 @@ namespace tp_restobar_equipo_9
 
             usuario_actual = Buscar_Usuario_En_BBDD(usuario, contrasena);
 
-
-            if (usuario_actual.Id != -1)
+            if(usuario_actual.Estado)
             {
-                Session["Usuario"] = usuario_actual;
-                Response.Redirect("Home.aspx");
+                if (usuario_actual.Id != -1)
+                {
+                    Session["Usuario"] = usuario_actual;
+                    Response.Redirect("Home.aspx");
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Usuario o Contraseña inválidos. Intente otra vez');", true);
+                }
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Usuario o Contraseña inválidos. Intente otra vez');", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Usuario dado de baja. Comuniquese con su administracion.');", true);
             }
+
         }
 
         private Usuario Buscar_Usuario_En_BBDD(string nombre, string contrasena)
@@ -39,7 +46,7 @@ namespace tp_restobar_equipo_9
             try
             {
 
-                datos.setConsulta("SELECT ID_USUARIO, NOMBRE_USUARIO, CONTRASENA, TIPO, URL_IMAGEN FROM USUARIOS U LEFT JOIN IMAGENES I ON I.ID_IMAGEN = U.ID_IMAGEN WHERE @nombre = NOMBRE_USUARIO AND @contrasena = CONTRASENA");
+                datos.setConsulta("SELECT ID_USUARIO, NOMBRE_USUARIO, CONTRASENA, TIPO, URL_IMAGEN, ESTADO FROM USUARIOS U LEFT JOIN IMAGENES I ON I.ID_IMAGEN = U.ID_IMAGEN WHERE @nombre = NOMBRE_USUARIO AND @contrasena = CONTRASENA");
                 datos.setParametro("@nombre", nombre);
                 datos.setParametro("@contrasena", contrasena);
                 datos.ejecutarLectura();
@@ -56,7 +63,8 @@ namespace tp_restobar_equipo_9
                                 Username = (String)datos.Lector["NOMBRE_USUARIO"],
                                 Contraseña = (String)datos.Lector["CONTRASENA"],
                                 TipoUsuario = (String)datos.Lector["TIPO"],
-                                Imagen = (String)datos.Lector["URL_IMAGEN"]
+                                Imagen = (String)datos.Lector["URL_IMAGEN"],
+                                Estado = (bool)datos.Lector["ESTADO"]
                             };
                             return usuario;
                         }
@@ -67,7 +75,8 @@ namespace tp_restobar_equipo_9
                                 Id = (int)datos.Lector["ID_USUARIO"],
                                 Username = (String)datos.Lector["NOMBRE_USUARIO"],
                                 Contraseña = (String)datos.Lector["CONTRASENA"],
-                                TipoUsuario = (String)datos.Lector["TIPO"]
+                                TipoUsuario = (String)datos.Lector["TIPO"],
+                                Estado = (bool)datos.Lector["ESTADO"]
                             };
                             return usuario;
                         }
@@ -77,7 +86,7 @@ namespace tp_restobar_equipo_9
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString());
+                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Usuario inexistente.');", true);
                 throw ex;
             }
             finally

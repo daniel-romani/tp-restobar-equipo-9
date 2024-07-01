@@ -37,7 +37,11 @@ namespace tp_restobar_equipo_9
             if (Usuario_Actual.TipoUsuario == "Administrador")
             {
                 Btn_alta_mesero.Visible = true;
+                Btn_baja_mesero.Visible = true;
+                Btn_modificacion_estado_mesero.Visible = true;
                 Btn_alta_mesa.Visible = true;
+                Btn_baja_mesa.Visible = true;
+                Btn_modificacion_mesa.Visible = true;
             }
         }
 
@@ -143,6 +147,155 @@ namespace tp_restobar_equipo_9
             }
         }
 
+
+        //-----MODAL BAJA MESERO---
+        protected void Btn_baja_mesero_Click(object sender, EventArgs e)
+        {
+            string script = @"
+                $(document).ready(function () {
+                    $('#mod_BajaMesero').modal('show');
+                });
+            ";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "MostrarModal", script, true);
+        }
+
+        //--Logica
+        protected void Btn_BajaLogicaMeseroConfirmar_Click(object sender, EventArgs e)
+        {
+            bool dniValido = true;
+            try
+            {
+                if (!Validaciones.EsNumero(txtDniMesero2.Text))
+                {
+                    lblErrorDniMesero2.Visible = true;
+                    dniValido = false;
+                }
+
+                if (dniValido)
+                {
+                    UsuarioNegocio usuarioConexion = new UsuarioNegocio();
+                    MeseroNegocio meseroConexion = new MeseroNegocio();
+                    MesaNegocio mesaConexion = new MesaNegocio();
+
+                    Mesero mesero = meseroConexion.getMesero(txtDniMesero2.Text);
+
+                    if (meseroConexion.MeseroExistente(mesero.Dni))
+                    {
+                        mesaConexion.QuitarMesero(mesero.Id);
+                        meseroConexion.BajaLogicaMesero(mesero.Id);
+                        usuarioConexion.BajaLogicaUsuario(mesero.Id_Usuario);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Dni inexistente. Ingrese un dni valido.');", true);
+                        return;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //--Fisica
+        protected void Btn_BajaFisicaMeseroConfirmar_Click(object sender, EventArgs e)
+        {
+            bool dniValido = true;
+            try
+            {
+                if (!Validaciones.EsNumero(txtDniMesero2.Text))
+                {
+                    lblErrorDniMesero2.Visible = true;
+                    dniValido = false;
+                }
+
+                if (dniValido)
+                {
+                    UsuarioNegocio usuarioConexion = new UsuarioNegocio();
+                    MeseroNegocio meseroConexion = new MeseroNegocio();
+                    MesaNegocio mesaConexion = new MesaNegocio();
+
+                    Mesero mesero = meseroConexion.getMesero(txtDniMesero2.Text);
+
+                    if (meseroConexion.MeseroExistente(mesero.Dni))
+                    {
+                        mesaConexion.QuitarMesero(mesero.Id);
+                        meseroConexion.BajaFisicaMesero(mesero.Id);
+                        usuarioConexion.BajaFisicaUsuario(mesero.Id_Usuario);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Dni inexistente. Ingrese un dni valido.');", true);
+                        return;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //-----MODAL MODIFICACION ESTADO MESERO---
+        //--modifica el estado del usuario a su vez
+        protected void Btn_modificar_estado_mesero_Click(object sender, EventArgs e)
+        {
+            string script = @"
+                $(document).ready(function () {
+                    $('#mod_ModificarEstadoMesero').modal('show');
+                });
+            ";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "MostrarModal", script, true);
+        }
+
+
+        protected void Btn_ModificarEstadoMesereoConfirmar_Click(object sender, EventArgs e)
+        {
+            bool dniValido = true;
+            try
+            {
+                if (!Validaciones.EsNumero(txtDniMesero3.Text))
+                {
+                    lblErrorDniMesero3.Visible = true;
+                    dniValido = false;
+                }
+
+                if (dniValido)
+                {
+                    UsuarioNegocio usuarioConexion = new UsuarioNegocio();
+                    MeseroNegocio meseroConexion = new MeseroNegocio();
+
+                    Mesero mesero = meseroConexion.getMesero(txtDniMesero3.Text);
+
+                    if(meseroConexion.MeseroExistente(mesero.Dni))
+                    {
+                        if (!mesero.Estado)
+                        {
+                            meseroConexion.ModificarEstadoMesero(mesero.Id);
+                            usuarioConexion.ModificarEstadoUsuario(mesero.Id_Usuario);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('El mesero seleccionado ya esta activo.');", true);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Dni inexistente. Ingrese un dni valido.');", true);
+                        return;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         //-----MODAL ALTA MESA---
         protected void Btn_alta_mesa_Click(object sender, EventArgs e)
         {
@@ -155,13 +308,18 @@ namespace tp_restobar_equipo_9
         }
         protected void Btn_AltaMesaConfirmar_Click(object sender, EventArgs e)
         {
-            bool dniMosoValido = true, dniAdmValido = true, capValido = true;
+            bool nroMesaValido = true, /*dniMosoValido = true,*/ dniAdmValido = true, capValido = true;
             try
             {
-                if (!Validaciones.EsNumero(txtDniMoso.Text))
+                //if (!Validaciones.EsNumero(txtDniMoso.Text))
+                //{
+                //    lblErrorDniMoso.Visible = true;
+                //    dniMosoValido = false;
+                //}
+                if (!Validaciones.EsNumero(txtNroMesa.Text))
                 {
-                    lblErrorDniMoso.Visible = true;
-                    dniMosoValido = false;
+                    lblErrorNumeroMesa.Visible = true;
+                    nroMesaValido = false;
                 }
                 if (!Validaciones.EsNumero(txtDniAdmin.Text))
                 {
@@ -173,8 +331,13 @@ namespace tp_restobar_equipo_9
                     lblErrorCap.Visible = true;
                     capValido = false;
                 }
+                else if (int.Parse(txtCapMesa.Text) <= 0)
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('El valor de capacidad para una mesa no puede ser menor o igual a 0.');", true);
+                    return;
+                }
 
-                if (dniMosoValido && dniAdmValido && capValido)
+                if (/*dniMosoValido &&*/ nroMesaValido && dniAdmValido && capValido)
                 {
                     Mesero mesero = new Mesero();
                     Mesa _mesa = new Mesa();
@@ -185,22 +348,33 @@ namespace tp_restobar_equipo_9
                     MesaNegocio mesaConexion = new MesaNegocio();
                     AdministradorNegocio admConexion = new AdministradorNegocio();
 
-                    mesero = meseroConexion.getMesero(txtDniMoso.Text);
+                    //mesero = meseroConexion.getMesero(txtDniMoso.Text);
                     adm = admConexion.getAdm(txtDniAdmin.Text);
 
-                    if(mesero.Estado && adm.Estado)
+                    if(/*mesero.Estado &&*/ adm.Estado)
                     {
-                        _mesa.Id_Mesero = mesero.Id;
+                        //_mesa.Id_Mesero = mesero.Id;
+                        _mesa.Id_Mesa = int.Parse(txtNroMesa.Text);
                         _mesa.Id_Admin = adm.Id;
                         _mesa.Capacidad = int.Parse(txtCapMesa.Text);
                         _mesa.ComensalesSentados = 0;
                         _mesa.Estado = true;
 
-                        mesaConexion.InsertarMesa(_mesa);
+                        // Primero, verifica si el ID de mesa ya existe
+                        if (!mesaConexion.ExisteMesa(_mesa.Id_Mesa))
+                        {
+                            mesaConexion.InsertarMesa(_mesa);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Nro de mesa existente. Elija otro numero o elimine la mesa del sistema.');", true);
+                            return;
+                        }
                     }
                     else
                     {
                         ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Datos inexistentes o invalidos. Intente otra vez');", true);
+                        return;
                     }
 
                 }
@@ -211,5 +385,186 @@ namespace tp_restobar_equipo_9
                 throw;
             }
         }
+
+        //-----MODAL BAJA MESA---
+        protected void Btn_baja_mesa_Click(object sender, EventArgs e)
+        {
+            string script = @"
+                $(document).ready(function () {
+                    $('#mod_BajaMesa').modal('show');
+                });
+            ";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "MostrarModal", script, true);
+        }
+
+        //--Fisica
+        protected void Btn_BajaMesaFisicaConfirmar_Click(object sender, EventArgs e)
+        {
+            bool nroMesaValido = true;
+            try
+            {
+                if (!Validaciones.EsNumero(txtNroMesa2.Text))
+                {
+                    lblErrorNumeroMesa2.Visible = true;
+                    nroMesaValido = false;
+                }
+
+                if (nroMesaValido)
+                {
+                    MesaNegocio mesaConexion = new MesaNegocio();
+
+                    // Primero, verifica si el ID de mesa ya existe
+                    if (mesaConexion.ExisteMesa(int.Parse(txtNroMesa2.Text)))
+                    {
+                        mesaConexion.BajaFisicaMesa(int.Parse(txtNroMesa2.Text));
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Nro de mesa inexistente. Ingrese un numero valido.');", true);
+                        return;
+                    }
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Datos inexistentes o invalidos. Intente otra vez');", true);
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        //--Logica
+        protected void Btn_BajaMesaLogicaConfirmar_Click(object sender, EventArgs e)
+        {
+            bool nroMesaValido = true;
+            try
+            {
+                if (!Validaciones.EsNumero(txtNroMesa2.Text))
+                {
+                    lblErrorNumeroMesa2.Visible = true;
+                    nroMesaValido = false;
+                }
+
+                if (nroMesaValido)
+                {
+                    MesaNegocio mesaConexion = new MesaNegocio();
+
+                    // Primero, verifica si el ID de mesa ya existe
+                    if (mesaConexion.ExisteMesa(int.Parse(txtNroMesa2.Text)))
+                    {
+                        mesaConexion.BajaLogicaMesa(int.Parse(txtNroMesa2.Text));
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Nro de mesa inexistente. Ingrese un numero valido.');", true);
+                        return;
+                    }
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Datos inexistentes o invalidos. Intente otra vez');", true);
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        //-----MODAL MODIFICACION MESA---
+        protected void Btn_modificar_mesa_Click(object sender, EventArgs e)
+        {
+            string script = @"
+                $(document).ready(function () {
+                    $('#mod_ModificarMesa').modal('show');
+                });
+            ";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "MostrarModal", script, true);
+        }
+
+        protected void Btn_ModificarMesaConfirmar_Click(object sender, EventArgs e)
+        {
+            bool nroMesaValido = true, estadoMesaValido = true, dniAdmValido = true, capValido = true;
+            try
+            {
+                if (!Validaciones.EsNumero(txtNroMesa3.Text))
+                {
+                    lblErrorNumeroMesa3.Visible = true;
+                    nroMesaValido = false;
+                }
+                if (!Validaciones.EsNumero(txtDniAdmin2.Text))
+                {
+                    lblErrorDniAdm2.Visible = true;
+                    dniAdmValido = false;
+                }
+                if (!Validaciones.EsNumero(txtCapMesa2.Text))
+                {
+                    lblErrorCap2.Visible = true;
+                    capValido = false;
+                }
+                else if (int.Parse(txtCapMesa2.Text) <= 0)
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('El valor de capacidad para una mesa no puede ser menor o igual a 0.');", true);
+                    return;
+                }
+                if (!Validaciones.EsNumero(txtEstado.Text))
+                {
+                    lblErrorEstado.Visible = true;
+                    estadoMesaValido = false;
+                }
+                else if (int.Parse(txtEstado.Text) > 1 || int.Parse(txtEstado.Text) < 0)
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('El valor de estado es unicamente 1 o 0. 1 = Activo, 0 = Inactivo.');", true);
+                    return;
+                }
+
+                if (nroMesaValido && dniAdmValido && capValido && estadoMesaValido)
+                {
+                    Mesa _mesa = new Mesa();
+                    Administrador adm = new Administrador();
+
+                    MesaNegocio mesaConexion = new MesaNegocio();
+                    AdministradorNegocio admConexion = new AdministradorNegocio();
+
+                    adm = admConexion.getAdm(txtDniAdmin2.Text);
+
+                    if (adm.Estado)
+                    {
+                        _mesa.Id_Mesa = int.Parse(txtNroMesa3.Text);
+                        _mesa.Id_Admin = adm.Id;
+                        _mesa.Capacidad = int.Parse(txtCapMesa2.Text);
+                        _mesa.Estado = Convert.ToBoolean(int.Parse(txtEstado.Text));
+
+                        if (mesaConexion.ExisteMesa(_mesa.Id_Mesa))
+                        {
+                            mesaConexion.ModificarMesa(_mesa);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Nro de mesa inexistente. Elija un numero de mesa valido.');", true);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Datos inexistentes o invalidos. Intente otra vez');", true);
+                        return;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

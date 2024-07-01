@@ -104,24 +104,23 @@ namespace Negocio
             }
         }
 
-        public void ActualizarMesero(Mesero paciente)
+        public void ActualizarMesero(Mesero mesero)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
 
-                // Actualiza los datos en la tabla de los PACIENTES
-                string queryPaciente = "UPDATE MESEROS SET DNI = @Dni, NOMBRE = @Nombre, APELLIDO = @Apellido, TELEFONO = @Telefono, DIRECCION = @Direccion, FECHA_NACIMIENTO = @FechaNacimiento, MAIL = @Mail WHERE ID_USUARIO = @Id";
-                datos.setConsulta(queryPaciente);
-                datos.setParametro("@Dni", paciente.Dni);
-                datos.setParametro("@Nombre", paciente.Nombre);
-                datos.setParametro("@Apellido", paciente.Apellido);
-                datos.setParametro("@Telefono", paciente.Telefono);
-                datos.setParametro("@Direccion", paciente.Direccion);
-                datos.setParametro("@FechaNacimiento", paciente.Fecha_Nacimiento);
-                datos.setParametro("@Mail", paciente.Mail);
-                datos.setParametro("@Id", paciente.Id_Usuario);
+                // Actualiza los datos en la tabla de los USUARIOS
+                datos.setConsulta("UPDATE MESEROS SET DNI = @Dni, NOMBRE = @Nombre, APELLIDO = @Apellido, TELEFONO = @Telefono, DIRECCION = @Direccion, FECHA_NACIMIENTO = @FechaNacimiento, MAIL = @Mail WHERE ID_USUARIO = @Id");
+                datos.setParametro("@Dni", mesero.Dni);
+                datos.setParametro("@Nombre", mesero.Nombre);
+                datos.setParametro("@Apellido", mesero.Apellido);
+                datos.setParametro("@Telefono", mesero.Telefono);
+                datos.setParametro("@Direccion", mesero.Direccion);
+                datos.setParametro("@FechaNacimiento", mesero.Fecha_Nacimiento);
+                datos.setParametro("@Mail", mesero.Mail);
+                datos.setParametro("@Id", mesero.Id_Usuario);
                 datos.ejecutarAccion();
 
 
@@ -258,6 +257,63 @@ namespace Negocio
             {
                 //MessageBox.Show(ex.ToString());
 
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void BajaLogicaUsuario(int idUsuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE USUARIOS SET ESTADO = 0 WHERE ID_USUARIO = @IDUSUARIO");
+                datos.setParametro("@IDUSUARIO", idUsuario);
+                datos.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void BajaFisicaUsuario(int idUsuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("DELETE FROM USUARIOS WHERE ID_USUARIO = @IDUSUARIO");
+                datos.setParametro("@IDUSUARIO", idUsuario);
+                datos.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void ModificarEstadoUsuario(int idUsuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE USUARIOS SET ESTADO = 1 WHERE ID_USUARIO = @IDUSUARIO");
+                datos.setParametro("@IDUSUARIO", idUsuario);
+                datos.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
             finally

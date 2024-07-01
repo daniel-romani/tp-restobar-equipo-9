@@ -163,47 +163,47 @@
     <div class="container">
         <div class="row" id="mesasContainerDiv">
             <% foreach (Modelo.Mesa mesa in mesas)
-                { %>
-            <div class='col-md-3 mesa'>
-                <div class="mesa-info">
-                    <div class="datos">
-                        <div class="mesa-numero">
-                            <a><strong>N°:</strong> <%= mesa.Id_Mesa %></a>
-                        </div>
-                        <div class="mesa-imagen">
-                            <img src='Resources/mesa.png' alt='Mesa' />
-                        </div>
-                        <div class="mesa-capacidad <%if (mesa.Capacidad > mesa.ComensalesSentados)
-                            { %> mesa-capacidad-verde <%}
-                            else
-                            { %> mesa-capacidad-rojo <%} %>">
-                            <i class='bx bx-user bx-sm'></i>
-                            <a><%= mesa.ComensalesSentados%> / <%= mesa.Capacidad%></a>
+               { %>
+                <div class='col-md-3 mesa'>
+                    <div class="mesa-info">
+                        <div class="datos">
+                            <div class="mesa-numero">
+                                <a><strong>N°:</strong> <%= mesa.Id_Mesa %></a>
+                            </div>
+                            <div class="mesa-imagen">
+                                <img src='Resources/mesa.png' alt='Mesa' />
+                            </div>
+                            <div class="mesa-capacidad <%if (mesa.Capacidad > mesa.ComensalesSentados)
+                                { %> mesa-capacidad-verde <%}
+                                else
+                                { %> mesa-capacidad-rojo <%} %>">
+                                <i class='bx bx-user bx-sm'></i>
+                                <a><%= mesa.ComensalesSentados%> / <%= mesa.Capacidad%></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="btn-container">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class='bx bx-user-plus'></i>Sentar Comensales
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li id="botones">
-                                <div>
-                                    <button class="btn btn-secondary" onclick="Btn_decreaseComensal(<%= mesa.Id_Mesa %>)">-</button>
-                                </div>
-                                <span><%= mesa.ComensalesSentados %></span>
-                                <button class="btn btn-secondary" onclick="Btn_increaseComensal(<%= mesa.Id_Mesa %>)">+</button>
-                            </li>
-                        </ul>
-                    </div>
+                    <div class="btn-container">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class='bx bx-user-plus'></i>Sentar Comensales
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li id="botones">
+                                    <div>
+                                        <button class="btn btn-secondary" onclick="Btn_decreaseComensal(<%= mesa.Id_Mesa %>)">-</button>
+                                    </div>
+                                    <span><%= mesa.ComensalesSentados %></span>
+                                    <button class="btn btn-secondary" onclick="Btn_increaseComensal(<%= mesa.Id_Mesa %>)">+</button>
+                                </li>
+                            </ul>
+                        </div>
 
-                    <asp:Button ID="Btn_hacer_pedido" runat="server" CssClass="btn btn-info" OnClick="Btn_hacer_pedido_Click" Text="Hacer Pedido" Visible="true" />
-                    <a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>
-                    <%--Cuando tengamos finalizado lo de pedidos, utilizar esta linea de codigo:--%>
-                    <%--<a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>--%>
+                        <asp:Button ID="Btn_hacer_pedido" runat="server" CssClass="btn btn-info" OnClick="Btn_hacer_pedido_Click" Text="Hacer Pedido" Visible="true" />
+                        <a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>
+                        <%--Cuando tengamos finalizado lo de pedidos, utilizar esta linea de codigo:--%>
+                        <%--<a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>--%>
+                    </div>
                 </div>
-            </div>
 
             <% } %>
         </div>
@@ -248,5 +248,4 @@
             </div>
         </div>
     </div>
-    }
 </asp:Content>
