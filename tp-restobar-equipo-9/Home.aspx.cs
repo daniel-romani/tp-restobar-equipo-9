@@ -42,6 +42,20 @@ namespace tp_restobar_equipo_9
                     }
                     break;
 
+                case "Comensal":
+                    Comensal comensal_actual = Cargar_Comensal_Resto(usuario.Id);
+                    if (comensal_actual.Id != -1)
+                    {
+                        usuario.Nombre = comensal_actual.Nombre;
+                        usuario.Apellido = comensal_actual.Apellido;
+                        usuario.Dni = int.Parse(comensal_actual.Dni);
+                        usuario.Telefono = comensal_actual.Telefono;
+                        usuario.Direccion = comensal_actual.Direccion;
+                        usuario.Fecha_Nacimiento = comensal_actual.Fecha_Nacimiento;
+                        usuario.Mail = comensal_actual.Mail;
+                    }
+                    break;
+
                 case "Administrador":
                     Administrador Administrador_actual = Cargar_Administracion_Resto(usuario.Id);
                     if (Administrador_actual.Id != -1)
@@ -58,6 +72,19 @@ namespace tp_restobar_equipo_9
             }
             return usuario;
         }
+
+        private Comensal Cargar_Comensal_Resto(int IDUsuario)
+        {
+            foreach (Comensal comensal in Restaurant.Comensales)
+            {
+                if (comensal.Id_Usuario == IDUsuario)
+                {
+                    return comensal;
+                }
+            }
+            return new Comensal();
+        }
+
         private Mesero Cargar_Mesero_Resto(int IDUsuario)
         {
             foreach (Mesero Moso in Restaurant.Meseros)

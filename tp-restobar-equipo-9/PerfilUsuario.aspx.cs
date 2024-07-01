@@ -12,6 +12,7 @@ namespace tp_restobar_equipo_9
         public Usuario Usuario_Actual;
         Mesero Mesero_actual;
         Administrador Administrador_actual;
+        Comensal Comensal_actual;
 
         public Usuario usuarioActual;
 
@@ -54,6 +55,21 @@ namespace tp_restobar_equipo_9
                     }
                     break;
 
+                case "Comensal":
+                    Comensal_actual = new Comensal();
+                    Comensal_actual = Cargar_Comensal_Resto();
+                    if (Comensal_actual.Id != -1)
+                    {
+                        Comensal_actual.Nombre = Comensal_actual.Nombre;
+                        Comensal_actual.Apellido = Comensal_actual.Apellido;
+                        Comensal_actual.Dni = Comensal_actual.Dni;
+                        Comensal_actual.Telefono = Comensal_actual.Telefono;
+                        Comensal_actual.Direccion = Comensal_actual.Direccion;
+                        Comensal_actual.Fecha_Nacimiento = Comensal_actual.Fecha_Nacimiento;
+                        Comensal_actual.Mail = Comensal_actual.Mail;
+                    }
+                    break;
+
                 case "Administrador":
                     Administrador_actual = new Administrador();
                     Administrador_actual = Cargar_Administracion_Resto();
@@ -73,6 +89,18 @@ namespace tp_restobar_equipo_9
                     Response.Write("Tipo de usuario desconocido: " + Usuario_Actual.TipoUsuario + "<br/>");
                     break;
             }
+        }
+
+        private Comensal Cargar_Comensal_Resto()
+        {
+            foreach (Comensal comensal in Restaurant.Comensales)
+            {
+                if (comensal.Id_Usuario == Comensal_actual.Id)
+                {
+                    return comensal;
+                }
+            }
+            return new Comensal();
         }
 
         private Mesero Cargar_Mesero_Resto()

@@ -39,22 +39,22 @@ namespace tp_restobar_equipo_9
                 {
                     Username = txtRegistrarUsuario.Text,
                     Contraseña = txtRegistrarContrasena.Text,
-                    TipoUsuario = "Mesero"
+                    TipoUsuario = "Comensal"
                 };
                 usuarioConexion.InsertarUsuarioEnBBDD(nuevo_usuario);
 
-                Mesero Moso = new Mesero();
-                Moso.Id_Usuario = usuarioConexion.Get_ID_Usuario(nuevo_usuario);
-                Moso.Nombre = txtNombreEdit.Text;
-                Moso.Dni = txtDniEdit.Text;
-                Moso.Apellido = txtApellidoEdit.Text;
-                Moso.Mail = txtMailEdit.Text;
-                Moso.Telefono = txtTelefonoEdit.Text;
-                Moso.Direccion = txtDireccionEdit.Text;
-                Moso.Fecha_Nacimiento = DateTime.Parse(txtFechaNacimientoEdit.Text);
+                Comensal comensal = new Comensal();
+                comensal.Id_Usuario = usuarioConexion.Get_ID_Usuario(nuevo_usuario);
+                comensal.Nombre = txtNombreEdit.Text;
+                comensal.Dni = txtDniEdit.Text;
+                comensal.Apellido = txtApellidoEdit.Text;
+                comensal.Mail = txtMailEdit.Text;
+                comensal.Telefono = txtTelefonoEdit.Text;
+                comensal.Direccion = txtDireccionEdit.Text;
+                comensal.Fecha_Nacimiento = DateTime.Parse(txtFechaNacimientoEdit.Text);
 
-                MeseroNegocio pacienteConexion = new MeseroNegocio();
-                pacienteConexion.InsertarMesero(Moso);
+                ComensalNegocio comensalConexion = new ComensalNegocio();
+                comensalConexion.InsertarComensal(comensal);
 
                 Response.Redirect("Default.aspx");
             }

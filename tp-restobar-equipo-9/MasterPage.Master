@@ -46,12 +46,14 @@
             <%-- NAV --%>
             <nav class="navbar navbar-expand-lg" style=" background-color:#FC9844">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="Home.aspx" visible="True" runat="server"><%--Aca hay que acomodar la referencia cuando se modifique el tema del login y los usuarios--%>
+                    <a class="navbar-brand" href="Home.aspx" visible="True" runat="server">
                         <span>
                             <img style="width: auto; height: 30px; " src="./Resources/logoIcon.png" alt="RestEasy" />
                         </span>
                     </a>
                     <div>
+                        <asp:Button ID="Btn_baja_comensal" runat="server" CssClass="btn btn-secondary" OnClick="Btn_Baja_Comensal_Click" Text="Baja Comensal" Visible="false" />
+                        <asp:Button ID="Btn_modificacion_estado_comensal" runat="server" CssClass="btn btn-secondary" OnClick="Btn_Modificacion_Estado_Comensal_Click" Text="Alta Logica Mesero" Visible="false" />
                         <asp:Button ID="Btn_alta_mesero" runat="server" CssClass="btn btn-secondary" OnClick="Btn_alta_mesero_Click" Text="Alta Mesero" Visible="false" />
                         <asp:Button ID="Btn_baja_mesero" runat="server" CssClass="btn btn-secondary" OnClick="Btn_baja_mesero_Click" Text="Baja Mesero" Visible="false" />
                         <asp:Button ID="Btn_modificacion_estado_mesero" runat="server" CssClass="btn btn-secondary" OnClick="Btn_modificar_estado_mesero_Click" Text="Alta Logica Mesero" Visible="false" />
@@ -63,7 +65,6 @@
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <asp:Image ID="imgPerfil" Width="30" Height="30" class="rounded-circle" runat="server" />
                             <% =((tp_restobar_equipo_9.Modelo.Usuario)Session["Usuario"]).Nombre %>
-                            <%--<asp:Literal ID="litNombreUsuario" runat="server" />-Codigo descartado pero archivado por posible uso--%>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="PerfilUsuario.aspx">Mi Perfil</a></li>
@@ -147,9 +148,17 @@
                                             <i class='bx bxs-calendar bx-md bx-tada-hover' style="color: #373737"></i>
                                         </a>
                                     </li>
+                                <%break; %>
+
+                                <%//Opciones disponibles para los MESEROS
+                                case "Comensal":%>
+                                    <li>
+                                        <a href="Reservas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                            <i class='bx bxs-book-bookmark bx-md bx-flashing-hover' style="color: #373737"></i>
+                                        </a>
+                                    </li>
                                 <%break;
                                 }%>
-
 
                             </ul>
                         </div>
@@ -205,6 +214,65 @@
                     </div>
                 </div>
             </footer>
+        </div>
+
+        <div class="container"> 
+            <%--MODAL BAJA COMENSAL--%>
+            <div class="modal fade" id="mod_BajaComensal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel7">Baja comensal</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group list-group-flush">
+                            </ul>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="DNI: "></asp:Label>
+                                    <asp:TextBox ID="txtDniComensal" CssClass="form-control" runat="server" onkeypress="return soloNumeros(event);" MaxLength="8"></asp:TextBox>
+                                    <asp:Label ID="lblErrorDniComensal" CssClass="lbl lbl_error" Text="El dni solo debe contener números" runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="Button8" CssClass="btn btn-primary" runat="server" Text="Baja Fisica" OnClick="Btn_BajaFisicaComensalConfirmar_Click" />
+                            <asp:Button ID="Button9" CssClass="btn btn-primary" runat="server" Text="Baja Logica" OnClick="Btn_BajaLogicaComensalConfirmar_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <%--MODAL MODIFICACION ESTADO COMENSAL--%>
+            <div class="modal fade" id="mod_ModificarEstadoComensal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel8">Alta Logica Comensal</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group list-group-flush">
+                            </ul>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <asp:Label CssClass="fs-4 font-monospace" runat="server" Text="DNI: "></asp:Label>
+                                    <asp:TextBox ID="txtDniComensal2" CssClass="form-control" runat="server" onkeypress="return soloNumeros(event);" MaxLength="8"></asp:TextBox>
+                                    <asp:Label ID="lblErrorDniComensal2" CssClass="lbl lbl_error" Text="El dni solo debe contener números" runat="server" Visible="false"></asp:Label>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="Button10" CssClass="btn btn-primary" runat="server" Text="Aceptar" OnClick="Btn_ModificarEstadoComensalConfirmar_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="container">
@@ -281,7 +349,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel5">Alta mesero</h1>
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel5">Baja mesero</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">

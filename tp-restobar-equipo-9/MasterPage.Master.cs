@@ -36,6 +36,8 @@ namespace tp_restobar_equipo_9
 
             if (Usuario_Actual.TipoUsuario == "Administrador")
             {
+                Btn_baja_comensal.Visible = true;
+                Btn_modificacion_estado_comensal.Visible = true;
                 Btn_alta_mesero.Visible = true;
                 Btn_baja_mesero.Visible = true;
                 Btn_modificacion_estado_mesero.Visible = true;
@@ -49,6 +51,150 @@ namespace tp_restobar_equipo_9
         {
             Session.Abandon();
             Response.Redirect("Default.aspx", false);
+        }
+
+        //-----MODAL BAJA COMENSAL---
+        protected void Btn_Baja_Comensal_Click(object sender, EventArgs e)
+        {
+            string script = @"
+                $(document).ready(function () {
+                    $('#mod_BajaComensal').modal('show');
+                });
+            ";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "MostrarModal", script, true);
+        }
+
+        //--Logica
+        protected void Btn_BajaLogicaComensalConfirmar_Click(object sender, EventArgs e)
+        {
+            bool dniValido = true;
+            try
+            {
+                if (!Validaciones.EsNumero(txtDniComensal.Text))
+                {
+                    lblErrorDniComensal.Visible = true;
+                    dniValido = false;
+                }
+
+                if (dniValido)
+                {
+                    UsuarioNegocio usuarioConexion = new UsuarioNegocio();
+                    ComensalNegocio comensalConexion = new ComensalNegocio();
+
+                    Comensal comensal = comensalConexion.getComensal(txtDniComensal.Text);
+
+                    if (comensalConexion.ComensalExistente(comensal.Dni))
+                    {
+                        comensalConexion.BajaLogicaComensal(comensal.Id);
+                        usuarioConexion.BajaLogicaUsuario(comensal.Id_Usuario);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Dni inexistente. Ingrese un dni valido.');", true);
+                        return;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //--Fisica
+        protected void Btn_BajaFisicaComensalConfirmar_Click(object sender, EventArgs e)
+        {
+            bool dniValido = true;
+            try
+            {
+                if (!Validaciones.EsNumero(txtDniComensal.Text))
+                {
+                    lblErrorDniComensal.Visible = true;
+                    dniValido = false;
+                }
+
+                if (dniValido)
+                {
+                    UsuarioNegocio usuarioConexion = new UsuarioNegocio();
+                    ComensalNegocio comensalConexion = new ComensalNegocio();
+
+                    Comensal comensal = comensalConexion.getComensal(txtDniComensal.Text);
+
+                    if (comensalConexion.ComensalExistente(comensal.Dni))
+                    {
+                        comensalConexion.BajaFisicaComensal(comensal.Id);
+                        usuarioConexion.BajaFisicaUsuario(comensal.Id_Usuario);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Dni inexistente. Ingrese un dni valido.');", true);
+                        return;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //-----MODAL MODIFICACION ESTADO COMENSAL---
+        //--modifica el estado del usuario a su vez
+        protected void Btn_Modificacion_Estado_Comensal_Click(object sender, EventArgs e)
+        {
+            string script = @"
+                $(document).ready(function () {
+                    $('#mod_ModificarEstadoComensal').modal('show');
+                });
+            ";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "MostrarModal", script, true);
+        }
+
+
+        protected void Btn_ModificarEstadoComensalConfirmar_Click(object sender, EventArgs e)
+        {
+            bool dniValido = true;
+            try
+            {
+                if (!Validaciones.EsNumero(txtDniComensal2.Text))
+                {
+                    lblErrorDniComensal2.Visible = true;
+                    dniValido = false;
+                }
+
+                if (dniValido)
+                {
+                    UsuarioNegocio usuarioConexion = new UsuarioNegocio();
+                    ComensalNegocio comensalConexion = new ComensalNegocio();
+
+                    Comensal comensal = comensalConexion.getComensal(txtDniComensal2.Text);
+
+                    if (comensalConexion.ComensalExistente(comensal.Dni))
+                    {
+                        if (!comensal.Estado)
+                        {
+                            comensalConexion.ModificarEstadoComensal(comensal.Id);
+                            usuarioConexion.ModificarEstadoUsuario(comensal.Id_Usuario);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('El comensal seleccionado ya esta activo.');", true);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Dni inexistente. Ingrese un dni valido.');", true);
+                        return;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         //-----MODAL ALTA MESERO---

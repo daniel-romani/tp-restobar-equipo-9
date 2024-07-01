@@ -21,15 +21,29 @@ CREATE TABLE USUARIOS (
     ID_USUARIO INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     NOMBRE_USUARIO VARCHAR(50) UNIQUE NOT NULL,
     CONTRASENA VARCHAR(30) NOT NULL,
-    TIPO VARCHAR(20) NOT NULL CHECK (TIPO IN ('Administrador', 'Mesero')),
+    TIPO VARCHAR(20) NOT NULL CHECK (TIPO IN ('Administrador', 'Mesero', 'Comensal')),
 	ID_IMAGEN INT NULL,
 	FOREIGN KEY (ID_IMAGEN) REFERENCES IMAGENES(ID_IMAGEN),
 	ESTADO BIT NOT NULL DEFAULT(1)
 )
 GO
+CREATE TABLE COMENSALES (
+    ID_COMENSAL INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	ID_USUARIO INT NOT NULL,
+	DNI VARCHAR(10) NOT NULL,
+    NOMBRE VARCHAR(100) NOT NULL,
+    APELLIDO VARCHAR(100) NOT NULL,
+    TELEFONO VARCHAR(15) NOT NULL,
+    DIRECCION VARCHAR(100) NOT NULL,
+    FECHA_NACIMIENTO DATE NOT NULL CHECK(FECHA_NACIMIENTO <= GETDATE()),
+    MAIL VARCHAR(50) UNIQUE NOT NULL,
+    ESTADO BIT DEFAULT(1) NOT NULL,
+	FOREIGN KEY (ID_USUARIO) REFERENCES USUARIOS(ID_USUARIO)
+)
+GO
 CREATE TABLE MESEROS (
     ID_MESERO INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-	ID_USUARIO INT NULL,
+	ID_USUARIO INT NOT NULL,
 	DNI VARCHAR(10) NOT NULL,
     NOMBRE VARCHAR(100) NOT NULL,
     APELLIDO VARCHAR(100) NOT NULL,
@@ -168,12 +182,9 @@ VALUES ('Sofia', '123', 'Mesero'), -- Usuarios de los meseros
        ('Laura', '123', 'Mesero'),
        ('Martin', '123', 'Mesero'),
 	   ('Alejandro', '123', 'Mesero'),
+	   ('Federico', '123', 'Comensal'), --Comensal
+	   ('Leandro', '123', 'Comensal'),
 	   ('Admin1', '123', 'Administrador') -- Administrador
-
----------------------
-
-INSERT INTO ADMINISTRADOR (ID_USUARIO, DNI, NOMBRE, APELLIDO, TELEFONO, DIRECCION, FECHA_NACIMIENTO, MAIL, ESTADO)
-VALUES  (6, '122222789', 'Carlos', 'González', '1541234567', 'Av. Principal 123', '1980-04-12', 'carlos.gonzalez@email.com', 1)
 
 ---------------------
 
@@ -183,6 +194,16 @@ VALUES (1, '11111111', 'Mesero1', 'Apellido1', '1234567891', 'Dirección1', '1990
        (3, '11333333','Mesero3', 'Apellido3', '1234567893', 'Dirección3', '1990-03-03', 'mesero3@mail.com', 1),
        (4, '11444444','Mesero4', 'Apellido4', '1234567894', 'Dirección4', '1990-04-04', 'mesero4@mail.com', 1)
 
+---------------------
+
+INSERT INTO COMENSALES(ID_USUARIO, DNI, NOMBRE, APELLIDO, TELEFONO, DIRECCION, FECHA_NACIMIENTO, MAIL, ESTADO)
+VALUES (6, '11111111', 'Federico', 'Sanchez', '1234567891', 'Dirección1', '1990-01-01', 'comensal1@mail.com', 1),
+       (7, '11222222','Leandro', 'Gomez', '1234567892', 'Dirección2', '1990-02-02', 'comensal2@mail.com', 1)
+---------------------
+
+INSERT INTO ADMINISTRADOR (ID_USUARIO, DNI, NOMBRE, APELLIDO, TELEFONO, DIRECCION, FECHA_NACIMIENTO, MAIL, ESTADO)
+VALUES  (8, '122222789', 'Carlos', 'González', '1541234567', 'Av. Principal 123', '1980-04-12', 'carlos.gonzalez@email.com', 1)
+       
 ---------------------
 
 INSERT INTO MESAS (ID_MESA ,ID_MESERO, ID_ADMIN, CAPACIDAD, COMENSALES_SENTADOS, ESTADO)

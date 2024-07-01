@@ -81,7 +81,6 @@
 
                         </li>
                     </ul>
-
                     <div class="mb-2 ">
                         <br />
                         <asp:Button ID="btnEditarDatos" CssClass="Boton" runat="server" Text="Editar Datos" OnClick="btnEditar_Click" />

@@ -22,5 +22,7 @@ namespace Modelo
         public List<Administrador> Administracion { get; set; }
 
         public List<Pedido> Pedidos { get; set; }
+
+        public List<Comensal> Comensales {  get; set; } 
     }
 }
