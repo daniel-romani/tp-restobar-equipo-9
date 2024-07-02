@@ -102,7 +102,7 @@
                 dataType: "json",
                 success: function (response) {
                     if (response.d) {
-                        location.reload();
+                        
                     } else {
                         alert("No se pueden quitar mas comensales");
                     }
@@ -123,7 +123,7 @@
                 dataType: "json",
                 success: function (response) {
                     if (response.d) {
-                        location.reload();
+                        
                     } else {
                         alert("No se pueden agregar mas comensales");
                     }
