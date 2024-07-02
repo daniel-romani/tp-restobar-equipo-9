@@ -43,6 +43,7 @@ namespace tp_restobar_equipo_9
 
             mesas = ObtenerMesas();
             reservas = ObtenerReservas();
+            reservas.Sort((x, y) => x.Id_Mesa.CompareTo(y.Id_Mesa));
         }
 
         private Mesero Cargar_Mesero_Resto(int IDUsuario)
@@ -186,6 +187,13 @@ namespace tp_restobar_equipo_9
                         // Insertar en la base de datos
                         ReservaNegocio reservaNegocio = new ReservaNegocio();
                         reserva.Id_Comensal = reservaNegocio.BuscarIDComensal(reserva.DniComensal);
+
+                        if(reserva.Id_Comensal == -1)
+                        {
+                            ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('No se encontro un comensal con ese dni registrado.');", true);
+                            return;
+                        }
+
                         reservaNegocio.InsertarReserva(reserva);
 
                         MesaNegocio mesaConexion = new MesaNegocio();

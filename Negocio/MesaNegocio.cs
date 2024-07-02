@@ -21,7 +21,7 @@ namespace Negocio
                     {
                         Id_Mesa = (int)datos.Lector["ID_MESA"],
 
-                        Id_Mesero = datos.Lector["ID_MESERO"] is DBNull ? 0 : (int)datos.Lector["ID_MESERO"], // Asigna 0 u otro valor por defecto si es DBNull
+                        Id_Mesero = datos.Lector["ID_MESERO"] is DBNull ? -1 : (int)datos.Lector["ID_MESERO"], // Asigna -1 u otro valor por defecto si es DBNull
 
                         Id_Admin = (int)datos.Lector["ID_ADMIN"],
 
@@ -205,6 +205,26 @@ namespace Negocio
             }
         }
 
+        public void QuitarMeseroMesa(int idMesa)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE MESAS SET ID_MESERO = NULL WHERE ID_MESA = @IDMESA");
+                datos.setParametro("@IDMESA", idMesa);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public void ModificarMesa(Mesa _mesa)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -254,6 +274,26 @@ namespace Negocio
             try
             {
                 datos.setConsulta("UPDATE MESAS SET RESERVADO = 1 WHERE ID_MESA = @IDMESA");
+                datos.setParametro("@IDMESA", idMesa);
+                datos.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void AsignarMesero(int idMesa, int idMesero)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE MESAS SET ID_MESERO = @IDMESERO WHERE ID_MESA = @IDMESA");
+                datos.setParametro("@IDMESERO", idMesero);
                 datos.setParametro("@IDMESA", idMesa);
                 datos.ejecutarLectura();
             }

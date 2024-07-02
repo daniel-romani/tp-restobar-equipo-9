@@ -61,7 +61,7 @@ namespace Negocio
                 }
                 else
                 {
-                    throw new Exception("No se encontró un comensal con el DNI especificado.");
+                    return -1;
                 }
 
             }

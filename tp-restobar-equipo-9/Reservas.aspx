@@ -122,10 +122,6 @@
                                         <div class='col-md-3 mesa'>
                                             <div class="mesa-info">
                                                 <div class="datos">
-                                                    <%if (mesa.Reservado)
-                                                        { %>
-                                                            <a><strong>Reservada</strong></a>
-                                                    <%} %> 
                                                     <div class="mesa-numero">
                                                         <a><strong>N°:</strong> <%= mesa.Id_Mesa %></a>
                                                     </div>
@@ -146,13 +142,14 @@
                                }%>
                         </div>
                     </div>
+                <hr />
              <% } %>
 
         <asp:HiddenField ID="hiddenFieldMesaId" runat="server" />
         <asp:HiddenField ID="hiddenFieldMesaCap" runat="server" />
 
         <div="container mt-5">
-            <hr />
+            
             <h2>Lista de reservas</h2>
             <div class="row" id="reservasContainerDiv">
                 <% foreach (Modelo.Reserva reserva in reservas)
@@ -176,7 +173,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="btn-container">
+                                    <div class="btn-container">
                                     <button class="btn btn-danger" onclick="Btn_BajaReserva(<%=reserva.Id %>, <%= reserva.Id_Mesa %>)">Dar de baja</button>
                                 </div>
                             </div>

@@ -212,5 +212,77 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public int BuscarIdMeseroPorDni(string dniMesero)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("SELECT ID_MESERO FROM MESEROS WHERE DNI = @DNI");
+                datos.setParametro("@DNI", dniMesero);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int idMesero = Convert.ToInt32(datos.Lector[0]);
+                    return idMesero;
+                }
+                return -1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public Mesero ObtenerMeseroPorId(int idMesero)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Mesero moso = new Mesero();
+            try
+            {
+                datos.setConsulta("SELECT ID_USUARIO, DNI, NOMBRE, APELLIDO, TELEFONO, DIRECCION, FECHA_NACIMIENTO, MAIL, ESTADO FROM MESEROS WHERE ID_MESERO = @IDMESERO");
+                datos.setParametro("@IDMESERO", idMesero);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    moso.Id = idMesero;
+
+                    moso.Id_Usuario = (int)datos.Lector["ID_USUARIO"];
+
+                    moso.Dni = (string)datos.Lector["DNI"];
+
+                    moso.Nombre = (string)datos.Lector["NOMBRE"];
+
+                    moso.Apellido = (string)datos.Lector["APELLIDO"];
+
+                    moso.Telefono = (string)datos.Lector["TELEFONO"];
+
+                    moso.Direccion = (string)datos.Lector["DIRECCION"];
+
+                    moso.Fecha_Nacimiento = (DateTime)datos.Lector["FECHA_NACIMIENTO"];
+
+                    moso.Mail = (string)datos.Lector["MAIL"];
+
+                    moso.Estado = (bool)datos.Lector["ESTADO"];
+
+                    return moso;
+                }
+                return moso;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
