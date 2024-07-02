@@ -144,13 +144,18 @@
                                         </a>
                                     </li>--%>
                                     <li>
+                                        <a href="Reservas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
+                                            <i class='bx bxs-book-bookmark bx-md bx-flashing-hover' style="color: #373737"></i>
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="Jornadas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">
                                             <i class='bx bxs-calendar bx-md bx-tada-hover' style="color: #373737"></i>
                                         </a>
                                     </li>
                                 <%break; %>
 
-                                <%//Opciones disponibles para los MESEROS
+                                <%//Opciones disponibles para los COMENSALES
                                 case "Comensal":%>
                                     <li>
                                         <a href="Reservas.aspx" class="nav-link px-0 text-black align-middle scrollFooter">

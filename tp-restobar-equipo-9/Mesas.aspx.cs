@@ -56,8 +56,6 @@ namespace tp_restobar_equipo_9
 
         private List<Mesa> ObtenerMesas()
         {
-            // Este método debe retornar la lista de mesas desde el origen de datos
-            // Aquí agregamos un ejemplo estático
             if (usuario_actual.TipoUsuario == "Mesero")
             {
                 foreach (Mesa _mesas in restaurant.Mesas)

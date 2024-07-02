@@ -8,6 +8,7 @@
         public int Capacidad { get; set; }
         public int ComensalesSentados { get; set; }
         public Pedido Pedido { get; set; }
+        public bool Reservado { get; set; }
         public bool Estado { get; set; }
     }
 }

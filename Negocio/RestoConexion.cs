@@ -18,6 +18,7 @@ namespace Negocio
                 objetoResto.Meseros = new List<Mesero>();
                 objetoResto.Pedidos = new List<Pedido>();
                 objetoResto.Comensales = new List<Comensal>();
+                objetoResto.Reservas = new List<Reserva>();
 
                 UsuarioNegocio usuarioConexion = new UsuarioNegocio();
                 objetoResto.Usuarios = usuarioConexion.Listar_todos();
@@ -39,6 +40,9 @@ namespace Negocio
 
                 ComensalNegocio ComensalesConexion = new ComensalNegocio();
                 objetoResto.Comensales = ComensalesConexion.Listar();
+
+                ReservaNegocio ReservaConexion = new ReservaNegocio();
+                objetoResto.Reservas = ReservaConexion.Listar();
 
                 return objetoResto;
             }

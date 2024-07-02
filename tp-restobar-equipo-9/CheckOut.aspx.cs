@@ -66,6 +66,7 @@ namespace tp_restobar_equipo_9
         {
             Resto restaurant = (Resto)HttpContext.Current.Session["Resto"];
             MesaNegocio mesaConexion = new MesaNegocio();
+            ReservaNegocio reservaConexion = new ReservaNegocio();
             //PedidosNegocio pedidoConexion = new PedidosNegocio();
 
             int mesaId = int.Parse(hiddenMesaId.Value);
@@ -74,7 +75,8 @@ namespace tp_restobar_equipo_9
             {
                 if (mesaId == _mesa.Id_Mesa)
                 {
-                    mesaConexion.ResetearMesa(_mesa);
+                    mesaConexion.ResetearMesa(_mesa.Id_Mesa);
+                    reservaConexion.BajaLogicaReservaCheckOut(_mesa.Id_Mesa);
                     break;
                 }
             }

@@ -12,7 +12,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setConsulta("SELECT ID_MESA, ID_MESERO, ID_ADMIN, CAPACIDAD, COMENSALES_SENTADOS, ESTADO FROM MESAS M WHERE ESTADO != 0");
+                datos.setConsulta("SELECT ID_MESA, ID_MESERO, ID_ADMIN, CAPACIDAD, COMENSALES_SENTADOS, RESERVADO, ESTADO FROM MESAS M WHERE ESTADO != 0");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -28,6 +28,8 @@ namespace Negocio
                         Capacidad = (int)datos.Lector["CAPACIDAD"],
 
                         ComensalesSentados = (int)datos.Lector["COMENSALES_SENTADOS"],
+
+                        Reservado = (bool)datos.Lector["RESERVADO"],
 
                         Estado = (bool)datos.Lector["ESTADO"]
                     };
@@ -53,8 +55,6 @@ namespace Negocio
             
             try
             {
-                
-
                 datos.setConsulta("INSERT INTO MESAS (ID_MESA, ID_ADMIN, CAPACIDAD, COMENSALES_SENTADOS) VALUES(@IDMESA, @IDADMIN, @CAP, @COMENSALESSENTADOS)");
                 //datos.setParametro("@IDMESERO", _mesa.Id_Mesero);
                 datos.setParametro("@IDMESA", _mesa.Id_Mesa);
@@ -124,7 +124,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setConsulta("UPDATE MESAS SET ESTADO = 0 WHERE ID_MESA = @IDMESA");
+                datos.setConsulta("UPDATE MESAS SET ESTADO = 0, RESERVADO = 0 WHERE ID_MESA = @IDMESA");
                 datos.setParametro("@IDMESA", idMesa);
                 datos.ejecutarLectura();
             }
@@ -185,13 +185,13 @@ namespace Negocio
             }
         }
 
-        public void ResetearMesa(Mesa _mesa)
+        public void ResetearMesa(int idMesa)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setConsulta("UPDATE MESAS SET COMENSALES_SENTADOS = 0 WHERE ID_MESA = @IDMESA");
-                datos.setParametro("@IDMESA", _mesa.Id_Mesa);
+                datos.setConsulta("UPDATE MESAS SET COMENSALES_SENTADOS = 0, RESERVADO = 0 WHERE ID_MESA = @IDMESA");
+                datos.setParametro("@IDMESA", idMesa);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -240,6 +240,25 @@ namespace Negocio
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.ToString());
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void Reservar(int idMesa)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE MESAS SET RESERVADO = 1 WHERE ID_MESA = @IDMESA");
+                datos.setParametro("@IDMESA", idMesa);
+                datos.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
             finally

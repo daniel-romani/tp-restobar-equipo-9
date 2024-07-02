@@ -52,6 +52,7 @@
     <Compile Include="ItemCarta.cs" />
     <Compile Include="Mesero.cs" />
     <Compile Include="EmailService.cs" />
+    <Compile Include="Reserva.cs" />
     <Compile Include="Validaciones.cs" />
     <Compile Include="Pedido.cs" />
     <Compile Include="Resto.cs" />

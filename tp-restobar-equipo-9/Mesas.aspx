@@ -167,6 +167,10 @@
                 <div class='col-md-3 mesa'>
                     <div class="mesa-info">
                         <div class="datos">
+                            <%if (mesa.Reservado)
+                              { %>
+                                 <a><strong>Reservada</strong></a>
+                            <%} %> 
                             <div class="mesa-numero">
                                 <a><strong>N°:</strong> <%= mesa.Id_Mesa %></a>
                             </div>

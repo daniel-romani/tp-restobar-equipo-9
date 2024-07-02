@@ -23,6 +23,8 @@ namespace Modelo
 
         public List<Pedido> Pedidos { get; set; }
 
-        public List<Comensal> Comensales {  get; set; } 
+        public List<Comensal> Comensales {  get; set; }
+
+        public List<Reserva> Reservas { get; set; }
     }
 }

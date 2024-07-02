@@ -1,6 +1,7 @@
 ﻿using Modelo;
 using System;
 using System.Collections.Generic;
+using tp_restobar_equipo_9.Modelo;
 
 namespace Negocio
 {
