@@ -2,6 +2,7 @@
 using Negocio;
 using System;
 using System.Globalization;
+using System.Runtime.Remoting.Messaging;
 
 namespace tp_restobar_equipo_9
 {
@@ -15,7 +16,7 @@ namespace tp_restobar_equipo_9
 
             if (!IsPostBack)
             {
-                JornadaNegocio negocio = new JornadaNegocio();
+                Fecha_Jornada.Text = DateTime.Now.ToString("yyyy/MM/dd");
                 dgvJornada.DataSource = negocio.Listar();
                 dgvJornada.DataBind();
               
@@ -32,22 +33,13 @@ namespace tp_restobar_equipo_9
 
 
         }
-        protected void btnFecha_Click(object sender, EventArgs e)
-        {
-            
-            
-                Session["txtFecha"] = Fecha_Jornada.Text;
-            
-            
-            
-
-        }
+       
 
         protected void btnHora_ini_Click(object sender, EventArgs e)
         {
-            
-            
-                Session["txtHora_ini"] = txtHora_ini.Text;
+            txtHora_ini.Text = DateTime.Now.ToString("HH:mm:ss");
+            Session["txtFecha"] = Fecha_Jornada.Text;
+            Session["txtHora_ini"] = txtHora_ini.Text;
             
 
            
@@ -55,17 +47,10 @@ namespace tp_restobar_equipo_9
 
         protected void btnHora_fin_Click(object sender, EventArgs e)
         {
-           
-            string fechaTexto = Fecha_Jornada.Text;
-            //DateTime fecha;
-            //if (DateTime.TryParseExact(fechaTexto, new string[] { "yyyy-MM-dd", "yyyy/MM/dd" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out fecha))
-            //{
-            //    jornada.fecha = fecha;
-            //}
-            //else
-            //{
-              
-            //}
+
+            txtHora_fin.Text = DateTime.Now.ToString("HH:mm:ss");
+            
+            jornada.fecha = Fecha_Jornada.Text; 
             jornada.hora_Ini = TimeSpan.Parse(txtHora_ini.Text);
             jornada.hora_Fin = TimeSpan.Parse(txtHora_fin.Text);
 
