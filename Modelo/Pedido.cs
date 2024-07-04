@@ -8,7 +8,19 @@ namespace Modelo
         public int Id_Mesa { get; set; }
         public int Id_Admin { get; set; }
         public int Id_Mesero { get; set; }
-        public List<ItemCarta> Items { get; set; }
+        public decimal Total {  get; set; }
+        public string Fecha {  get; set; }
         public bool Estado { get; set; }
+
+        public Pedido() 
+        {
+            Id_Pedido = 0;
+            Id_Mesa = 0;
+            Id_Admin = 0;
+            Id_Mesero = 0;
+            Total = 0;
+            Fecha = string.Empty;
+            Estado = false;
+        }
     }
 }

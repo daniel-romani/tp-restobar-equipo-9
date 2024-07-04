@@ -42,24 +42,24 @@ namespace tp_restobar_equipo_9
             {
                 Id_Pedido = 1,
                 Id_Mesa = int.Parse(lblMesaId.Text),
-                Items = new List<ItemCarta>
-                {
-                    new ItemCarta { Nombre = "Pizza Margarita", Precio = 12.50m, Cantidad = 2 },
-                    new ItemCarta { Nombre = "Ensalada César", Precio = 8.00m, Cantidad = 1 },
-                    new ItemCarta { Nombre = "Refresco", Precio = 2.50m, Cantidad = 3 }
-                }
+                //Items = new List<ItemCarta>
+                //{
+                //    new ItemCarta { Nombre = "Pizza Margarita", Precio = 12.50m, Cantidad = 2 },
+                //    new ItemCarta { Nombre = "Ensalada César", Precio = 8.00m, Cantidad = 1 },
+                //    new ItemCarta { Nombre = "Refresco", Precio = 2.50m, Cantidad = 3 }
+                //}
             };
 
             // Llenar la tabla con los elementos del pedido
-            foreach (var item in pedidoActual.Items)
-            {
-                TableRow row = new TableRow();
-                row.Cells.Add(new TableCell { Text = item.Cantidad.ToString() });
-                row.Cells.Add(new TableCell { Text = item.Nombre });
-                row.Cells.Add(new TableCell { Text = item.Precio.ToString("C") });
-                row.Cells.Add(new TableCell { Text = (item.Cantidad * item.Precio).ToString("C") });
-                orderItems.Rows.Add(row);
-            }
+            //foreach (var item in pedidoActual.Items)
+            //{
+            //    TableRow row = new TableRow();
+            //    row.Cells.Add(new TableCell { Text = item.Cantidad.ToString() });
+            //    row.Cells.Add(new TableCell { Text = item.Nombre });
+            //    row.Cells.Add(new TableCell { Text = item.Precio.ToString("C") });
+            //    row.Cells.Add(new TableCell { Text = (item.Cantidad * item.Precio).ToString("C") });
+            //    orderItems.Rows.Add(row);
+            //}
         }
 
         protected void Btn_CerrarCuenta_Click(object sender, EventArgs e)

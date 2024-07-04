@@ -49,6 +49,7 @@
     <Compile Include="AccesoDatos.cs" />
     <Compile Include="AdministradorNegocio.cs" />
     <Compile Include="ComensalNegocio.cs" />
+    <Compile Include="DetallePedidoNegocio.cs" />
     <Compile Include="JornadaNegocio.cs" />
     <Compile Include="ReservaNegocio.cs" />
     <Compile Include="Seguridad.cs" />

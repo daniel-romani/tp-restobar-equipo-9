@@ -8,20 +8,23 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using tp_restobar_equipo_9.Modelo;
 using System.Web.Script.Services;
+using System.Web.Services.Description;
 
 namespace tp_restobar_equipo_9
 {
     public partial class Mesas : System.Web.UI.Page
     {
-        Resto restaurant = new Resto();
-        public Usuario usuario_actual;
-        Mesero mesero_actual = new Mesero();
+        private Usuario usuario_actual;
+        private Resto restaurant = new Resto();
+        private Mesero mesero_actual = new Mesero();
+        private List<ItemCarta> ProductosEnMesa;
 
         protected List<Mesa> mesas = new List<Mesa>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             RestoConexion restoConexion = new RestoConexion();
+            ProductosEnMesa = new List<ItemCarta>();
             restaurant = restoConexion.Listar();
             repRepetidor.DataSource = restaurant.ItemCartas;
             repRepetidor.DataBind();
@@ -36,10 +39,8 @@ namespace tp_restobar_equipo_9
                 mesero_actual = new Mesero();
                 mesero_actual = Cargar_Mesero_Resto(usuario_actual.Id);
             }
-            
-            mesas = ObtenerMesas();
 
-            //CargarMesas();
+            mesas = ObtenerMesas();
         }
 
         private Mesero Cargar_Mesero_Resto(int IDUsuario)
@@ -112,33 +113,21 @@ namespace tp_restobar_equipo_9
             return false;
         }
 
-        protected void Btn_hacer_pedido_Click(object sender, EventArgs e)
+        protected void Btn_HacerPedidoConfirmar_Click(object sender, EventArgs e)
         {
-            string script = @"
-                $(document).ready(function () {
-                    $('#mod_HacerPedido').modal('show');
-                });
-            ";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "MostrarModal", script, true);
+
         }
 
-        protected void Btn_HacerPedidoConfirmar_Click(object sender, EventArgs e) 
-        {
-            
-            try
-            {
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
         protected void btn_AgregarItem_Click(object sender, EventArgs e)
         {
             int id = int.Parse(((Button)sender).CommandArgument);
 
+            foreach (var item in restaurant.ItemCartas)
+            {
+                //Agregar Estado a productos para verificar existencia aca?
+                if(item.IdProducto == id)
+                    ProductosEnMesa.Add(item);
+            }
         }
     }
 }

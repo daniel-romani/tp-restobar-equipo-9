@@ -135,26 +135,26 @@
             });
         }
 
-        function validarCheckout(comensales) {
-            if (comensales === 0) {
-                alert('No se puede hacer checkout sin comensales sentados.');
-                return false;
-            }
-            return true;
-        }
-
-        //Cuando tengamos finalizado lo de pedidos, utilizar este bloque de codigo:
-        //function validarCheckout(comensales, pedidoExistente) {
+        //function validarCheckout(comensales) {
         //    if (comensales === 0) {
         //        alert('No se puede hacer checkout sin comensales sentados.');
         //        return false;
         //    }
-        //    if (!pedidoExistente) {
-        //        alert('No se puede hacer checkout sin un pedido hecho.');
-        //        return false;
-        //    }
-        //    return true
+        //    return true;
         //}
+
+        //Cuando tengamos finalizado lo de pedidos, utilizar este bloque de codigo:
+        function validarCheckout(comensales, pedidoExistente) {
+            if (comensales === 0) {
+                alert('No se puede hacer checkout sin comensales sentados.');
+                return false;
+            }
+            if (!pedidoExistente) {
+                alert('No se puede hacer checkout sin un pedido hecho.');
+                return false;
+            }
+            return true
+        }
 </script>
 
     <div class="title">
@@ -201,24 +201,35 @@
                                 </li>
                             </ul>
                         </div>
+                        
+                        <%--<asp:Button ID="Btn_hacer_pedido" runat="server" CssClass="btn btn-info" OnClick="Btn_hacer_pedido_Click" Text="Hacer Pedido" Visible="true" data-mesa="m"/>--%>
+                        <button type="button" id="btnmodal" class="btn btn-primary" data-toggle="modal" data-target="#mod_HacerPedido" data-mesa=<%= mesa.Id_Mesa %>>Hacer Pedido</button>
 
-                        <asp:Button ID="Btn_hacer_pedido" runat="server" CssClass="btn btn-info" OnClick="Btn_hacer_pedido_Click" Text="Hacer Pedido" Visible="true" />
-                        <a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>
+                        
+                        <%--<a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>
                         <%--Cuando tengamos finalizado lo de pedidos, utilizar esta linea de codigo:--%>
-                        <%--<a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>--%>
+                        <a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>
                     </div>
                 </div>
-
             <% } %>
         </div>
     </div>
+                <script>
+                    $(document).on("click", "#btnmodal", function () {
+                        var mesa = $(this).data('mesa')
+                        $("#inputmesa").val(mesa);
+                        $('#mod_HacerPedido').modal('show');
+                    })
+                </script>
+
     <div class="container">
         <%--MODAL HACER PEDIDO--%>
-        <div class="modal fade" id="mod_HacerPedido" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="mod_HacerPedido" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Carga de pedido</h1>
+                        <label>Mesa: </label><input type="text" id="inputmesa" name="">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -230,12 +241,13 @@
                                             <div class="card" style="width: 18rem;">
                                                 <img src='<%#Eval("UrlImagen") %>' class="card-img-top" alt="...">
                                                 <div class="card-body">
-                                                    <h5 class="card-title"><%#Eval("Nombre") %></h5>
-                                                    <p class="card-text"><%#Eval("Cantidad") %> <%#Eval("Unidad") %></p>
-                                                    <p class="card-text">$ <%#Eval("Precio") %></p>
-                                                    <p class="card-text">"Categoria: "<%#Eval("Tipo") %></p>
-
-                                                    <asp:Button ID="bttAgregar" Text="Agregar" runat="server" CssClass="btn btn-primary" CommandArgument='<%#Eval("IdProducto") %>' CommandName="idProducto" OnClick="btn_AgregarItem_Click" />
+                                                    <updatepanel>
+                                                        <h5 class="card-title"><%#Eval("Nombre") %></h5>
+                                                        <p class="card-text"><%#Eval("Cantidad") %> <%#Eval("Unidad") %></p>
+                                                        <p class="card-text">$ <%#Eval("Precio") %></p>
+                                                        <p class="card-text">"Categoria: "<%#Eval("Tipo") %></p>
+                                                        <asp:Button ID="bttAgregar" Text="Agregar" runat="server" CssClass="btn btn-primary" CommandArgument='<%#Eval("IdProducto") %>' CommandName="idProducto" OnClick="btn_AgregarItem_Click" />
+                                                    </updatepanel>
                                                 </div>
                                             </div>
                                         </div>
@@ -245,10 +257,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <asp:Panel ID="modalFooter" runat="server" class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <asp:Button ID="Btn_HacerPedidoConfirmar" CssClass="btn btn-primary" runat="server" Text="Guardar" OnClick="Btn_HacerPedidoConfirmar_Click" />
-                </div>
+                    <asp:Button ID="Btn_HacerPedidoConfirmar" CssClass="btn btn-primary" runat="server" Text="Guardar"  OnClick="Btn_HacerPedidoConfirmar_Click" />
+                </asp:Panel>
             </div>
         </div>
     </div>

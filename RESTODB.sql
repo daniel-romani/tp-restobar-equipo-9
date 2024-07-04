@@ -128,18 +128,28 @@ CREATE TABLE DETALLEVENTA (
     CONSTRAINT FK_DETALLEVENTA_VENTA FOREIGN KEY (ID_VENTA) REFERENCES VENTA (ID_VENTA),
     CONSTRAINT FK_DETALLEVENTA_STOCKCARTA FOREIGN KEY (ID_PRODUCTO) REFERENCES STOCKCARTA (ID_PRODUCTO)
 );
-GO
-CREATE TABLE RESERVAS (
-    ID_RESERVA INT PRIMARY KEY IDENTITY(1,1),
-    ID_COMENSAL INT NOT NULL,
-    ID_MESA INT NOT NULL,
-    CANTIDAD_COMENSALES INT NOT NULL,
-    ESTADO BIT NOT NULL,
-    FOREIGN KEY (ID_COMENSAL) REFERENCES COMENSALES(ID_COMENSAL),
-    FOREIGN KEY (ID_MESA) REFERENCES MESAS(ID_MESA)
+create table PEDIDOS(
+	Id_Pedido int not null identity (1, 1) Primary Key,
+	Id_Mesa int not null Foreign Key(Id_Mesa) references MESAS(ID_MESA),
+	Id_Admin int not null Foreign Key(Id_Admin) references ADMINISTRADOR(ID_ADMINISTRADOR),
+	Id_Mesero int not null Foreign Key(Id_Mesero) references MESEROS(ID_MESERO),
+	Total money not null check (Total >= 0),
+	Fecha date not null,
+	Estado bit default (1) not null,
 );
 
--- INSERTS CON INFORMACIÓN PARA CADA TABLA
+create table DETALLEPEDIDOS(
+	Id_DetallePedido int not null primary key identity(1, 1),
+	Id_Mesa int not null foreign key(Id_Mesa) references MESAS(ID_MESA),
+	Id_Admin int not null foreign key(Id_Admin) references ADMINISTRADOR(ID_ADMINISTRADOR),
+	Id_Producto int not null foreign key(Id_Producto) references STOCKCARTA(ID_PRODUCTO),
+	Id_Pedido int not null foreign key(Id_Pedido) references PEDIDOS(Id_Pedido),
+	Cantidad int not null,
+	PrecioUnitario money not null check (PrecioUnitario >= 0),
+	Estado bit default(1)not null
+)
+
+ --INSERTS CON INFORMACIÓN PARA CADA TABLA
 
 INSERT INTO TIPOITEM (NOMBRE, ESTADO) VALUES 
 ('BEBIDAS',1),
