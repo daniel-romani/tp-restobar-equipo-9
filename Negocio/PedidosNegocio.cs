@@ -73,7 +73,29 @@ namespace Negocio
                 throw ex;
             }
         }
+        public void AbrirPedido(Pedido pedido) 
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("insert into Pedidos (Id_Mesa, Id_Admin, Id_Mesero, Total, Fecha) values(@IdMesa, @IdAdmin, @IdMesero, @Total, @Fecha)");
+                datos.setParametro("@Id_Mesa", pedido.Id_Mesa);
+                datos.setParametro("@Id_Admin", pedido.Id_Admin);
+                datos.setParametro("@Id_Mesero", pedido.Id_Mesero);
+                datos.setParametro("@Total", pedido.Total);
+                datos.setParametro("@Fecha", pedido.Fecha);
+                datos.ejecutarAccion();
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
         public void CerrarPedido(Mesa _mesa)
         {
             AccesoDatos datos = new AccesoDatos();

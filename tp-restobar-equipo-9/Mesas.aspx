@@ -134,6 +134,20 @@
                 }
             });
         }
+        function AbrirPedido(mesa){
+            $.ajax({
+                type: "POST",
+                url: "Mesas.aspx/AbrirPedido",
+                data: JSON.stringify({ mesa: Mesa }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {},
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                    alert("Error al abrir el pedido.");
+                }
+            });
+        }
 
         //function validarCheckout(comensales) {
         //    if (comensales === 0) {
@@ -155,7 +169,7 @@
             }
             return true
         }
-</script>
+    </script>
 
     <div class="title">
         <h2>Mesas</h2>
@@ -164,63 +178,65 @@
         <div class="row" id="mesasContainerDiv">
             <% foreach (Modelo.Mesa mesa in mesas)
                { %>
-                <div class='col-md-3 mesa'>
-                    <div class="mesa-info">
-                        <div class="datos">
-                            <%if (mesa.Reservado)
+            <div class='col-md-3 mesa'>
+                <div class="mesa-info">
+                    <div class="datos">
+                        <%if (mesa.Reservado)
                               { %>
-                                 <a><strong>Reservada</strong></a>
-                            <%} %> 
-                            <div class="mesa-numero">
-                                <a><strong>N°:</strong> <%= mesa.Id_Mesa %></a>
-                            </div>
-                            <div class="mesa-imagen">
-                                <img src='Resources/mesa.png' alt='Mesa' />
-                            </div>
-                            <div class="mesa-capacidad <%if (mesa.Capacidad > mesa.ComensalesSentados)
+                        <a><strong>Reservada</strong></a>
+                        <%} %>
+                        <div class="mesa-numero">
+                            <a><strong>N°:</strong> <%= mesa.Id_Mesa %></a>
+                        </div>
+                        <div class="mesa-imagen">
+                            <img src='Resources/mesa.png' alt='Mesa' />
+                        </div>
+                        <div class="mesa-capacidad <%if (mesa.Capacidad > mesa.ComensalesSentados)
                                 { %> mesa-capacidad-verde <%}
                                 else
                                 { %> mesa-capacidad-rojo <%} %>">
-                                <i class='bx bx-user bx-sm'></i>
-                                <a><%= mesa.ComensalesSentados%> / <%= mesa.Capacidad%></a>
-                            </div>
+                            <i class='bx bx-user bx-sm'></i>
+                            <a><%= mesa.ComensalesSentados%> / <%= mesa.Capacidad%></a>
                         </div>
-                    </div>
-                    <div class="btn-container">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class='bx bx-user-plus'></i>Sentar Comensales
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li id="botones">
-                                    <div>
-                                        <button class="btn btn-secondary" onclick="Btn_decreaseComensal(<%= mesa.Id_Mesa %>)">-</button>
-                                    </div>
-                                    <span><%= mesa.ComensalesSentados %></span>
-                                    <button class="btn btn-secondary" onclick="Btn_increaseComensal(<%= mesa.Id_Mesa %>)">+</button>
-                                </li>
-                            </ul>
-                        </div>
-                        
-                        <%--<asp:Button ID="Btn_hacer_pedido" runat="server" CssClass="btn btn-info" OnClick="Btn_hacer_pedido_Click" Text="Hacer Pedido" Visible="true" data-mesa="m"/>--%>
-                        <button type="button" id="btnmodal" class="btn btn-primary" data-toggle="modal" data-target="#mod_HacerPedido" data-mesa=<%= mesa.Id_Mesa %>>Hacer Pedido</button>
-
-                        
-                        <%--<a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>
-                        <%--Cuando tengamos finalizado lo de pedidos, utilizar esta linea de codigo:--%>
-                        <a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>
                     </div>
                 </div>
+                <div class="btn-container">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class='bx bx-user-plus'></i>Sentar Comensales
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li id="botones">
+                                <div>
+                                    <button class="btn btn-secondary" onclick="Btn_decreaseComensal(<%= mesa.Id_Mesa %>)">-</button>
+                                </div>
+                                <span><%= mesa.ComensalesSentados %></span>
+                                <button class="btn btn-secondary" onclick="Btn_increaseComensal(<%= mesa.Id_Mesa %>)">+</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <%--<asp:Button ID="Btn_hacer_pedido" runat="server" CssClass="btn btn-info" OnClick="Btn_hacer_pedido_Click" Text="Hacer Pedido" Visible="true" data-mesa="m"/>--%>
+                    <button type="button" id="btnmodal" class="btn btn-primary" data-toggle="modal" data-target="#mod_HacerPedido" data-idmesa="<%= mesa.Id_Mesa %>" data-mesa="<%= mesa %>">Hacer Pedido</button>
+
+
+                    <%--<a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>
+                        <%--Cuando tengamos finalizado lo de pedidos, utilizar esta linea de codigo:--%>
+                    <a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>
+                </div>
+            </div>
             <% } %>
         </div>
     </div>
-                <script>
+    <script>
                     $(document).on("click", "#btnmodal", function () {
+                        var idmesa = $(this).data('idmesa')
                         var mesa = $(this).data('mesa')
-                        $("#inputmesa").val(mesa);
+                        $("#inputmesa").val(idmesa);
+                        AbrirPedido(mesa);
                         $('#mod_HacerPedido').modal('show');
                     })
-                </script>
+    </script>
 
     <div class="container">
         <%--MODAL HACER PEDIDO--%>
@@ -229,7 +245,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Carga de pedido</h1>
-                        <label>Mesa: </label><input type="text" id="inputmesa" name="">
+                        <label>Mesa: </label>
+                        <input type="text" id="inputmesa" name="">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -259,7 +276,7 @@
                 </div>
                 <asp:Panel ID="modalFooter" runat="server" class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <asp:Button ID="Btn_HacerPedidoConfirmar" CssClass="btn btn-primary" runat="server" Text="Guardar"  OnClick="Btn_HacerPedidoConfirmar_Click" />
+                    <asp:Button ID="Btn_HacerPedidoConfirmar" CssClass="btn btn-primary" runat="server" Text="Guardar" OnClick="Btn_HacerPedidoConfirmar_Click" />
                 </asp:Panel>
             </div>
         </div>

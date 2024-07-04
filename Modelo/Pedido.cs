@@ -14,13 +14,11 @@ namespace Modelo
 
         public Pedido() 
         {
-            Id_Pedido = 0;
             Id_Mesa = 0;
             Id_Admin = 0;
             Id_Mesero = 0;
             Total = 0;
             Fecha = string.Empty;
-            Estado = false;
         }
     }
 }

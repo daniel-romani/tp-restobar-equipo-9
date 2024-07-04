@@ -150,14 +150,12 @@ create table PEDIDOS(
 );
 GO
 create table DETALLEPEDIDOS(
-	Id_DetallePedido int not null primary key identity(1, 1),
-	Id_Mesa int not null foreign key(Id_Mesa) references MESAS(ID_MESA),
-	Id_Admin int not null foreign key(Id_Admin) references ADMINISTRADOR(ID_ADMINISTRADOR),
-	Id_Producto int not null foreign key(Id_Producto) references STOCKCARTA(ID_PRODUCTO),
-	Id_Pedido int not null foreign key(Id_Pedido) references PEDIDOS(Id_Pedido),
-	Cantidad int not null,
-	PrecioUnitario money not null check (PrecioUnitario >= 0),
-	Estado bit default(1)not null
+    Id_DetallePedido int not null primary key identity(1, 1),
+    Id_Producto int not null foreign key(Id_Producto) references STOCKCARTA(ID_PRODUCTO),
+    Id_Pedido int not null foreign key(Id_Pedido) references PEDIDOS(Id_Pedido),
+    Cantidad int not null,
+    PrecioUnitario money not null check (PrecioUnitario >= 0),
+    Estado bit default(1)not null
 )
 GO
 -- INSERTS CON INFORMACIÓN PARA CADA TABLA

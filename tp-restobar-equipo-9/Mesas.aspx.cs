@@ -113,11 +113,6 @@ namespace tp_restobar_equipo_9
             return false;
         }
 
-        protected void Btn_HacerPedidoConfirmar_Click(object sender, EventArgs e)
-        {
-
-        }
-
         protected void btn_AgregarItem_Click(object sender, EventArgs e)
         {
             int id = int.Parse(((Button)sender).CommandArgument);
@@ -128,6 +123,35 @@ namespace tp_restobar_equipo_9
                 if(item.IdProducto == id)
                     ProductosEnMesa.Add(item);
             }
+        }
+
+        [WebMethod]
+        [ScriptMethod(UseHttpGet = false, ResponseFormat = ResponseFormat.Json)]
+        public static bool AbrirPedido(Mesa mesa) 
+        {
+            try
+            {
+                DateTime fechaActual = DateTime.Now;
+                PedidosNegocio pedidoConexion = new PedidosNegocio();
+                Pedido pedido = new Pedido()
+                {
+                    Id_Mesa = mesa.Id_Mesa,
+                    Id_Admin = mesa.Id_Admin,
+                    Id_Mesero = mesa.Id_Mesero,
+                    Fecha = fechaActual.ToString(),
+                    Total = 0
+                };
+
+                pedidoConexion.AbrirPedido(pedido);
+
+                return true;
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
     }
 }
