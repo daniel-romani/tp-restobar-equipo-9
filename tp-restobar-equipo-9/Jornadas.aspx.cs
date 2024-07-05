@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Globalization;
 using System.Runtime.Remoting.Messaging;
+using System.Web.UI;
 
 namespace tp_restobar_equipo_9
 {
@@ -37,6 +38,8 @@ namespace tp_restobar_equipo_9
 
         protected void btnHora_ini_Click(object sender, EventArgs e)
         {
+            bool jorna = true;
+            Session["Jorna"] = jorna;
             txtHora_ini.Text = DateTime.Now.ToString("HH:mm:ss");
             Session["txtFecha"] = Fecha_Jornada.Text;
             Session["txtHora_ini"] = txtHora_ini.Text;
@@ -47,7 +50,8 @@ namespace tp_restobar_equipo_9
 
         protected void btnHora_fin_Click(object sender, EventArgs e)
         {
-
+            bool jorna = false;
+            Session["Jorna"] = jorna;
             txtHora_fin.Text = DateTime.Now.ToString("HH:mm:ss");
             
             jornada.fecha = Fecha_Jornada.Text; 

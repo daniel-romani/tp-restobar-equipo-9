@@ -1,23 +1,48 @@
 ﻿using Modelo;
 using Negocio;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
 using tp_restobar_equipo_9.Modelo;
 
 
 namespace tp_restobar_equipo_9
 {
+    
     public partial class Site1 : System.Web.UI.MasterPage
-    {
+    {   //Validacion de estado de la jornada
+        public bool Jorna {  get; set; }
         public Usuario Usuario_Actual;
         public Resto Restaurant = new Resto();
+        //Aca se establecen las pagians expetuadas de la validacion
+        public List<string> exepciones = new List<string> { "Jornadas.aspx", "Default.aspx", "DefaultCambioContraseña.aspx","Home.aspx","Estadistica.aspx" };
       
         protected void Page_Load(object sender, EventArgs e)
         {
-                RestoConexion restoConexion = new RestoConexion();
+            //Aca se recupera la pagina desde la cual se genera el pageload
+            string paginaActual= System.IO.Path.GetFileName(Request.Url.AbsolutePath);
+            RestoConexion restoConexion = new RestoConexion();
                 Restaurant = restoConexion.Listar();
+             if (Session["Jorna"]==null)
+            {
+                Jorna = false; 
+                Session["Jorna"] = false;
                 
+            }else
+            {
+                Jorna = (bool)Session["Jorna"];
+            }
+           
             
+            
+            //se hace la comparacion y en caso de que no se cumplan las condiciones redirige a la pagina de error
+            if (!Jorna && !exepciones.Contains(paginaActual, StringComparer.OrdinalIgnoreCase))
+            {
+                Session["error"] = "No se ha comenzado la jornada";
+                Response.Redirect("Error.aspx");
+            }
+
             if (!Seguridad.SesionActiva(Session["Usuario"]))
             {
                 Session.Abandon();
