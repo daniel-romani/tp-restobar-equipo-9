@@ -171,7 +171,6 @@
                     <div class="col py-3">
                         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                             <%-- CONTENIDO DE LAS PÁGINAS --%>
-                           
                         </asp:ContentPlaceHolder>
                     </div>
                 </div>

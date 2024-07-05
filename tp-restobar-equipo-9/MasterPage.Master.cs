@@ -15,7 +15,6 @@ namespace tp_restobar_equipo_9
         public bool Jorna {  get; set; }
         public Usuario Usuario_Actual;
         public Resto Restaurant = new Resto();
-        public JornadaNegocio Negocio = new JornadaNegocio();
         //Aca se establecen las pagians expetuadas de la validacion
         public List<string> exepciones = new List<string> { "Jornadas.aspx", "Default.aspx", "DefaultCambioContraseña.aspx","Home.aspx","Estadistica.aspx" };
       
@@ -25,14 +24,7 @@ namespace tp_restobar_equipo_9
             string paginaActual= System.IO.Path.GetFileName(Request.Url.AbsolutePath);
             RestoConexion restoConexion = new RestoConexion();
                 Restaurant = restoConexion.Listar();
-            
-            if(!Negocio.CompararHoraInicio(DateTime.Now)&&!exepciones.Contains(paginaActual, StringComparer.OrdinalIgnoreCase))
-            {
-                Session["error"] = "No se ha comenzado la jornada";
-                Response.Redirect("Error.aspx");
-            }
-
-          /*   if (Session["Jorna"]==null)
+             if (Session["Jorna"]==null)
             {
                 Jorna = false; 
                 Session["Jorna"] = false;
@@ -49,7 +41,7 @@ namespace tp_restobar_equipo_9
             {
                 Session["error"] = "No se ha comenzado la jornada";
                 Response.Redirect("Error.aspx");
-            }*/
+            }
 
             if (!Seguridad.SesionActiva(Session["Usuario"]))
             {
