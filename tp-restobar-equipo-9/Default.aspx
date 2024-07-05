@@ -3,7 +3,7 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+   
         <%-- Labels y TextBoxs --%>
     <div class="container containerbott form_top">
         <div class="row justify-content-center">
