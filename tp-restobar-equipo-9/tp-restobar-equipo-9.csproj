@@ -73,7 +73,6 @@
     <Content Include="Configuracion.aspx" />
     <Content Include="content\Styles.css" />
     <Content Include="DefaultCambioContraseña.aspx" />
-    <Content Include="Error.aspx" />
     <Content Include="Estadisticas.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="JavaScript\JavaScript.js" />
@@ -133,13 +132,6 @@
     </Compile>
     <Compile Include="DefaultMasterPage.Master.designer.cs">
       <DependentUpon>DefaultMasterPage.Master</DependentUpon>
-    </Compile>
-    <Compile Include="Error.aspx.cs">
-      <DependentUpon>Error.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Error.aspx.designer.cs">
-      <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
     <Compile Include="Estadisticas.aspx.cs">
       <DependentUpon>Estadisticas.aspx</DependentUpon>
