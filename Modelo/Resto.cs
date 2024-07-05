@@ -26,5 +26,7 @@ namespace Modelo
         public List<Comensal> Comensales {  get; set; }
 
         public List<Reserva> Reservas { get; set; }
+
+        public List<Jornada> Jornadas { get; set;}
     }
 }

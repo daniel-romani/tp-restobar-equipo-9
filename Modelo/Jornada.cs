@@ -8,7 +8,7 @@ namespace Modelo
         public string fecha {  get; set; }
         public TimeSpan hora_Ini { get; set; }
         public TimeSpan hora_Fin { get; set; }
-
-
+        public bool terminado { get; set; }
+        public bool estado {  get; set; }
     }
 }

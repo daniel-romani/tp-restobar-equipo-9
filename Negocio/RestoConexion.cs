@@ -19,6 +19,7 @@ namespace Negocio
                 objetoResto.Pedidos = new List<Pedido>();
                 objetoResto.Comensales = new List<Comensal>();
                 objetoResto.Reservas = new List<Reserva>();
+                objetoResto.Jornadas = new List<Jornada>();
 
                 UsuarioNegocio usuarioConexion = new UsuarioNegocio();
                 objetoResto.Usuarios = usuarioConexion.Listar_todos();
@@ -43,6 +44,9 @@ namespace Negocio
 
                 ReservaNegocio ReservaConexion = new ReservaNegocio();
                 objetoResto.Reservas = ReservaConexion.Listar();
+
+                JornadaNegocio jornadaConexion = new JornadaNegocio();
+                objetoResto.Jornadas = jornadaConexion.Listar();
 
                 return objetoResto;
             }
