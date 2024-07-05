@@ -138,7 +138,7 @@ namespace tp_restobar_equipo_9
                     Id_Mesa = mesa.Id_Mesa,
                     Id_Admin = mesa.Id_Admin,
                     Id_Mesero = mesa.Id_Mesero,
-                    Fecha = fechaActual.ToString(),
+                    Fecha = fechaActual,
                     Total = 0
                 };
 
@@ -147,10 +147,15 @@ namespace tp_restobar_equipo_9
                 return true;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                throw ex;
                 return false;
             }
+
+        }
+        protected void Btn_HacerPedidoConfirmar_Click(object sender, EventArgs e)
+        {
 
         }
     }

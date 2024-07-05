@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Modelo
 {
@@ -9,7 +10,7 @@ namespace Modelo
         public int Id_Admin { get; set; }
         public int Id_Mesero { get; set; }
         public decimal Total {  get; set; }
-        public string Fecha {  get; set; }
+        public DateTime Fecha {  get; set; }
         public bool Estado { get; set; }
 
         public Pedido() 
@@ -18,7 +19,7 @@ namespace Modelo
             Id_Admin = 0;
             Id_Mesero = 0;
             Total = 0;
-            Fecha = string.Empty;
+            Fecha = new DateTime();
         }
     }
 }

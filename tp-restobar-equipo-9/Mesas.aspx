@@ -134,11 +134,11 @@
                 }
             });
         }
-        function AbrirPedido(mesa){
+        function AbrirPedido(Data){
             $.ajax({
                 type: "POST",
                 url: "Mesas.aspx/AbrirPedido",
-                data: JSON.stringify({ mesa: Mesa }),
+                data: JSON.stringify({ mesa: Data }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {},
@@ -217,7 +217,7 @@
                     </div>
 
                     <%--<asp:Button ID="Btn_hacer_pedido" runat="server" CssClass="btn btn-info" OnClick="Btn_hacer_pedido_Click" Text="Hacer Pedido" Visible="true" data-mesa="m"/>--%>
-                    <button type="button" id="btnmodal" class="btn btn-primary" data-toggle="modal" data-target="#mod_HacerPedido" data-idmesa="<%= mesa.Id_Mesa %>" data-mesa="<%= mesa %>">Hacer Pedido</button>
+                    <button type="button" id="btnmodal" class="btn btn-primary" data-toggle="modal" data-target="#mod_HacerPedido" data-idmesa="<%= mesa.Id_Mesa %>" data-idadmin="<%= mesa.Id_Admin %>" data-idmesero="<%= mesa.Id_Mesero %>">Hacer Pedido</button>
 
 
                     <%--<a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>
@@ -231,9 +231,11 @@
     <script>
                     $(document).on("click", "#btnmodal", function () {
                         var idmesa = $(this).data('idmesa')
-                        var mesa = $(this).data('mesa')
+                        var idadmin = $(this).data('idadmin')
+                        var idmesero = $(this).data('idmesero')
+                        var data = {Id_Mesa : idmesa, Id_Admin : idadmin, Id_Mesero : idmesero}
                         $("#inputmesa").val(idmesa);
-                        AbrirPedido(mesa);
+                        AbrirPedido(data);
                         $('#mod_HacerPedido').modal('show');
                     })
     </script>

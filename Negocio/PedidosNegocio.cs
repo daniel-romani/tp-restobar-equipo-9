@@ -27,7 +27,7 @@ namespace Negocio
                         Id_Admin = (int)datos.Lector["Id_Admin"],
                         Id_Mesero = (int)datos.Lector["Id_Mesero"],
                         Total = (decimal)datos.Lector["Total"],
-                        Fecha = date,
+                        Fecha = (DateTime)datos.Lector["Fecha"],
                         Estado = (bool)datos.Lector["Estado"]
                     };
 
@@ -62,7 +62,7 @@ namespace Negocio
                     Id_Admin = (int)datos.Lector["Id_Admin"],
                     Id_Mesero = (int)datos.Lector["Id_Mesero"],
                     Total = (decimal)datos.Lector["Total"],
-                    Fecha = date,
+                    Fecha = (DateTime)datos.Lector["Fecha"],
                     Estado = (bool)datos.Lector["Estado"]
                 };
 
@@ -78,7 +78,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setConsulta("insert into Pedidos (Id_Mesa, Id_Admin, Id_Mesero, Total, Fecha) values(@IdMesa, @IdAdmin, @IdMesero, @Total, @Fecha)");
+                datos.setConsulta("insert into Pedidos (Id_Mesa, Id_Admin, Id_Mesero, Total, Fecha) values(@Id_Mesa, @Id_Admin, @Id_Mesero, @Total, @Fecha)");
                 datos.setParametro("@Id_Mesa", pedido.Id_Mesa);
                 datos.setParametro("@Id_Admin", pedido.Id_Admin);
                 datos.setParametro("@Id_Mesero", pedido.Id_Mesero);
