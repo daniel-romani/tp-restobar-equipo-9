@@ -53,10 +53,17 @@ namespace tp_restobar_equipo_9
                 comensal.Direccion = txtDireccionEdit.Text;
                 comensal.Fecha_Nacimiento = DateTime.Parse(txtFechaNacimientoEdit.Text);
 
-                ComensalNegocio comensalConexion = new ComensalNegocio();
-                comensalConexion.InsertarComensal(comensal);
+                EmailService emailService = new EmailService();
+                emailService.cuerpoCorreo(nuevo_usuario, txtMailEdit.Text);
 
-                Response.Redirect("Default.aspx");
+                if (comensal.Id_Usuario != 0)
+                {
+                    ComensalNegocio comensalConexion = new ComensalNegocio();
+                    comensalConexion.InsertarComensal(comensal);
+                    emailService.enviarCorreo();
+                }
+
+                Response.Redirect("AltaUsuarioEndMail.aspx");
             }
             else
             {

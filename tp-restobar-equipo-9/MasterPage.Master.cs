@@ -297,16 +297,8 @@ namespace tp_restobar_equipo_9
                     if (mesero.Id_Usuario != 0)
                     {
                         meseroConexion.InsertarMesero(mesero);
-
-                        //Aca estoy teniendo problemas para enviar el mail, parecen haber varias cosas de por medio asi que por ahora queda ahi
-                        //emailService.enviarCorreo();
-
+                        emailService.enviarCorreo();
                     }
-                    else
-                    {
-                        //
-                    }
-
                 }
 
 
