@@ -80,6 +80,82 @@ namespace Negocio
         }
 
 
+        public void InsertarHoraInicio()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_HORA_INICIO");
+                datos.setParametro("@HORAINICIO", DateTime.Now);
+                datos.setParametro("@ESTADO", true);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public bool ModificarEstado(DateTime fecha)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_MODIFICAR_ESTADO_HORA");
+                datos.setParametro("@DATE_TIME", fecha);
+
+                datos.ejecutarAccion();
+
+                
+                int filasModificadas = Convert.ToInt32(datos.Lector["FilasModificadas"]);
+
+                if (filasModificadas > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public bool CompararHoraInicio(DateTime fecha)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_OBTENER_HORA_INICIO");
+                datos.setParametro("@DATE_TIME", fecha);  
+
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    DateTime fechacomp = datos.Lector.GetDateTime(datos.Lector.GetOrdinal("HORA_INI"));  
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 }
