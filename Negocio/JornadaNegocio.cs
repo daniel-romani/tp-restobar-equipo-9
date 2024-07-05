@@ -1,6 +1,7 @@
 ﻿using Modelo;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Negocio
 {
@@ -27,7 +28,7 @@ namespace Negocio
                         
                         hora_Ini = (TimeSpan)datos.Lector["HORA_INICIO"],
 
-                        hora_Fin = (TimeSpan)datos.Lector["HORA_FIN"],
+                        hora_Fin = datos.Lector["HORA_FIN"] is DBNull ? TimeSpan.Zero : (TimeSpan)datos.Lector["HORA_FIN"], // Asigna -1 u otro valor por defecto si es DBNull,
 
                         terminado = (bool)datos.Lector["TERMINADO"],
 
@@ -47,8 +48,6 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
-
-
         }
 
         public void InsertarInicioJornada(Jornada _jornada)
