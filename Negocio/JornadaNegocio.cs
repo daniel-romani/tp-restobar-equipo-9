@@ -23,7 +23,7 @@ namespace Negocio
                     {
                         idJornada = (int)datos.Lector["ID_JORNADA"],
 
-                        fecha = (string)datos.Lector["FECHA"],
+                        fecha = date,
                         
                         hora_Ini = (TimeSpan)datos.Lector["HORA_INICIO"],
 

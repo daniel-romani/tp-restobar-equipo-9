@@ -65,7 +65,6 @@ namespace tp_restobar_equipo_9
 
             jornadaConexion.InsertarFinJornada(jornada, idjornada);
 
-
             Session.Remove("txtFecha");
             Session.Remove("txtHora_ini");
             Response.Redirect(Request.RawUrl);
