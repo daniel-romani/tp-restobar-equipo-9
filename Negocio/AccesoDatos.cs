@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace Negocio
@@ -48,6 +49,20 @@ namespace Negocio
             catch (Exception ex)
             {
 
+                throw ex;
+            }
+        }
+        public void ejecutarAccionYLeer()
+        {
+            comando.Connection = conexion;
+            try
+            {
+                conexion.Open();
+                comando.ExecuteNonQuery();
+                lector = comando.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }
