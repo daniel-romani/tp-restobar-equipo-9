@@ -10,21 +10,23 @@
            
 
         </div>
-        <%if (!(Fecha_Jornada.Text == ""))
+        <% 
+            if (!negocio.BuscarJornadaActiva())
             { %>
         <div class="col-md-6">
              <asp:TextBox ID="Fecha_Jornada" runat="server" type="date" ReadOnly="true" CssClass="form-control" Visible="false"></asp:TextBox>
             <asp:TextBox ID="txtHora_ini" runat="server" type="time" step="1" ReadOnly="true" CssClass="form-control"></asp:TextBox>
             <asp:Button ID="btnHora_ini" runat="server" Text="Seleccionar" CssClass="btn btn-primary mt-2" OnClick="btnHora_ini_Click" />
         </div>
-        <% if (!(txtHora_ini.Text == ""))
+        <% }
+            else
             {%>
         <div class="col-md-6">
             <asp:TextBox ID="txtHora_fin" runat="server" type="time" ReadOnly="true" step="1" CssClass="form-control"></asp:TextBox>
             <asp:Button ID="btnHora_fin" runat="server" Text="Seleccionar" CssClass="btn btn-primary mt-2" OnClick="btnHora_fin_Click" />
         </div>
         <%} %>
-        <%} %>
+       
     </div>
     <div Class="text-center">
         <div Class="col-6">

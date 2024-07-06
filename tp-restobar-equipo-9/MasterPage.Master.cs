@@ -26,7 +26,7 @@ namespace tp_restobar_equipo_9
             RestoConexion restoConexion = new RestoConexion();
                 Restaurant = restoConexion.Listar();
 
-            if (!Negocio.CompararHoraInicio(DateTime.Now) && !exepciones.Contains(paginaActual, StringComparer.OrdinalIgnoreCase))
+            if (/*!Negocio.CompararHoraInicio(DateTime.Now) &&*/ !exepciones.Contains(paginaActual, StringComparer.OrdinalIgnoreCase) && !Negocio.BuscarJornadaActiva())
             {
                 Session["error"] = "No se ha comenzado la jornada";
                 Response.Redirect("Error.aspx");

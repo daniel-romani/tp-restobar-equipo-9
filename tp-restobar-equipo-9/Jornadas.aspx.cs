@@ -10,7 +10,7 @@ namespace tp_restobar_equipo_9
     public partial class Jornadas : System.Web.UI.Page
     {
         Jornada jornada = new Jornada();
-        JornadaNegocio negocio = new JornadaNegocio();
+       public JornadaNegocio negocio = new JornadaNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -43,7 +43,10 @@ namespace tp_restobar_equipo_9
             txtHora_ini.Text = DateTime.Now.ToString("HH:mm:ss");
             Session["txtFecha"] = Fecha_Jornada.Text;
             Session["txtHora_ini"] = txtHora_ini.Text;
-            negocio.InsertarHoraInicio();
+            jornada.fecha = Fecha_Jornada.Text;
+            jornada.hora_Ini = TimeSpan.Parse(txtHora_ini.Text);
+            negocio.InsertarJornada(jornada);
+           // negocio.InsertarHoraInicio();
             Session["HORA"] = DateTime.Now;
 
 
@@ -54,12 +57,9 @@ namespace tp_restobar_equipo_9
             //bool jorna = false;
             //Session["Jorna"] = jorna;
             txtHora_fin.Text = DateTime.Now.ToString("HH:mm:ss");
-
-            jornada.fecha = Fecha_Jornada.Text;
-            jornada.hora_Ini = TimeSpan.Parse(txtHora_ini.Text);
             jornada.hora_Fin = TimeSpan.Parse(txtHora_fin.Text);
-            negocio.ModificarEstado((DateTime)Session["HORA"]);
-            negocio.InsertarJornada(jornada);
+           // negocio.ModificarEstado((DateTime)Session["HORA"]);
+            negocio.CerrarJornada(jornada);
             Session.Remove("txtFecha");
             Session.Remove("txtHora_ini");
             Response.Redirect(Request.RawUrl);
