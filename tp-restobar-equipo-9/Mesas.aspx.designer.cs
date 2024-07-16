@@ -15,6 +15,33 @@ namespace tp_restobar_equipo_9
     {
 
         /// <summary>
+        /// btnCheckout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCheckout;
+
+        /// <summary>
+        /// hiddenFieldMesaId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hiddenFieldMesaId;
+
+        /// <summary>
+        /// hiddenFieldAdminId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hiddenFieldAdminId;
+
+        /// <summary>
         /// repRepetidor control.
         /// </summary>
         /// <remarks>
@@ -22,15 +49,6 @@ namespace tp_restobar_equipo_9
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater repRepetidor;
-
-        /// <summary>
-        /// modalFooter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel modalFooter;
 
         /// <summary>
         /// Btn_HacerPedidoConfirmar control.

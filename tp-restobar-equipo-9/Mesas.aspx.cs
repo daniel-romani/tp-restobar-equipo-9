@@ -2,13 +2,11 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
-using System.Web.Services;
 using System.Web;
-using System.Web.UI;
+using System.Web.Script.Services;
+using System.Web.Services;
 using System.Web.UI.WebControls;
 using tp_restobar_equipo_9.Modelo;
-using System.Web.Script.Services;
-using System.Web.Services.Description;
 
 namespace tp_restobar_equipo_9
 {
@@ -40,7 +38,8 @@ namespace tp_restobar_equipo_9
                 mesero_actual = Cargar_Mesero_Resto(usuario_actual.Id);
             }
 
-            mesas = ObtenerMesas();
+             mesas = ObtenerMesas();
+
         }
 
         private Mesero Cargar_Mesero_Resto(int IDUsuario)
@@ -115,14 +114,25 @@ namespace tp_restobar_equipo_9
 
         protected void btn_AgregarItem_Click(object sender, EventArgs e)
         {
-            int id = int.Parse(((Button)sender).CommandArgument);
-
+            PedidosNegocio pedido = new PedidosNegocio();
+            DetallePedidoNegocio detalleConexion = new DetallePedidoNegocio();
+            int idProducto = int.Parse(((Button)sender).CommandArgument);
+            int idMesa = int.Parse(hiddenFieldMesaId.Value);
+            int idAdmin = int.Parse(hiddenFieldAdminId.Value);
+            int idPedido = pedido.ObtenerPedidoXMesa(idMesa);
             foreach (var item in restaurant.ItemCartas)
             {
-                //Agregar Estado a productos para verificar existencia aca?
-                if(item.IdProducto == id)
+                if (item.IdProducto == idProducto && ItemDisponible(item))
                     ProductosEnMesa.Add(item);
             }
+            detalleConexion.AgregarDetalle(ProductosEnMesa, idMesa, idAdmin, idPedido);
+        }
+
+        private bool ItemDisponible(ItemCarta item)
+        {
+            if (item.Cantidad == 0)
+                return false;
+            return true;
         }
 
         [WebMethod]
@@ -133,16 +143,20 @@ namespace tp_restobar_equipo_9
             {
                 DateTime fechaActual = DateTime.Now;
                 PedidosNegocio pedidoConexion = new PedidosNegocio();
-                Pedido pedido = new Pedido()
+                if (!pedidoConexion.PedidoAbierto(mesa.Id_Mesa))
                 {
-                    Id_Mesa = mesa.Id_Mesa,
-                    Id_Admin = mesa.Id_Admin,
-                    Id_Mesero = mesa.Id_Mesero,
-                    Fecha = fechaActual,
-                    Total = 0
-                };
+                    Pedido pedido = new Pedido()
+                    {
+                        Id_Mesa = mesa.Id_Mesa,
+                        Id_Admin = mesa.Id_Admin,
+                        Id_Mesero = mesa.Id_Mesero,
+                        Fecha = fechaActual,
+                        Total = 0
+                    };
 
-                pedidoConexion.AbrirPedido(pedido);
+                    pedidoConexion.AbrirPedido(pedido);
+
+                }
 
                 return true;
 
@@ -150,13 +164,73 @@ namespace tp_restobar_equipo_9
             catch (Exception ex)
             {
                 throw ex;
-                return false;
+                //return false;
             }
 
         }
+
+        private void GuardarPedidoEnMesa(Pedido pedido)
+        {
+            foreach(var mesa in mesas) 
+            {
+                if(mesa.Id_Mesa == pedido.Id_Mesa)
+                {
+                    mesa.Pedido = pedido;
+
+                }
+            }
+            Application["MesasActualizado"] = mesas;
+        }
+
         protected void Btn_HacerPedidoConfirmar_Click(object sender, EventArgs e)
         {
+            PedidosNegocio pedidosNegocio = new PedidosNegocio();
+            Pedido pedido = pedidosNegocio.ObetenerPedidoPorIdDeMesa(int.Parse(hiddenFieldMesaId.Value));
+            GuardarPedidoEnMesa(pedido);
+        }
 
+        protected void btn_Checkout_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(hiddenFieldMesaId.Value))
+            {
+                ShowAlert("Debes inicializar la mesa antes de intentar hacer un checkout.");
+                return;
+            }
+            mesas = Application["MesasActualizado"] as List<Mesa>;
+
+            Mesa validarMesa = new Mesa();
+            PedidosNegocio pedido = new PedidosNegocio();
+            int nroComensales = 0;
+            int idMesa = int.Parse(hiddenFieldMesaId.Value);
+            int idPedido = pedido.ObtenerPedidoXMesa(idMesa);
+            foreach(var mesa in mesas)
+            {
+                if (mesa.Id_Mesa == idMesa)
+                {
+                    nroComensales = mesa.ComensalesSentados;
+                    validarMesa = mesa;
+                }
+            }
+            if(nroComensales != 0 && validarMesa.Pedido != null)
+            {
+                Response.Redirect($"CheckOut.aspx?nroComensales={nroComensales}&idMesa={idMesa}&idPedido={idPedido}");
+            }
+            else if(nroComensales == 0)
+            {
+                ShowAlert("No se puede hacer checkout sin comensales sentados.");
+            }
+            else if(validarMesa.Pedido == null) 
+            {
+                ShowAlert("No se puede hacer checkout sin un pedido hecho.");
+            }
+                
+
+        }
+
+        private void ShowAlert(string mensaje)
+        {
+            string script = $"alert('{mensaje}');";
+            ClientScript.RegisterStartupScript(this.GetType(), "ShowAlert", script, true);
         }
     }
 }

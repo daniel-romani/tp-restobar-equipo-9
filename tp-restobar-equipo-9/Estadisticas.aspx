@@ -5,13 +5,15 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
-        <canvas id="myChart"></canvas>
+        <canvas id="ventasxMes"></canvas>
     </div>
-
+    <div>
+        <canvas id="productosxMes"></canvas>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        const ctx = document.getElementById('myChart');
+    const ctx = document.getElementById('ventasxMes');
 
         new Chart(ctx, {
             type: 'bar',
@@ -20,6 +22,28 @@
                 datasets: [{
                     label: '# de pedidos x mes',
                     data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        const ctx2 = document.getElementById('productosxMes');
+
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+                datasets: [{
+                    label: '# de productos x mes',
+                    data: [200, 250, 65, 30, 632, 190],
                     borderWidth: 1
                 }]
             },

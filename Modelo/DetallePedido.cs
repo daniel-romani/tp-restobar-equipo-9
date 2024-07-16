@@ -7,8 +7,9 @@
         public int Id_Admin { get; set; }
         public int Id_Producto {  get; set; }
         public int Cantidad { get; set; }
-        public int PrecioUnitario {  get; set; }
+        public decimal PrecioUnitario {  get; set; }
         public int Id_Pedidos { get; set; }
+        public string Nombre { get; set; }
 
     }
 }

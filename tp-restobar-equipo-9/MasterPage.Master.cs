@@ -37,10 +37,10 @@ namespace tp_restobar_equipo_9
                 Jorna = false; 
                 Session["Jorna"] = false;
                 
-            }else
-            {
-                Jorna = (bool)Session["Jorna"];
-            }
+            //}else
+            //{
+            //    Jorna = (bool)Session["Jorna"];
+            //}
            
             
             

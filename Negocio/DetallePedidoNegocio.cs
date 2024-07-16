@@ -14,20 +14,17 @@ namespace Negocio
 
             try
             {
-                datos.setearProcedimiento("select Id_DetallePedido, Id_Mesa, Id_Admin, Id_Producto, Id_Pedido, Cantidad, PrecioUnitario, Estado From DetallePedidos Where Id_Pedido = @IdPedido");
+                //datos.setConsulta("SELECT DETALLEPEDIDOS.Cantidad, DETALLEPEDIDOS.PrecioUnitario, STOCKCARTA.NOMBRE FROM DETALLEPEDIDOS INNER JOIN STOCKCARTA ON DETALLEPEDIDOS.Id_Producto = STOCKCARTA.ID_PRODUCTO where DETALLEPEDIDOS.Id_Pedido = @IdPedido");
+                datos.setConsulta("SELECT STOCKCARTA.NOMBRE, SUM(DETALLEPEDIDOS.Cantidad) AS TotalCantidad, DETALLEPEDIDOS.PrecioUnitario FROM DETALLEPEDIDOS INNER JOIN STOCKCARTA ON DETALLEPEDIDOS.Id_Producto = STOCKCARTA.ID_PRODUCTO WHERE DETALLEPEDIDOS.Id_Pedido = @IdPedido AND ESTADO = 1 GROUP BY STOCKCARTA.NOMBRE, DETALLEPEDIDOS.PrecioUnitario;");
                 datos.setParametro("@IdPedido", id);
                 datos.ejecutarLectura();
                 while(datos.Lector.Read())
                 {
                     DetallePedido detallePedido = new DetallePedido()
                     {
-                        Id_DetallePedido = (int)datos.Lector["Id_DetallePedido"],
-                        Id_Mesa = (int)datos.Lector["Id_Mesa"],
-                        Id_Admin = (int)datos.Lector["Id_Admin"],
-                        Id_Producto = (int)datos.Lector["Id_Producto"],
-                        Id_Pedidos = (int)datos.Lector["Id_Pedido"],
-                        Cantidad = (int)datos.Lector["Cantidad"],
-                        PrecioUnitario = (int)datos.Lector["PrecioUnitario"]
+                        Cantidad = (int)datos.Lector["TotalCantidad"],
+                        PrecioUnitario = (decimal)datos.Lector["PrecioUnitario"],
+                        Nombre = (string)datos.Lector["NOMBRE"]
                     };
 
                     items.Add(detallePedido);
@@ -46,21 +43,39 @@ namespace Negocio
             }
         }
 
-        public void AgregarDetalle(List<ItemCarta> item, Mesa mesa, int idPedido)
+        public void AgregarDetalle(List<ItemCarta> item, int idMesa, int idAdmin, int idPedido)
         {
             try
             {
                 foreach(ItemCarta producto in item)
                 {
-                    datos.setConsulta("INSERT INTO DETALLEPEDIDOS (Id_Mesa, Id_Admin, Id_Producto, Id_Pedido, Cantidad, PrecioUnitario, Estado) VALUES(@IdMesa, @IdAdmin, @IdProducto, @IdPedido, @Cantidad, @PrecioUnitario)");
-                    datos.setParametro("@IdMesa", mesa.Id_Mesa);
-                    datos.setParametro("@IdAdmin", mesa.Id_Admin);
+                    datos.setConsulta("INSERT INTO DETALLEPEDIDOS (Id_Producto, Id_Pedido, Cantidad, PrecioUnitario) VALUES(@IdProducto, @IdPedido, @Cantidad, @PrecioUnitario)");
                     datos.setParametro("@IdProducto", producto.IdProducto);
                     datos.setParametro("@IdPedido", idPedido);
-                    datos.setParametro("@Cantidad", producto.Cantidad);
+                    datos.setParametro("@Cantidad", 1);
                     datos.setParametro("@PrecioUnitario", producto.Precio);
                     datos.ejecutarAccion();
+                    datos.Comando.Parameters.Clear();
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void BajarDetalles(int id_Pedido)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE DETALLEPEDIDOS SET ESTADO = 0 WHERE ID_PEDIDO = @IDPEDIDO");
+                datos.setParametro("@IDPEDIDO", id_Pedido);
+                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {

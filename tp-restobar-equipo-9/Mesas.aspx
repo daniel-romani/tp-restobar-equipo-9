@@ -148,16 +148,7 @@
                 }
             });
         }
-
-        //function validarCheckout(comensales) {
-        //    if (comensales === 0) {
-        //        alert('No se puede hacer checkout sin comensales sentados.');
-        //        return false;
-        //    }
-        //    return true;
-        //}
-
-        //Cuando tengamos finalizado lo de pedidos, utilizar este bloque de codigo:
+        
         function validarCheckout(comensales, pedidoExistente) {
             if (comensales === 0) {
                 alert('No se puede hacer checkout sin comensales sentados.');
@@ -216,13 +207,8 @@
                         </ul>
                     </div>
 
-                    <%--<asp:Button ID="Btn_hacer_pedido" runat="server" CssClass="btn btn-info" OnClick="Btn_hacer_pedido_Click" Text="Hacer Pedido" Visible="true" data-mesa="m"/>--%>
                     <button type="button" id="btnmodal" class="btn btn-primary" data-toggle="modal" data-target="#mod_HacerPedido" data-idmesa="<%= mesa.Id_Mesa %>" data-idadmin="<%= mesa.Id_Admin %>" data-idmesero="<%= mesa.Id_Mesero %>">Hacer Pedido</button>
-
-
-                    <%--<a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>
-                        <%--Cuando tengamos finalizado lo de pedidos, utilizar esta linea de codigo:--%>
-                    <a href='Checkout.aspx?mesaId=<%= mesa.Id_Mesa %>&nroComensales=<%= mesa.ComensalesSentados %>&pedido=<%= mesa.Pedido %>' class='btn btn-success' onclick="return validarCheckout(<%= mesa.ComensalesSentados %>, <%= mesa.Pedido != null ? "true" : "false" %>)"><i class='bx bx-dollar-circle'></i>CheckOut</a>
+                    <asp:Button ID="btnCheckout" Text="Checkout" runat="server" CssClass="bx bx-dollar-circle" OnClick="btn_Checkout_Click"/>
                 </div>
             </div>
             <% } %>
@@ -234,12 +220,15 @@
                         var idadmin = $(this).data('idadmin')
                         var idmesero = $(this).data('idmesero')
                         var data = {Id_Mesa : idmesa, Id_Admin : idadmin, Id_Mesero : idmesero}
+                        document.getElementById('<%= hiddenFieldMesaId.ClientID %>').value = idmesa;
+                        document.getElementById('<%= hiddenFieldAdminId.ClientID %>').value = idadmin;
                         $("#inputmesa").val(idmesa);
                         AbrirPedido(data);
                         $('#mod_HacerPedido').modal('show');
                     })
     </script>
-
+    <asp:HiddenField ID="hiddenFieldMesaId" runat="server" />
+    <asp:HiddenField ID="hiddenFieldAdminId" runat="server" />
     <div class="container">
         <%--MODAL HACER PEDIDO--%>
         <div class="modal fade" id="mod_HacerPedido" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -275,11 +264,11 @@
                             </div>
                         </div>
                     </div>
+                    <div id="modalFooter" class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <asp:Button ID="Btn_HacerPedidoConfirmar" CssClass="btn btn-primary" runat="server" Text="Guardar" OnClick="Btn_HacerPedidoConfirmar_Click" />
+                    </div>
                 </div>
-                <asp:Panel ID="modalFooter" runat="server" class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <asp:Button ID="Btn_HacerPedidoConfirmar" CssClass="btn btn-primary" runat="server" Text="Guardar" OnClick="Btn_HacerPedidoConfirmar_Click" />
-                </asp:Panel>
             </div>
         </div>
     </div>
