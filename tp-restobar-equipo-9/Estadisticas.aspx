@@ -13,47 +13,85 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-    const ctx = document.getElementById('ventasxMes');
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "Estadisticas.aspx/cargarVentasXMes",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var ventasMensuales = response.d;
+                    console.log("Ventas por mes: ", ventasMensuales);
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-                datasets: [{
-                    label: '# de pedidos x mes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+                    const ctx = document.getElementById('ventasxMes');
+                    const xVentasPorMes = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: xVentasPorMes,
+                            datasets: [{
+                                label: '# de pedidos x mes',
+                                data: ventasMensuales,
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                },
+                failure: function (response) {
+                    alert("Error: " + response.d);
                 }
-            }
+            });
         });
+
+        
     </script>
     <script>
-        const ctx2 = document.getElementById('productosxMes');
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "Estadisticas.aspx/cargarProductosXMes",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var productosMensuales = response.d;
+                    console.log("Productos por mes: ", productosMensuales);
 
-        new Chart(ctx2, {
-            type: 'bar',
-            data: {
-                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-                datasets: [{
-                    label: '# de productos x mes',
-                    data: [200, 250, 65, 30, 632, 190],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+                    const ctx2 = document.getElementById('productosxMes');
+                    const xProductosPorMes = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+
+                    new Chart(ctx2, {
+                        type: 'bar',
+                        data: {
+                            labels: xProductosPorMes,
+                            datasets: [{
+                                label: '# de productos x mes',
+                                data: productosMensuales,
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                },
+                failure: function (response) {
+                    alert("Error: " + response.d);
                 }
-            }
+            });
         });
     </script>
 </asp:Content>

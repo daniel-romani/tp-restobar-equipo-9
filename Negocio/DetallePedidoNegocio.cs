@@ -15,7 +15,7 @@ namespace Negocio
             try
             {
                 //datos.setConsulta("SELECT DETALLEPEDIDOS.Cantidad, DETALLEPEDIDOS.PrecioUnitario, STOCKCARTA.NOMBRE FROM DETALLEPEDIDOS INNER JOIN STOCKCARTA ON DETALLEPEDIDOS.Id_Producto = STOCKCARTA.ID_PRODUCTO where DETALLEPEDIDOS.Id_Pedido = @IdPedido");
-                datos.setConsulta("SELECT STOCKCARTA.NOMBRE, SUM(DETALLEPEDIDOS.Cantidad) AS TotalCantidad, DETALLEPEDIDOS.PrecioUnitario FROM DETALLEPEDIDOS INNER JOIN STOCKCARTA ON DETALLEPEDIDOS.Id_Producto = STOCKCARTA.ID_PRODUCTO WHERE DETALLEPEDIDOS.Id_Pedido = @IdPedido AND ESTADO = 1 GROUP BY STOCKCARTA.NOMBRE, DETALLEPEDIDOS.PrecioUnitario;");
+                datos.setConsulta("SELECT STOCKCARTA.NOMBRE, SUM(DETALLEPEDIDOS.Cantidad) AS TotalCantidad, DETALLEPEDIDOS.PrecioUnitario FROM DETALLEPEDIDOS INNER JOIN STOCKCARTA ON DETALLEPEDIDOS.Id_Producto = STOCKCARTA.ID_PRODUCTO WHERE DETALLEPEDIDOS.Id_Pedido = @IdPedido AND DETALLEPEDIDOS.ESTADO = 1 GROUP BY STOCKCARTA.NOMBRE, DETALLEPEDIDOS.PrecioUnitario;");
                 datos.setParametro("@IdPedido", id);
                 datos.ejecutarLectura();
                 while(datos.Lector.Read())

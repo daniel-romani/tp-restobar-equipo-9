@@ -38,7 +38,7 @@ namespace tp_restobar_equipo_9
                 mesero_actual = Cargar_Mesero_Resto(usuario_actual.Id);
             }
 
-             mesas = ObtenerMesas();
+            mesas = ObtenerMesas();
 
         }
 
@@ -191,13 +191,23 @@ namespace tp_restobar_equipo_9
 
         protected void btn_Checkout_Click(object sender, EventArgs e)
         {
+            if (Session["comandaActual"] != null)
+            {
+                ShowAlert("Debes cerrar el pedido actual antes de cerrar otro");
+                return;
+            }
             if (string.IsNullOrEmpty(hiddenFieldMesaId.Value))
             {
                 ShowAlert("Debes inicializar la mesa antes de intentar hacer un checkout.");
                 return;
             }
-            mesas = Application["MesasActualizado"] as List<Mesa>;
-
+            List<Mesa> tempmesas = Application["MesasActualizado"] as List<Mesa>;
+            if (tempmesas is null)
+            {
+                ShowAlert("No se puede hacer checkout sin un pedido hecho.");
+                return;
+            }
+            mesas = tempmesas;
             Mesa validarMesa = new Mesa();
             PedidosNegocio pedido = new PedidosNegocio();
             int nroComensales = 0;

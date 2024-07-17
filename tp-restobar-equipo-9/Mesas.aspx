@@ -208,7 +208,7 @@
                     </div>
 
                     <button type="button" id="btnmodal" class="btn btn-primary" data-toggle="modal" data-target="#mod_HacerPedido" data-idmesa="<%= mesa.Id_Mesa %>" data-idadmin="<%= mesa.Id_Admin %>" data-idmesero="<%= mesa.Id_Mesero %>">Hacer Pedido</button>
-                    <asp:Button ID="btnCheckout" Text="Checkout" runat="server" CssClass="bx bx-dollar-circle" OnClick="btn_Checkout_Click"/>
+                    <asp:Button ID="btnCheckout" Text="Checkout" runat="server" CssClass="btn btn-warning" OnClick="btn_Checkout_Click"/>
                 </div>
             </div>
             <% } %>

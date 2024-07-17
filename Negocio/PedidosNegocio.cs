@@ -127,11 +127,8 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setConsulta("insert into Pedidos (Id_Pedido, Id_Mesa, Id_Admin, Id_Mesero, Total, Fecha, Estado) values(@IdPedido, @IdMesa, @IdAdmin, @IdMesero, @Total, @Fecha, @Estado)");
-                datos.setParametro("@Id_Pedido", _pedido.Id_Pedido);
-                datos.setParametro("@Id_Mesa", _pedido.Id_Mesa);
-                datos.setParametro("@Id_Admin", _pedido.Id_Admin);
-                datos.setParametro("@Id_Mesero", _pedido.Id_Mesero);
+                datos.setConsulta("update PEDIDOS set Total = @Total, Fecha = @Fecha, Estado = @Estado where Id_Pedido = @IdPedido");
+                datos.setParametro("@IdPedido", _pedido.Id_Pedido);
                 datos.setParametro("@Total", _pedido.Total);
                 datos.setParametro("@Fecha", _pedido.Fecha);
                 datos.setParametro("@Estado", 0);
@@ -188,7 +185,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setConsulta($"select Id_Pedido, Estado from Pedidos where Id_Mesa = @IdMesa");
+                datos.setConsulta($"select Id_Pedido, Estado from Pedidos where Id_Mesa = @IdMesa AND Estado = 1");
                 datos.setParametro("@IdMesa", idMesa);
                 datos.ejecutarLectura();
                 if(datos.Lector.Read())

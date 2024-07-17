@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="CheckOut.aspx.cs" Inherits="tp_restobar_equipo_9.CheckOut" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -21,6 +22,13 @@
                     <p>
                         <strong>N° de Comensales:</strong>
                         <asp:Label ID="lblNroComensales" runat="server"></asp:Label>
+                    </p>
+                </div>
+                <div class="order-amount">
+                    <p>
+                        <strong>Total Pedido:</strong>
+                        <asp:Label ID="lblPedidoAmount" runat="server"></asp:Label>
+                        <asp:HiddenField ID="hiddenFieldTotal" runat="server" />
                     </p>
                 </div>
                 <div class="order-details">
